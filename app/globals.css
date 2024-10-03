@@ -2,15 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .text-shadow-md {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #EBEBDF;
+  --foreground: #262124;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #262124;
+    --foreground: #EBEBDF;
   }
 }
 

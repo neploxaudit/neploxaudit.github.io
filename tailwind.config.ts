@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
   content: [
@@ -11,8 +12,30 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        theme: "#EF5902",
+      },
+      fontFamily: {
+        horizon: "var(--font-horizon)",
+        "horizon-outlined": "var(--font-horizon-outlined)",
+        sans: ["var(--font-lato)", ...defaultTheme.fontFamily.sans],
+        serif: ["var(--font-caslon)", ...defaultTheme.fontFamily.serif],
+      },
+      animation: {
+        shake: "shake 0.4s ease-out",
+      },
+      keyframes: {
+        shake: {
+          "0%": { transform: "skewX(-10deg)" },
+          "25%": { transform: "skewX(10deg)" },
+          "50%": { transform: "skewX(-10deg)" },
+          "75%": { transform: "skewX(10deg)" },
+          "100%": { transform: "skewX(-10deg)" },
+        },
       },
     },
+  },
+  future: {
+    hoverOnlyWhenSupported: true,
   },
   plugins: [],
 };

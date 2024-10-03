@@ -1,16 +1,29 @@
 import type { Metadata } from "next";
+import { Lato, Libre_Caslon_Text } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
+const horizon = localFont({
+  src: "./fonts/horizon.otf",
+  variable: "--font-horizon",
   weight: "100 900",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+const horizonOutlined = localFont({
+  src: "./fonts/horizon_outlined.otf",
+  variable: "--font-horizon-outlined",
   weight: "100 900",
+});
+const lato = Lato({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-lato",
+  weight: ["300", "400", "700"],
+});
+const caslon = Libre_Caslon_Text({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-caslon",
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -26,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${horizon.variable} ${horizonOutlined.variable} ${lato.variable} ${caslon.variable} antialiased`}
       >
         {children}
       </body>
