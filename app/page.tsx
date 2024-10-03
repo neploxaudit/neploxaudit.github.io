@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaLock } from "react-icons/fa";
 
 const socials = [
@@ -38,11 +38,15 @@ const socials = [
 const nav = ["Audits", "CTFs", "Research"];
 
 function Home() {
-  const canHover = window.matchMedia("(hover: hover)").matches;
+  const [canHover, setCanHover] = useState(false);
+  // useEffect needed because Next.js server-side rendering doesn't support window
+  useEffect(() => {
+    setCanHover(window.matchMedia("(hover: hover)").matches);
+  }, []);
   const navShake = [useState(false), useState(false), useState(false)];
 
   return (
-    <main className="w-screen h-screen px-12 py-8">
+    <main className="w-screen h-screen px-[4%] 2xl:px-[8%] py-8">
       <div
         className="grid gap-x-8 gap-y-6"
         style={{
@@ -53,13 +57,13 @@ function Home() {
         <h1
           // justify-self-center for centering the top horizontal NEPLOX text to the width of the logo,
           // which is bigger horizontally than it is vertically
-          className="text-theme font-horizon row-start-1 col-start-2 justify-self-center leading-none"
+          className="row-start-1 col-start-2 text-theme font-horizon justify-self-center leading-none"
           style={{ fontSize: "min(10vh, 6vw)" }}
         >
           NEPLOX
         </h1>
         <h1
-          className="text-theme font-horizon-outlined row-start-2 col-start-1 tracking-tighter leading-none"
+          className="row-start-2 col-start-1 text-theme font-horizon-outlined tracking-tighter leading-none"
           style={{
             writingMode: "vertical-lr",
             fontSize: "min(10vh, 6vw)",
@@ -70,7 +74,7 @@ function Home() {
         </h1>
         <Image
           // Extend vertically to the height of the sideways NEPLOX text, and automatically scale horizontally with the aspect ratio
-          className="row-start-2 col-start-2 h-full w-auto select-none"
+          className="row-start-2 col-start-2 lg:h-full w-auto select-none"
           src="/icons/neplox.svg"
           alt="Neplox Logo"
           width={4122}
@@ -78,7 +82,7 @@ function Home() {
         />
 
         {/* Nav */}
-        <div className="row-start-1 col-start-3 flex gap-x-8 justify-evenly">
+        <div className="row-start-1 col-start-3 flex gap-x-4 justify-evenly">
           {nav.map((text, index) => (
             <button
               key={text}
@@ -100,14 +104,14 @@ function Home() {
         </div>
 
         {/* About */}
-        <div className="leading-tight row-start-2 col-start-3 min-h-0 flex flex-col justify-evenly gap-y-12 items-center">
+        <div className="row-start-2 col-start-3 min-h-0 flex flex-col justify-evenly gap-y-6 items-center">
           <p className="font-normal font-serif lg:text-lg xl:text-xl text-justify leading-relaxed  max-w-lg">
             Formed by like-minded, top-tier <b>security researchers</b> from
             diverse backgrounds, the <b className="text-theme">Neplox</b> team
             is fueled by <b>curiosity</b> to explore and <b>secure</b> modern
             systems.
           </p>
-          <p className="font-normal font-serif lg:text-lg xl:text-xl text-justify leading-loose max-w-lg">
+          <p className="font-normal font-serif lg:text-lg xl:text-xl text-justify leading-relaxed max-w-lg">
             From international CTF winners to hardened reverse engineers and bug
             bounty hunters, our unique skillsets come together to offer a{" "}
             <b>fresh perspective</b> on the security of <b>Web3</b> ecosystems.
@@ -115,7 +119,7 @@ function Home() {
         </div>
 
         {/* Socials */}
-        <div className="row-start-2 col-start-4 flex flex-col justify-around items-center">
+        <div className="row-start-3 col-start-3 lg:row-start-2 lg:col-start-4 flex lg:flex-col justify-evenly lg:justify-around items-center">
           {socials.map((social) => (
             <a
               key={social.href}
@@ -134,8 +138,10 @@ function Home() {
 
         {/* Footer */}
         <div className="row-start-3 col-start-2">
-          <h3 className="font-sans font-light text-center text-lg">
-            EST. 2024 BY CYBERSECURITY RESEARCHERS
+          <h3 className="font-sans font-light text-center text-lg h-full w-0 min-w-full max-w-0">
+            <span className="align-baseline hyphens-manual">
+              EST. 2024 BY CYBER&shy;SECURITY RESEARCHERS
+            </span>
           </h3>
         </div>
       </div>
