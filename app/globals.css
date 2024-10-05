@@ -2,15 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .text-shadow-md {
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  }
-}
-
 :root {
   --background: #EBEBDF;
   --foreground: #262124;
+  --theme: #EF5902;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,4 +25,22 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.text-nav {
+  /* https://chrisburnell.com/clamp-calculator/?font-size-root=16&size-min=16&size-max=20&viewport-min=768&viewport-max=1024&viewport-units=vw */
+  font-size: clamp(1rem, 0.25rem + 1.563vw, 1.25rem);
+}
+
+::-moz-selection{
+  background-color: var(--theme);
+  color: #fff;
+}
+::selection{
+  background-color: var(--theme);
+  color: #fff;
+}
+::-webkit-selection {
+  background-color: var(--theme);
+  color: #fff;
 }

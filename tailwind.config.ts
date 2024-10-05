@@ -12,13 +12,13 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        theme: "#EF5902",
+        theme: "var(--theme)",
       },
       fontFamily: {
         horizon: "var(--font-horizon)",
         "horizon-outlined": "var(--font-horizon-outlined)",
-        sans: ["var(--font-lato)", ...defaultTheme.fontFamily.sans],
-        serif: ["var(--font-caslon)", ...defaultTheme.fontFamily.serif],
+        sans: ["var(--font-theme-sans)", ...defaultTheme.fontFamily.sans],
+        serif: ["var(--font-theme-serif)", ...defaultTheme.fontFamily.serif],
       },
       animation: {
         shake: "shake 0.4s ease-out",

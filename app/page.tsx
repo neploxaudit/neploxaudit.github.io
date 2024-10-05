@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { FaLock } from "react-icons/fa";
+import { BiSolidLock } from "react-icons/bi";
 
 const socials = [
   {
@@ -35,7 +35,7 @@ const socials = [
   },
 ];
 
-const nav = ["Audits", "CTFs", "Research"];
+const nav = ["Audits", "CTF", "Research"];
 
 function Home() {
   const [canHover, setCanHover] = useState(false);
@@ -67,7 +67,7 @@ function Home() {
           style={{
             writingMode: "vertical-lr",
             fontSize: "min(10vh, 6vw)",
-            WebkitTextStrokeWidth: "2px",
+            WebkitTextStrokeWidth: "0.025em",
           }}
         >
           NEPLOX
@@ -82,30 +82,30 @@ function Home() {
         />
 
         {/* Nav */}
-        <div className="row-start-1 col-start-3 flex gap-x-4 justify-evenly">
-          {nav.map((text, index) => (
-            <button
-              key={text}
-              className={`${
-                canHover && "hover:animate-shake hover:text-shadow-md"
-              } ${
-                navShake[index][0] && "animate-shake text-shadow-md"
-              } font-sans font-light text-xl lg:text-2xl xl:text-3xl whitespace-nowrap cursor-not-allowed`}
-              // Avoid conflicting with the hover animation
-              onClick={() => !canHover && navShake[index][1](true)}
-              onAnimationEnd={() => navShake[index][1](false)}
-            >
-              <span style={{ fontSize: "1.2em" }}>{"["}</span>
-              <FaLock className="inline align-baseline mr-1" size={"0.66em"} />
-              {text}
-              <span style={{ fontSize: "1.2em" }}>{"]"}</span>
-            </button>
-          ))}
+        <div className="row-start-1 col-start-3">
+          <nav className="max-w-lg h-full flex gap-x-4 justify-between mx-auto">
+            {nav.map((text, index) => (
+              <button
+                key={text}
+                className={`${canHover && "hover:animate-shake"} ${
+                  navShake[index][0] && "animate-shake text-shadow"
+                } font-sans font-normal text-nav lg:text-xl xl:text-2xl whitespace-nowrap cursor-not-allowed`}
+                // Avoid conflicting with the hover animation
+                onClick={() => !canHover && navShake[index][1](true)}
+                onAnimationEnd={() => navShake[index][1](false)}
+              >
+                <span className="font-light">{"["}</span>
+                <BiSolidLock className="inline align-baseline mr-1 pt-1" />
+                {text.toUpperCase()}
+                <span className="font-light">{" ]"}</span>
+              </button>
+            ))}
+          </nav>
         </div>
 
         {/* About */}
         <div className="row-start-2 col-start-3 min-h-0 flex flex-col justify-evenly gap-y-6 items-center">
-          <p className="font-normal font-serif lg:text-lg xl:text-xl text-justify leading-relaxed  max-w-lg">
+          <p className="font-normal font-serif lg:text-lg xl:text-xl text-justify leading-relaxed max-w-lg">
             Formed by like-minded, top-tier <b>security researchers</b> from
             diverse backgrounds, the <b className="text-theme">Neplox</b> team
             is fueled by <b>curiosity</b> to explore and <b>secure</b> modern
@@ -124,7 +124,7 @@ function Home() {
             <a
               key={social.href}
               href={social.href}
-              className="inline-block w-8 xl:w-12 h-auto"
+              className="inline-block w-8 xl:w-12 h-auto hover:scale-125 transition-transform duration-300"
             >
               <Image
                 src={social.src}
@@ -138,7 +138,7 @@ function Home() {
 
         {/* Footer */}
         <div className="row-start-3 col-start-2">
-          <h3 className="font-sans font-light text-center text-lg h-full w-0 min-w-full max-w-0">
+          <h3 className="font-sans font-light text-center lg:text-lg h-full w-0 min-w-full max-w-0">
             <span className="align-baseline hyphens-manual">
               EST. 2024 BY CYBER&shy;SECURITY RESEARCHERS
             </span>
