@@ -109,16 +109,22 @@ function Home() {
         <div className="row-start-5 col-start-1 -col-end-1 md:row-start-2 md:col-start-3 md:-col-end-1 min-h-0 flex flex-col justify-evenly gap-y-6 items-center">
           <p className="font-normal font-serif lg:text-lg xl:text-xl text-justify leading-relaxed max-w-lg">
             Formed by like-minded, top-tier{" "}
-            <b className="qwqoro-test">security researchers</b> from diverse
-            backgrounds, the <b className="text-theme">Neplox</b> team is fueled
-            by <b className="qwqoro-test">curiosity</b> to explore and{" "}
-            <b className="qwqoro-test">secure</b> modern systems.
+            <b className="theme-highlight">
+              &thinsp;security researchers&thinsp;
+            </b>{" "}
+            from diverse backgrounds, the <b className="text-theme">Neplox</b>{" "}
+            team is fueled by{" "}
+            <b className="theme-highlight">&thinsp;curiosity&thinsp;</b> to
+            explore and{" "}
+            <b className="theme-highlight">&thinsp;secure&thinsp;</b> modern
+            systems.
           </p>
           <p className="font-normal font-serif lg:text-lg xl:text-xl text-justify leading-relaxed max-w-lg">
             From international CTF winners to hardened reverse engineers and bug
             bounty hunters, our unique skillsets come together to offer a{" "}
-            <b className="qwqoro-test">fresh perspective</b> on the security of{" "}
-            <b className="qwqoro-test">Web3</b> ecosystems.
+            <b className="theme-highlight">&thinsp;fresh perspective&thinsp;</b>{" "}
+            on the security of{" "}
+            <b className="theme-highlight">&thinsp;Web3&thinsp;</b> ecosystems.
           </p>
         </div>
 

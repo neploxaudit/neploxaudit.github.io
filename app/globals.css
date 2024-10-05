@@ -55,28 +55,20 @@ body {
 
 ::-moz-selection {
   background-color: var(--theme);
-  color: #fff;
+  color: var(--background);
 }
 ::selection {
   background-color: var(--theme);
-  color: #fff;
+  color: var(--background);
 }
 ::-webkit-selection {
   background-color: var(--theme);
-  color: #fff;
+  color: var(--background);
 }
 
-/* .qwqoro-test {
-  padding: 0em 0.64em;
-  margin: 0em -0.16em;
-  color: #fff;
+.theme-highlight {
+  color: var(--background);
   font-weight: 400;
-  position: relative;
-  background: linear-gradient(
-    -85deg,
-    transparent 5%,
-    #ef5902 5%,
-    #ef5902 95%,
-    transparent 95%
-  );
-} */
+  white-space: nowrap;
+  background-color: var(--theme);
+}
