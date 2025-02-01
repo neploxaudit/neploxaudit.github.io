@@ -69,7 +69,9 @@ export default function RootLayout({
       <body
         className={`${horizon.variable} ${horizonOutlined.variable} ${themeSans.variable} ${themeSerif.variable} antialiased`}
       >
-        {children}
+        <div className="px-[4%] py-8 md:h-screen md:w-screen 2xl:px-[8%]">
+          {children}
+        </div>
       </body>
     </html>
   );
