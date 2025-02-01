@@ -31,9 +31,9 @@ body {
   font-size: 2rem;
 }
 
-.header-grid {
+.landing-header-grid {
   grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto max-content repeat(4, auto);
+  grid-template-rows: auto max-content repeat(3, auto);
 }
 
 /* Switch to landscape layout */
@@ -47,7 +47,7 @@ body {
     font-size: min(10vh, 6vw);
   }
 
-  .header-grid {
+  .landing-header-grid {
     grid-template-columns: auto auto 1fr;
     grid-template-rows: repeat(3, auto);
   }

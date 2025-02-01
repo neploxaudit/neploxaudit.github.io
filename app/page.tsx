@@ -37,7 +37,7 @@ const socials = [
 
 const nav = ["Audits", "CTF", "Research"];
 
-function Home() {
+function Landing() {
   const [canHover, setCanHover] = useState(false);
   // useEffect needed because Next.js server-side rendering doesn't support window
   useEffect(() => {
@@ -46,7 +46,7 @@ function Home() {
   const navShake = [useState(false), useState(false), useState(false)];
 
   return (
-    <header className="header-grid grid gap-x-8 gap-y-6">
+    <header className="landing-header-grid grid gap-x-8 gap-y-6">
       {/* Branding */}
       <h1
         // justify-self-center for centering the top horizontal NEPLOX text to the width of the logo,
@@ -148,4 +148,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Landing;
