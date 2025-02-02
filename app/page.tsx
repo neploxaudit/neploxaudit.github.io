@@ -1,8 +1,7 @@
 "use client";
 
+import NavElement from "@/components/NavElement";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { BiSolidLock } from "react-icons/bi";
 
 const socials = [
   {
@@ -35,16 +34,9 @@ const socials = [
   },
 ];
 
-const nav = ["Audits", "CTF", "Research"];
+const nav = ["audits", "ctf", "research"];
 
-function Landing() {
-  const [canHover, setCanHover] = useState(false);
-  // useEffect needed because Next.js server-side rendering doesn't support window
-  useEffect(() => {
-    setCanHover(window.matchMedia("(hover: hover)").matches);
-  }, []);
-  const navShake = [useState(false), useState(false), useState(false)];
-
+export default function Landing() {
   return (
     <header className="landing-header-grid grid gap-x-8 gap-y-6">
       {/* Branding */}
@@ -86,21 +78,8 @@ function Landing() {
       {/* Nav */}
       <div className="col-start-1 -col-end-1 row-start-4 my-3 md:col-start-3 md:col-end-auto md:row-start-1 md:my-0">
         <nav className="mx-auto flex h-full max-w-lg justify-between gap-x-4">
-          {nav.map((text, index) => (
-            <button
-              key={text}
-              className={`${canHover ? "hover:animate-shake" : ""} ${
-                navShake[index][0] ? "text-shadow animate-shake" : ""
-              } nav-autoscale font-theme-sans cursor-not-allowed leading-7 font-normal whitespace-nowrap`}
-              // Avoid conflicting with the hover animation
-              onClick={() => !canHover && navShake[index][1](true)}
-              onAnimationEnd={() => navShake[index][1](false)}
-            >
-              <span className="font-light">{"["}</span>
-              <BiSolidLock className="mr-1 inline pt-1 align-baseline" />
-              {text.toUpperCase()}
-              <span className="font-light">{" ]"}</span>
-            </button>
+          {nav.map((text) => (
+            <NavElement key={text} path={text} blocked={false} />
           ))}
         </nav>
       </div>
@@ -146,5 +125,3 @@ function Landing() {
     </header>
   );
 }
-
-export default Landing;
