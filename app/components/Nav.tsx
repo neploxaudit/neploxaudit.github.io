@@ -1,11 +1,11 @@
 "use client";
 
-import Context from "@/app/lib/context";
+import Context from "@/app/components/Context";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { BiSolidLock } from "react-icons/bi";
 
-export default function NavElement({
+function Element({
   path,
   blocked,
 }: Readonly<{ path: string; blocked: boolean }>) {
@@ -54,3 +54,14 @@ export default function NavElement({
     </Link>
   );
 }
+
+const paths = [
+  { path: "audits", blocked: true },
+  { path: "ctf", blocked: false },
+  { path: "research", blocked: true },
+];
+
+export default {
+  Element,
+  paths,
+};

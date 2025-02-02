@@ -1,44 +1,9 @@
 "use client";
 
-import NavElement from "@/app/components/NavElement";
-import Image from "next/image";
-
-const socials = [
-  {
-    href: "https://x.com/neploxaudit",
-    src: "/icons/twitter.svg",
-    alt: "Neplox X (Twitter) Profile",
-    width: 194.97,
-    height: 194.56,
-  },
-  {
-    href: "https://github.com/neploxaudit",
-    src: "/icons/github.svg",
-    alt: "Neplox GitHub Profile",
-    width: 170.67,
-    height: 166.46,
-  },
-  {
-    href: "https://t.me/neploxaudit",
-    src: "/icons/telegram.svg",
-    alt: "Neplox Telegram Channel",
-    width: 217.83,
-    height: 181.33,
-  },
-  {
-    href: "https://immunefi.com/profile/neploxaudit",
-    src: "/icons/immunefi.svg",
-    alt: "Neplox Immunefi Profile",
-    width: 165,
-    height: 142,
-  },
-];
-
-const nav = [
-  { path: "audits", blocked: true },
-  { path: "ctf", blocked: false },
-  { path: "research", blocked: true },
-];
+import Images from "@/app/components/Images";
+import Nav from "@/app/components/Nav";
+import Socials from "@/app/components/Socials";
+import Link from "next/link";
 
 export default function Landing() {
   return (
@@ -61,18 +26,14 @@ export default function Landing() {
       >
         NEPLOX
       </h1>
-      <Image
+      <Images.Logo
         // Extend vertically to the height of the sideways NEPLOX text, and automatically scale horizontally with the aspect ratio
         className="col-start-2 row-start-2 mx-auto w-auto max-w-60 select-none md:max-w-full lg:h-full"
-        src="/icons/neplox.svg"
-        alt="Neplox Logo"
-        width={4122}
-        height={3501}
       />
 
       {/* Signature */}
       <div className="col-start-1 -col-end-1 row-start-3 md:col-start-2 md:col-end-auto">
-        <h3 className="h-full w-0 max-w-0 min-w-full text-center font-theme-sans font-light lg:text-lg">
+        <h3 className="h-full max-w-0 min-w-full text-center font-theme-sans font-light lg:text-lg">
           <span className="align-baseline hyphens-manual">
             EST. 2024 BY CYBER&shy;SECURITY RESEARCHERS
           </span>
@@ -82,8 +43,8 @@ export default function Landing() {
       {/* Nav */}
       <div className="col-start-1 -col-end-1 row-start-4 my-3 md:col-start-3 md:col-end-auto md:row-start-1 md:my-0">
         <nav className="mx-auto flex h-full max-w-lg justify-between gap-x-4">
-          {nav.map(({ path, blocked }) => (
-            <NavElement key={path} path={path} blocked={blocked} />
+          {Nav.paths.map(({ path, blocked }) => (
+            <Nav.Element key={path} path={path} blocked={blocked} />
           ))}
         </nav>
       </div>
@@ -110,20 +71,15 @@ export default function Landing() {
 
       {/* Socials */}
       <div className="col-start-3 row-start-2 flex flex-col items-center justify-evenly md:col-start-3 md:col-end-auto md:row-start-3 md:flex-row lg:col-start-4 lg:row-start-2 lg:flex-col lg:justify-around">
-        {socials.map((social) => (
-          <a
-            key={social.href}
-            href={social.href}
+        {Socials.map((Social) => (
+          <Link
+            key={Social.href}
+            href={Social.href}
             // width here is important, it is equal to 2rem, which is also set as the font-size of the brand name NEPLOX text
             className="inline-block h-auto w-[2rem] transition-transform duration-300 hover:scale-125 xl:w-12"
           >
-            <Image
-              src={social.src}
-              alt={social.alt}
-              width={social.width}
-              height={social.height}
-            />
-          </a>
+            <Social.image />
+          </Link>
         ))}
       </div>
     </header>

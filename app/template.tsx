@@ -1,6 +1,6 @@
 "use client";
 
-import Context from "@/app/lib/context";
+import Context from "@/app/components/Context";
 import { useEffect, useState } from "react";
 
 export default function RootTemplate({
