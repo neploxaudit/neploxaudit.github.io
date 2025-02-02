@@ -34,7 +34,11 @@ const socials = [
   },
 ];
 
-const nav = ["audits", "ctf", "research"];
+const nav = [
+  { path: "audits", blocked: true },
+  { path: "ctf", blocked: false },
+  { path: "research", blocked: true },
+];
 
 export default function Landing() {
   return (
@@ -44,12 +48,12 @@ export default function Landing() {
         // 1. justify-self-center for centering the top horizontal NEPLOX text to the width of the logo,
         // which is bigger horizontally than it is vertically.
         // 2. text-[2rem] is the size of the social icons, we match this size on small layouts for consistency.
-        className="font-horizon text-theme col-start-2 row-start-1 justify-self-center text-[2rem] leading-none md:text-[min(10vh,6vw)]"
+        className="col-start-2 row-start-1 justify-self-center font-horizon text-[2rem] leading-none text-theme md:text-[min(10vh,6vw)]"
       >
         NEPLOX
       </h1>
       <h1
-        className="font-horizon-outlined text-theme col-start-1 row-start-2 text-[2rem] leading-none tracking-tighter md:text-[min(10vh,6vw)]"
+        className="col-start-1 row-start-2 font-horizon-outlined text-[2rem] leading-none tracking-tighter text-theme md:text-[min(10vh,6vw)]"
         style={{
           writingMode: "vertical-lr",
           WebkitTextStrokeWidth: "0.025em",
@@ -68,7 +72,7 @@ export default function Landing() {
 
       {/* Signature */}
       <div className="col-start-1 -col-end-1 row-start-3 md:col-start-2 md:col-end-auto">
-        <h3 className="font-theme-sans h-full w-0 max-w-0 min-w-full text-center font-light lg:text-lg">
+        <h3 className="h-full w-0 max-w-0 min-w-full text-center font-theme-sans font-light lg:text-lg">
           <span className="align-baseline hyphens-manual">
             EST. 2024 BY CYBER&shy;SECURITY RESEARCHERS
           </span>
@@ -78,15 +82,15 @@ export default function Landing() {
       {/* Nav */}
       <div className="col-start-1 -col-end-1 row-start-4 my-3 md:col-start-3 md:col-end-auto md:row-start-1 md:my-0">
         <nav className="mx-auto flex h-full max-w-lg justify-between gap-x-4">
-          {nav.map((text) => (
-            <NavElement key={text} path={text} blocked={false} />
+          {nav.map(({ path, blocked }) => (
+            <NavElement key={path} path={path} blocked={blocked} />
           ))}
         </nav>
       </div>
 
       {/* About */}
       <div className="col-start-1 -col-end-1 row-start-5 flex min-h-0 flex-col items-center justify-evenly gap-y-6 md:col-start-3 md:-col-end-1 md:row-start-2">
-        <p className="font-theme-serif max-w-lg text-justify leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
+        <p className="max-w-lg text-justify font-theme-serif leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
           Formed by like-minded, top-tier{" "}
           <b className="text-highlight">&thinsp;security researchers&thinsp;</b>{" "}
           from diverse backgrounds, the <b className="text-theme">Neplox</b>{" "}
@@ -95,7 +99,7 @@ export default function Landing() {
           and <b className="text-highlight">&thinsp;secure&thinsp;</b> modern
           systems.
         </p>
-        <p className="font-theme-serif max-w-lg text-justify leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
+        <p className="max-w-lg text-justify font-theme-serif leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
           From international CTF winners to hardened reverse engineers and bug
           bounty hunters, our unique skillsets come together to offer a{" "}
           <b className="text-highlight">&thinsp;fresh perspective&thinsp;</b> on

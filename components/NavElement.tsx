@@ -1,6 +1,7 @@
 "use client";
 
 import Context from "@/lib/context";
+import Link from "next/link";
 import { useContext, useState } from "react";
 import { BiSolidLock } from "react-icons/bi";
 
@@ -11,20 +12,45 @@ export default function NavElement({
   const { canHover } = useContext(Context);
   const [shaking, setShaking] = useState(false);
 
-  const classHover = canHover ? "hover:animate-shake" : "";
+  const classHover = canHover
+    ? blocked
+      ? "hover:animate-shake"
+      : "hover:scale-110 transition-transform duration-300"
+    : "";
   const classShaking = shaking ? "animate-shake" : "";
 
   return (
-    <button
-      className={`${classHover} ${classShaking} nav-autoscale font-theme-sans cursor-not-allowed leading-7 font-normal whitespace-nowrap`.trim()}
+    <Link
+      href={"/" + path}
+      className={`${classHover} ${classShaking} nav-autoscale flex ${blocked && "cursor-not-allowed"} items-center font-theme-sans leading-7 font-normal whitespace-nowrap`}
       // Avoid conflicting with the hover animation
-      onClick={() => !canHover && setShaking(true)}
-      onAnimationEnd={() => setShaking(false)}
+      onClick={(e) => {
+        if (!blocked) {
+          return;
+        }
+        if (!canHover) {
+          setShaking(true);
+        }
+        e.preventDefault();
+      }}
+      onAnimationEnd={() => blocked && !canHover && setShaking(false)}
     >
-      <span className="font-light">{"["}</span>
-      <BiSolidLock className="mr-1 inline pt-1 align-baseline" />
-      {path.toUpperCase()}
-      <span className="font-light">{" ]"}</span>
-    </button>
+      <span>
+        {blocked ? (
+          <>
+            <span className="font-light">{"["}</span>
+            <BiSolidLock className="mr-1 inline pt-1 align-baseline" />
+            {path.toUpperCase()}
+            <span className="font-light">{" ]"}</span>
+          </>
+        ) : (
+          <>
+            <span className="font-light">{"[ "}</span>
+            {path.toUpperCase()}
+            <span className="font-light">{" ]"}</span>
+          </>
+        )}
+      </span>
+    </Link>
   );
 }
