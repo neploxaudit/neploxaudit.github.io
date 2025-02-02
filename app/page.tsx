@@ -52,7 +52,7 @@ function Landing() {
         // 1. justify-self-center for centering the top horizontal NEPLOX text to the width of the logo,
         // which is bigger horizontally than it is vertically.
         // 2. text-[2rem] is the size of the social icons, we match this size on small layouts for consistency.
-        className="text-theme font-horizon col-start-2 row-start-1 justify-self-center text-[2rem] leading-none md:text-[min(10vh,6vw)]"
+        className="font-horizon text-theme col-start-2 row-start-1 justify-self-center text-[2rem] leading-none md:text-[min(10vh,6vw)]"
       >
         NEPLOX
       </h1>
@@ -76,7 +76,7 @@ function Landing() {
 
       {/* Signature */}
       <div className="col-start-1 -col-end-1 row-start-3 md:col-start-2 md:col-end-auto">
-        <h3 className="h-full w-0 max-w-0 min-w-full text-center font-sans font-light lg:text-lg">
+        <h3 className="font-theme-sans h-full w-0 max-w-0 min-w-full text-center font-light lg:text-lg">
           <span className="align-baseline hyphens-manual">
             EST. 2024 BY CYBER&shy;SECURITY RESEARCHERS
           </span>
@@ -91,7 +91,7 @@ function Landing() {
               key={text}
               className={`${canHover ? "hover:animate-shake" : ""} ${
                 navShake[index][0] ? "text-shadow animate-shake" : ""
-              } nav-autoscale cursor-not-allowed font-sans leading-7 font-normal whitespace-nowrap`}
+              } nav-autoscale font-theme-sans cursor-not-allowed leading-7 font-normal whitespace-nowrap`}
               // Avoid conflicting with the hover animation
               onClick={() => !canHover && navShake[index][1](true)}
               onAnimationEnd={() => navShake[index][1](false)}
@@ -107,23 +107,21 @@ function Landing() {
 
       {/* About */}
       <div className="col-start-1 -col-end-1 row-start-5 flex min-h-0 flex-col items-center justify-evenly gap-y-6 md:col-start-3 md:-col-end-1 md:row-start-2">
-        <p className="max-w-lg text-justify font-serif leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
+        <p className="font-theme-serif max-w-lg text-justify leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
           Formed by like-minded, top-tier{" "}
-          <b className="theme-highlight">
-            &thinsp;security researchers&thinsp;
-          </b>{" "}
+          <b className="text-highlight">&thinsp;security researchers&thinsp;</b>{" "}
           from diverse backgrounds, the <b className="text-theme">Neplox</b>{" "}
           team is fueled by{" "}
-          <b className="theme-highlight">&thinsp;curiosity&thinsp;</b> to
-          explore and <b className="theme-highlight">&thinsp;secure&thinsp;</b>{" "}
-          modern systems.
+          <b className="text-highlight">&thinsp;curiosity&thinsp;</b> to explore
+          and <b className="text-highlight">&thinsp;secure&thinsp;</b> modern
+          systems.
         </p>
-        <p className="max-w-lg text-justify font-serif leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
+        <p className="font-theme-serif max-w-lg text-justify leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
           From international CTF winners to hardened reverse engineers and bug
           bounty hunters, our unique skillsets come together to offer a{" "}
-          <b className="theme-highlight">&thinsp;fresh perspective&thinsp;</b>{" "}
-          on the security of{" "}
-          <b className="theme-highlight">&thinsp;Web3&thinsp;</b> ecosystems.
+          <b className="text-highlight">&thinsp;fresh perspective&thinsp;</b> on
+          the security of <b className="text-highlight">&thinsp;Web3&thinsp;</b>{" "}
+          ecosystems.
         </p>
       </div>
 

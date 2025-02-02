@@ -5,27 +5,27 @@ import "./globals.css";
 
 const horizon = localFont({
   src: "./fonts/horizon.otf",
-  variable: "--font-horizon",
+  variable: "--nextjs-font-horizon",
   weight: "100 900",
 });
 
 const horizonOutlined = localFont({
   src: "./fonts/horizon_outlined.otf",
-  variable: "--font-horizon-outlined",
+  variable: "--nextjs-font-horizon-outlined",
   weight: "100 900",
 });
 
 const themeSans = Rubik({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-theme-sans",
+  variable: "--nextjs-font-theme-sans",
   weight: ["300", "400", "700"],
 });
 
 const themeSerif = Mate({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-theme-serif",
+  variable: "--nextjs-font-theme-serif",
   weight: ["400"],
 });
 
@@ -67,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${horizon.variable} ${horizonOutlined.variable} ${themeSans.variable} ${themeSerif.variable} antialiased`}
+        className={`${horizon.variable} ${horizonOutlined.variable} ${themeSans.variable} ${themeSerif.variable} text-theme-dark bg-theme-light dark:text-theme-light dark:bg-theme-dark font-sans antialiased`}
       >
         <div className="px-[4%] py-8 md:h-screen md:w-screen 2xl:px-[8%]">
           {children}

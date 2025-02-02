@@ -1,36 +1,71 @@
 @import "tailwindcss";
-@config "../tailwind.config.ts";
 
-:root {
-  --background: #ebebdf;
-  --foreground: #262124;
-  --theme: #ef5902;
-}
+@theme {
+  --color-theme: #ef5902;
+  --color-theme-light: #ebebdf;
+  --color-theme-dark: #262124;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #262124;
-    --foreground: #ebebdf;
+  --animate-shake: shake 0.4s ease-out;
+  @keyframes shake {
+    0% {
+      transform: skewX(-10deg);
+    }
+    25% {
+      transform: skewX(10deg);
+    }
+    50% {
+      transform: skewX(-10deg);
+    }
+    75% {
+      transform: skewX(10deg);
+    }
+    100% {
+      transform: skewX(-10deg);
+    }
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --font-horizon: var(--nextjs-font-horizon);
+  --font-horizon-outlined: var(--nextjs-font-horizon-outlined);
+  --font-theme-sans: var(--nextjs-font-theme-sans), var(--font-sans);
+  --font-theme-serif: var(--nextjs-font-theme-serif), var(--font-serif);
 }
 
 ::-moz-selection {
-  background-color: var(--theme);
-  color: var(--background);
+  background-color: var(--color-theme);
+
+  color: var(--color-theme-light);
+  @variant dark {
+    color: var(--color-theme-dark);
+  }
 }
 ::selection {
-  background-color: var(--theme);
-  color: var(--background);
+  background-color: var(--color-theme);
+
+  color: var(--color-theme-light);
+  @variant dark {
+    color: var(--color-theme-dark);
+  }
 }
 ::-webkit-selection {
-  background-color: var(--theme);
-  color: var(--background);
+  background-color: var(--color-theme);
+
+  color: var(--color-theme-light);
+  @variant dark {
+    color: var(--color-theme-dark);
+  }
+}
+
+@utility text-highlight {
+  font-weight: 400;
+  white-space: nowrap;
+  background-color: var(--color-theme);
+
+  color: var(--color-theme-light);
+  @variant dark {
+    color: var(--color-theme-dark);
+  }
 }
 
 .nav-autoscale {
@@ -66,11 +101,4 @@ body {
   .nav-autoscale {
     @apply text-2xl;
   }
-}
-
-.theme-highlight {
-  color: var(--background);
-  font-weight: 400;
-  white-space: nowrap;
-  background-color: var(--theme);
 }
