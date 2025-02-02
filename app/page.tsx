@@ -1,6 +1,6 @@
 "use client";
 
-import NavElement from "@/components/NavElement";
+import NavElement from "@/app/components/NavElement";
 import Image from "next/image";
 
 const socials = [
@@ -26,7 +26,7 @@ const socials = [
     height: 181.33,
   },
   {
-    href: "https://immunefi.com/profile/neplox",
+    href: "https://immunefi.com/profile/neploxaudit",
     src: "/icons/immunefi.svg",
     alt: "Neplox Immunefi Profile",
     width: 165,

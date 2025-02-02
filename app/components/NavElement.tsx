@@ -1,6 +1,6 @@
 "use client";
 
-import Context from "@/lib/context";
+import Context from "@/app/lib/context";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { BiSolidLock } from "react-icons/bi";
