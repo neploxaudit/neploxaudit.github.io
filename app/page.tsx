@@ -49,14 +49,15 @@ function Landing() {
     <header className="landing-header-grid grid gap-x-8 gap-y-6">
       {/* Branding */}
       <h1
-        // justify-self-center for centering the top horizontal NEPLOX text to the width of the logo,
-        // which is bigger horizontally than it is vertically
-        className="text-brand col-start-2 row-start-1 justify-self-center font-horizon leading-none text-theme"
+        // 1. justify-self-center for centering the top horizontal NEPLOX text to the width of the logo,
+        // which is bigger horizontally than it is vertically.
+        // 2. text-[2rem] is the size of the social icons, we match this size on small layouts for consistency.
+        className="text-theme font-horizon col-start-2 row-start-1 justify-self-center text-[2rem] leading-none md:text-[min(10vh,6vw)]"
       >
         NEPLOX
       </h1>
       <h1
-        className="text-brand col-start-1 row-start-2 font-horizon-outlined leading-none tracking-tighter text-theme"
+        className="font-horizon-outlined text-theme col-start-1 row-start-2 text-[2rem] leading-none tracking-tighter md:text-[min(10vh,6vw)]"
         style={{
           writingMode: "vertical-lr",
           WebkitTextStrokeWidth: "0.025em",
@@ -75,8 +76,8 @@ function Landing() {
 
       {/* Signature */}
       <div className="col-start-1 -col-end-1 row-start-3 md:col-start-2 md:col-end-auto">
-        <h3 className="h-full w-0 min-w-full max-w-0 text-center font-sans font-light lg:text-lg">
-          <span className="hyphens-manual align-baseline">
+        <h3 className="h-full w-0 max-w-0 min-w-full text-center font-sans font-light lg:text-lg">
+          <span className="align-baseline hyphens-manual">
             EST. 2024 BY CYBER&shy;SECURITY RESEARCHERS
           </span>
         </h3>
@@ -90,7 +91,7 @@ function Landing() {
               key={text}
               className={`${canHover ? "hover:animate-shake" : ""} ${
                 navShake[index][0] ? "text-shadow animate-shake" : ""
-              } text-nav cursor-not-allowed whitespace-nowrap font-sans text-xl font-normal lg:text-xl xl:text-2xl`}
+              } nav-autoscale cursor-not-allowed font-sans leading-7 font-normal whitespace-nowrap`}
               // Avoid conflicting with the hover animation
               onClick={() => !canHover && navShake[index][1](true)}
               onAnimationEnd={() => navShake[index][1](false)}
@@ -106,7 +107,7 @@ function Landing() {
 
       {/* About */}
       <div className="col-start-1 -col-end-1 row-start-5 flex min-h-0 flex-col items-center justify-evenly gap-y-6 md:col-start-3 md:-col-end-1 md:row-start-2">
-        <p className="max-w-lg text-justify font-serif font-normal leading-relaxed lg:text-lg xl:text-xl">
+        <p className="max-w-lg text-justify font-serif leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
           Formed by like-minded, top-tier{" "}
           <b className="theme-highlight">
             &thinsp;security researchers&thinsp;
@@ -117,7 +118,7 @@ function Landing() {
           explore and <b className="theme-highlight">&thinsp;secure&thinsp;</b>{" "}
           modern systems.
         </p>
-        <p className="max-w-lg text-justify font-serif font-normal leading-relaxed lg:text-lg xl:text-xl">
+        <p className="max-w-lg text-justify font-serif leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
           From international CTF winners to hardened reverse engineers and bug
           bounty hunters, our unique skillsets come together to offer a{" "}
           <b className="theme-highlight">&thinsp;fresh perspective&thinsp;</b>{" "}
@@ -132,8 +133,8 @@ function Landing() {
           <a
             key={social.href}
             href={social.href}
-            // w-8 here is important, it is equal to 2rem, which is also set as the font-size of the sideways NEPLOX text
-            className="inline-block h-auto w-8 transition-transform duration-300 hover:scale-125 xl:w-12"
+            // width here is important, it is equal to 2rem, which is also set as the font-size of the brand name NEPLOX text
+            className="inline-block h-auto w-[2rem] transition-transform duration-300 hover:scale-125 xl:w-12"
           >
             <Image
               src={social.src}
