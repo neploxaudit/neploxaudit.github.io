@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Landing() {
   return (
-    <header className="landing-header-grid grid gap-x-8 gap-y-6">
+    <header className="header-grid landing-header">
       {/* Branding */}
       <h1
         // 1. justify-self-center for centering the top horizontal NEPLOX text to the width of the logo,
@@ -44,13 +44,18 @@ export default function Landing() {
       <div className="col-start-1 -col-end-1 row-start-4 my-3 md:col-start-3 md:col-end-auto md:row-start-1 md:my-0">
         <nav className="mx-auto flex h-full max-w-lg justify-between gap-x-4">
           {Nav.paths.map(({ path, blocked }) => (
-            <Nav.Element key={path} path={path} blocked={blocked} />
+            <Nav.Element
+              key={path}
+              path={path}
+              blocked={blocked}
+              className="landing-nav"
+            />
           ))}
         </nav>
       </div>
 
       {/* About */}
-      <div className="col-start-1 -col-end-1 row-start-5 flex min-h-0 flex-col items-center justify-evenly gap-y-6 md:col-start-3 md:-col-end-1 md:row-start-2">
+      <div className="col-start-1 -col-end-1 row-start-5 flex min-h-0 flex-col items-center justify-evenly gap-y-6 md:col-start-3 md:col-end-auto md:row-start-2">
         <p className="max-w-lg text-justify font-theme-serif leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
           Formed by like-minded, top-tier{" "}
           <b className="text-highlight">&thinsp;security researchers&thinsp;</b>{" "}
@@ -70,7 +75,7 @@ export default function Landing() {
       </div>
 
       {/* Socials */}
-      <div className="col-start-3 row-start-2 flex flex-col items-center justify-evenly md:col-start-3 md:col-end-auto md:row-start-3 md:flex-row lg:col-start-4 lg:row-start-2 lg:flex-col lg:justify-around">
+      <div className="col-start-3 row-start-2 flex flex-col items-center justify-evenly md:row-start-3 md:flex-row lg:col-start-4 lg:row-start-2 lg:flex-col lg:justify-around">
         {Socials.map((Social) => (
           <Link
             key={Social.href}

@@ -13,9 +13,10 @@ function Logo({ className }: { className?: string }) {
   );
 }
 
-function Twitter() {
+function Twitter({ className }: { className?: string }) {
   return (
     <Image
+      className={className}
       src="/icons/twitter.svg"
       alt="Neplox X (Twitter) Profile"
       width={194.97}
@@ -24,9 +25,10 @@ function Twitter() {
   );
 }
 
-function GitHub() {
+function GitHub({ className }: { className?: string }) {
   return (
     <Image
+      className={className}
       src="/icons/github.svg"
       alt="Neplox GitHub Profile"
       width={170.67}
@@ -35,9 +37,10 @@ function GitHub() {
   );
 }
 
-function Telegram() {
+function Telegram({ className }: { className?: string }) {
   return (
     <Image
+      className={className}
       src="/icons/telegram.svg"
       alt="Neplox Telegram Channel"
       width={217.83}
@@ -46,9 +49,10 @@ function Telegram() {
   );
 }
 
-function Immunefi() {
+function Immunefi({ className }: { className?: string }) {
   return (
     <Image
+      className={className}
       src="/icons/immunefi.svg"
       alt="Neplox Immunefi Profile"
       width={165}

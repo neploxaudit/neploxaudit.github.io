@@ -8,7 +8,8 @@ import { BiSolidLock } from "react-icons/bi";
 function Element({
   path,
   blocked,
-}: Readonly<{ path: string; blocked: boolean }>) {
+  className,
+}: Readonly<{ path: string; blocked: boolean; className?: string }>) {
   const { canHover } = useContext(Context);
   const [shaking, setShaking] = useState(false);
 
@@ -22,7 +23,7 @@ function Element({
   return (
     <Link
       href={"/" + path}
-      className={`${classHover} ${classShaking} nav-autoscale flex ${blocked && "cursor-not-allowed"} items-center font-theme-sans leading-7 font-normal whitespace-nowrap`}
+      className={`${classHover} ${classShaking} flex ${blocked && "cursor-not-allowed"} items-center font-theme-sans leading-7 font-normal whitespace-nowrap ${className}`}
       // Avoid conflicting with the hover animation
       onClick={(e) => {
         if (!blocked) {
