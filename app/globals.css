@@ -68,6 +68,10 @@
   }
 }
 
+.header-grid {
+  @apply grid gap-x-8 gap-y-6;
+}
+
 .landing-nav {
   /* https://chrisburnell.com/clamp-calculator/?font-size-root=16&size-min=16&size-max=20&viewport-min=320&viewport-max=400&viewport-units=vw */
   font-size: clamp(1rem, 0rem + 5vw, 1.25rem);
@@ -76,10 +80,6 @@
 .default-nav {
   /* https://chrisburnell.com/clamp-calculator/?font-size-root=16&size-min=24&size-max=30&viewport-min=375&viewport-max=640&viewport-units=vw */
   font-size: clamp(1.5rem, 0.969rem + 2.264vw, 1.875rem);
-}
-
-.header-grid {
-  @apply grid gap-x-8 gap-y-6;
 }
 
 .landing-header {

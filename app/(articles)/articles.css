@@ -1,0 +1,39 @@
+@reference "../globals.css";
+
+.article-preview-title {
+  @apply text-theme-dark;
+  background-size: 200% 100%;
+  background-image: linear-gradient(
+    to right,
+    var(--color-theme-light) 50%,
+    var(--color-theme) 50%
+  );
+  transition: background-position 1s;
+
+  @variant dark {
+    @apply text-theme-light;
+    background-image: linear-gradient(
+      to right,
+      var(--color-theme-dark) 50%,
+      var(--color-theme) 50%
+    );
+  }
+}
+
+.article-preview.article-hidden .article-preview-title {
+  background-image: none;
+}
+
+@media (hover: hover) {
+  .article-preview:hover .article-preview-title {
+    background-position: -100% 0;
+  }
+
+  .article-preview.article-hidden:hover .article-preview-title {
+    @apply animate-shake;
+  }
+
+  .article-preview.article-hidden:hover .article-preview-image {
+    @apply opacity-100 grayscale-16;
+  }
+}

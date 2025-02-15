@@ -3,7 +3,6 @@ import Image from "next/image";
 function Logo({ className }: { className?: string }) {
   return (
     <Image
-      // Extend vertically to the height of the sideways NEPLOX text, and automatically scale horizontally with the aspect ratio
       className={className}
       src="/icons/neplox.svg"
       alt="Neplox Logo"
