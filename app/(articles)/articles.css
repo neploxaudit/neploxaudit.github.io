@@ -1,23 +1,14 @@
 @reference "../globals.css";
 
 .article-preview-title {
-  @apply text-theme-dark;
+  @apply text-element;
   background-size: 200% 100%;
   background-image: linear-gradient(
     to right,
-    var(--color-theme-light) 50%,
+    var(--color-surface) 50%,
     var(--color-theme) 50%
   );
   transition: background-position 1s;
-
-  @variant dark {
-    @apply text-theme-light;
-    background-image: linear-gradient(
-      to right,
-      var(--color-theme-dark) 50%,
-      var(--color-theme) 50%
-    );
-  }
 }
 
 .article-preview.article-hidden .article-preview-title {
@@ -33,7 +24,7 @@
     @apply animate-shake;
   }
 
-  .article-preview.article-hidden:hover .article-preview-image {
+  .article-preview.article-hidden:hover .article-preview-card {
     @apply opacity-100 grayscale-16;
   }
 }

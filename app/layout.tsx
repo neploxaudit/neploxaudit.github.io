@@ -67,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${horizon.variable} ${horizonOutlined.variable} ${themeSans.variable} ${themeSerif.variable} text-theme-dark bg-theme-light dark:text-theme-light dark:bg-theme-dark font-sans antialiased`}
+        className={`${horizon.variable} ${horizonOutlined.variable} ${themeSans.variable} ${themeSerif.variable} bg-surface font-theme-sans text-element antialiased`}
       >
         <div className="px-[4%] py-8 md:h-screen md:w-screen 2xl:px-[8%]">
           {children}

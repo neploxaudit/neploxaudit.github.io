@@ -1,10 +1,22 @@
 @import "tailwindcss";
 
-@theme {
-  --color-theme: #ef5902;
-  --color-theme-light: #ebebdf;
-  --color-theme-dark: #262124;
+:root {
+  --theme: oklch(65.5% 0.1995 41.5);
+  --theme-light: oklch(94.16% 0.0148 98.29);
+  --theme-dark: oklch(25.5% 0.008 330);
 
+  --surface: var(--theme-light);
+  --element: var(--theme-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: var(--theme-dark);
+    --element: var(--theme-light);
+  }
+}
+
+@theme {
   --animate-shake: shake 0.4s ease-out;
   @keyframes shake {
     0% {
@@ -26,6 +38,10 @@
 }
 
 @theme inline {
+  --color-theme: var(--theme);
+  --color-surface: var(--surface);
+  --color-element: var(--element);
+
   --font-horizon: var(--nextjs-font-horizon);
   --font-horizon-outlined: var(--nextjs-font-horizon-outlined);
   --font-theme-sans: var(--nextjs-font-theme-sans), var(--font-sans);
@@ -34,38 +50,22 @@
 
 ::-moz-selection {
   background-color: var(--color-theme);
-
-  color: var(--color-theme-light);
-  @variant dark {
-    color: var(--color-theme-dark);
-  }
+  color: var(--color-surface);
 }
 ::selection {
   background-color: var(--color-theme);
-
-  color: var(--color-theme-light);
-  @variant dark {
-    color: var(--color-theme-dark);
-  }
+  color: var(--color-surface);
 }
 ::-webkit-selection {
   background-color: var(--color-theme);
-
-  color: var(--color-theme-light);
-  @variant dark {
-    color: var(--color-theme-dark);
-  }
+  color: var(--color-surface);
 }
 
 @utility text-highlight {
   font-weight: 400;
   white-space: nowrap;
   background-color: var(--color-theme);
-
-  color: var(--color-theme-light);
-  @variant dark {
-    color: var(--color-theme-dark);
-  }
+  color: var(--color-surface);
 }
 
 .header-grid {

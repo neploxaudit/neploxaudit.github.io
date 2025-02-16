@@ -1,5 +1,3 @@
-"use client";
-
 import Images from "@/app/components/Images";
 import Nav from "@/app/components/Nav";
 import Socials from "@/app/components/Socials";
