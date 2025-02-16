@@ -2,6 +2,7 @@ import Images from "@/app/components/Images";
 import Nav from "@/app/components/Nav";
 import Socials from "@/app/components/Socials";
 import Link from "next/link";
+import Signature from "./components/Signature";
 
 export default function Landing() {
   return (
@@ -30,12 +31,8 @@ export default function Landing() {
       />
 
       {/* Signature */}
-      <div className="col-start-1 -col-end-1 row-start-3 md:col-start-2 md:col-end-auto">
-        <h3 className="h-full max-w-0 min-w-full text-center font-theme-sans font-light lg:text-lg">
-          <span className="align-baseline hyphens-manual">
-            EST. 2024 BY CYBER&shy;SECURITY RESEARCHERS
-          </span>
-        </h3>
+      <div className="col-start-1 -col-end-1 row-start-3 h-full max-w-0 min-w-full md:col-start-2 md:col-end-auto">
+        <Signature className="lg:text-lg" />
       </div>
 
       {/* Nav */}

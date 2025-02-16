@@ -4,6 +4,7 @@ import Context from "@/app/components/Context";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { BiLinkExternal, BiSolidLock } from "react-icons/bi";
+import { IoEyeOffOutline } from "react-icons/io5";
 
 export type Article = {
   image: string;
@@ -40,6 +41,7 @@ export default function ArticlePreview({
   const { canHover } = useContext(Context);
   const [shaking, setShaking] = useState(false);
   const classShaking = shaking ? "animate-shake" : "";
+  const [locking, setLocking] = useState(false);
 
   return (
     <div
@@ -50,6 +52,10 @@ export default function ArticlePreview({
         }
         if (!canHover) {
           setShaking(true);
+          setLocking(true);
+          setTimeout(() => {
+            setLocking(false);
+          }, 1000);
         }
         e.preventDefault();
       }}
@@ -63,6 +69,13 @@ export default function ArticlePreview({
           className={`article-preview-card flex aspect-[16/10] h-auto w-full flex-col items-end justify-between rounded-xl object-cover px-6 py-4 transition select-none ${hidden && "opacity-85 grayscale-32"}`}
           title={hidden ? undefined : title}
         >
+          {hidden && (
+            <IoEyeOffOutline
+              className="article-preview-card-lock absolute top-1/2 left-1/2 -translate-1/2 text-surface opacity-0 transition-opacity duration-300"
+              style={{ opacity: locking ? 1 : undefined }}
+              size="3rem"
+            />
+          )}
           <span className={`text-xs ${hidden && "opacity-40"}`}>
             [ {metadata.date} ]
           </span>

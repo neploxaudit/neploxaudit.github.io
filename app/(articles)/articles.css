@@ -20,6 +20,10 @@
     background-position: -100% 0;
   }
 
+  .article-preview.article-hidden:hover .article-preview-card-lock {
+    @apply opacity-100;
+  }
+
   .article-preview.article-hidden:hover .article-preview-title {
     @apply animate-shake;
   }

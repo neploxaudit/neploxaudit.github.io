@@ -1,3 +1,4 @@
+import Footer from "@/app/components/Footer";
 import Images from "@/app/components/Images";
 import Nav from "@/app/components/Nav";
 import Link from "next/link";
@@ -9,7 +10,7 @@ export default function CTFArticles() {
 
   return (
     <React.Fragment>
-      <header className="header-grid default-header">
+      <header className="header-grid default-header flex-none">
         {/* Branding sm */}
         <Link href="/" className="w-min md:hidden">
           <Images.Logo className="h-10 max-w-max scale-125" />
@@ -47,11 +48,13 @@ export default function CTFArticles() {
         </div>
       </header>
 
-      <main className="mx-auto grid max-w-lg grid-cols-1 gap-x-8 gap-y-12 py-8 md:max-w-none md:grid-cols-2 lg:grid-cols-3">
+      <main className="mx-auto grid max-w-lg flex-auto auto-rows-max grid-cols-1 gap-x-8 gap-y-12 md:max-w-none md:grid-cols-2 lg:grid-cols-3">
         {[...Array(numRandomArticles)].map((_, i) => (
           <HiddenPreview key={i} />
         ))}
       </main>
+
+      <Footer className="flex-none" />
     </React.Fragment>
   );
 }
