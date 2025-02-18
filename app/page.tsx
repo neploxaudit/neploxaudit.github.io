@@ -6,7 +6,7 @@ import Signature from "./components/Signature";
 
 export default function Landing() {
   return (
-    <header className="header-grid landing-header">
+    <header className="header-grid landing-header pt-8">
       {/* Branding */}
       <h1
         // 1. justify-self-center for centering the top horizontal NEPLOX text to the width of the logo,

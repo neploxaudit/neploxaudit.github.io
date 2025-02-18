@@ -69,7 +69,7 @@ export default function RootLayout({
       <body
         className={`${horizon.variable} ${horizonOutlined.variable} ${themeSans.variable} ${themeSerif.variable} bg-surface font-theme-sans text-element antialiased`}
       >
-        <div className="flex flex-col gap-8 px-[4%] py-8 md:min-h-screen md:w-screen 2xl:px-[8%]">
+        <div className="flex flex-col gap-8 px-[4vw] pb-8 md:min-h-screen md:w-screen 2xl:px-[8vw]">
           {children}
         </div>
       </body>

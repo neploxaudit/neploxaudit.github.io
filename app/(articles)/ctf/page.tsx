@@ -11,7 +11,7 @@ export default function CTFArticles() {
 
   return (
     <React.Fragment>
-      <header className="header-grid default-header flex-none">
+      <header className="header-grid default-header sticky top-0 z-10 flex-none pt-4 before:absolute before:inset-0 before:-z-10 before:-mx-[4vw] before:-mb-4 before:bg-surface before:shadow-[0_7px_6px_-6px_rgba(0,0,0,0.25)] md:relative md:top-0 md:pt-8 md:before:hidden">
         {/* Branding sm */}
         <Link href="/" className="justify-self-start md:hidden">
           {/* Same width as "go to bottom" button */}
