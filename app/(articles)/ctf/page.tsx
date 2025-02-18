@@ -1,6 +1,7 @@
 import Footer from "@/app/components/Footer";
 import Images from "@/app/components/Images";
 import Nav from "@/app/components/Nav";
+import ScrollDown from "@/app/components/ScrollDown";
 import Link from "next/link";
 import React from "react";
 import HiddenPreview from "../HiddenPreview";
@@ -12,8 +13,9 @@ export default function CTFArticles() {
     <React.Fragment>
       <header className="header-grid default-header flex-none">
         {/* Branding sm */}
-        <Link href="/" className="w-min md:hidden">
-          <Images.Logo className="h-10 max-w-max scale-125" />
+        <Link href="/" className="justify-self-start md:hidden">
+          {/* Same width as "go to bottom" button */}
+          <Images.Logo className="h-auto w-12 scale-125" />
         </Link>
         {/* Branding md+ */}
         <Link href="/" className="hidden flex-row gap-x-8 md:flex">
@@ -46,6 +48,8 @@ export default function CTFArticles() {
             ))}
           </nav>
         </div>
+
+        <ScrollDown className="w-12 justify-self-end md:hidden" />
       </header>
 
       <main className="mx-auto grid max-w-lg flex-auto auto-rows-max grid-cols-1 gap-x-8 gap-y-12 md:max-w-none md:grid-cols-2 lg:grid-cols-3">
