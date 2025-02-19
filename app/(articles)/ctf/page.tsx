@@ -19,8 +19,8 @@ export default function CTFArticles() {
         </Link>
         {/* Branding md+ */}
         <Link href="/" className="hidden flex-row gap-x-8 md:flex">
-          <Images.Logo className="h-0 min-h-full w-auto scale-125" />
-          <h1 className="font-horizon text-[2rem] leading-none text-theme md:text-[min(10vh,6vw)]">
+          <Images.Logo className="h-[min(10vh,6vw)] w-auto scale-125" />
+          <h1 className="font-horizon leading-none text-theme md:text-[min(10vh,6vw)]">
             NEPLOX
           </h1>
         </Link>

@@ -31,7 +31,8 @@ export default function Landing() {
       />
 
       {/* Signature */}
-      <div className="col-start-1 -col-end-1 row-start-3 h-full max-w-0 min-w-full md:col-start-2 md:col-end-auto">
+      {/* Both w-0 and max-w-0 because without the w-0 Safari doesn't render as expected */}
+      <div className="col-start-1 -col-end-1 row-start-3 h-full w-0 max-w-0 min-w-full md:col-start-2 md:col-end-3">
         <Signature className="lg:text-lg" />
       </div>
 

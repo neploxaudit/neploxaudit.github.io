@@ -65,15 +65,14 @@ export default function ArticlePreview({
           style={{
             backgroundImage: `url(${image})`,
             backgroundColor: "oklch(from var(--element) l c h / 0.2)",
+            opacity: locking ? 1 : undefined,
           }}
-          className={`article-preview-card flex aspect-[16/10] h-auto w-full flex-col items-end justify-between rounded-xl object-cover px-6 py-4 transition select-none ${hidden && "opacity-85 grayscale-32"}`}
+          className={`article-preview-card relative flex aspect-[16/10] h-auto w-full flex-col items-end justify-between rounded-xl px-6 py-4 transition select-none ${hidden && "opacity-85 grayscale-32"}`}
           title={hidden ? undefined : title}
         >
           {hidden && (
             <IoEyeOffOutline
-              className="article-preview-card-lock absolute top-1/2 left-1/2 -translate-1/2 text-surface opacity-0 transition-opacity duration-300"
-              style={{ opacity: locking ? 1 : undefined }}
-              size="3rem"
+              className={`article-preview-card-lock absolute top-1/2 left-1/2 -translate-1/2 text-surface ${locking ? "opacity-100" : "opacity-0"} h-12 w-12 transition-opacity duration-300`}
             />
           )}
           <span className={`text-xs ${hidden && "opacity-40"}`}>
