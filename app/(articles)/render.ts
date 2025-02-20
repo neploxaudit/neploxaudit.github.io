@@ -5,10 +5,18 @@ import type p5 from "p5";
 const w = 360; // canvas width
 const h = 225; // canvas height
 
-export default async function gradientRenderer(canvas: HTMLCanvasElement) {
-  const p5 = (await import("p5")).default;
+export default async function gradientRenderer(
+  p5import: Promise<{ default: typeof p5 }>,
+  canvas: HTMLCanvasElement,
+) {
+  const importID = Math.random();
+  console.time(`import ${importID}`);
+  const p5 = (await p5import).default;
+  console.timeEnd(`import ${importID}`);
 
-  let p = new p5((sketch: p5) => {
+  const p5id = Math.random();
+  console.time(`p5 ${p5id}`);
+  const p = new p5((sketch: p5) => {
     const vert = `
 attribute vec3 aPosition;
 attribute vec2 aTexCoord;
@@ -167,7 +175,7 @@ void main() {
     };
 
     const rand = (_min: number, _max: number) => {
-      let t = Math.random();
+      const t = Math.random();
       return _min * (1 - t) + _max * t;
     };
 
@@ -175,14 +183,17 @@ void main() {
       return [rand(0.1, 0.9), rand(0.1, 0.9)];
     };
 
-    const shuffle = (arr: any[]) => {
+    const shuffle = <T>(arr: T[]): T[] => {
       const arr_copy = [...arr];
       arr_copy.sort(() => 0.5 - Math.random());
       return arr_copy;
     };
 
     sketch.draw = () => {
-      let all_clrs = [
+      const id = Math.random();
+      console.time(`draw ${id}`);
+
+      const all_clrs = [
         [0.9372549019607843, 0.34901960784313724, 0.00784313725490196], // #ef5902
         [0.25882352941176473, 0.7137254901960784, 0.7764705882352941], // #42b6c6
         [0.9686274509803922, 0.6235294117647059, 0.4], // #f79f66
@@ -211,8 +222,11 @@ void main() {
       canvas.style.removeProperty("width");
       canvas.style.removeProperty("height");
       canvas.style.removeProperty("display");
+
+      console.timeEnd(`draw ${id}`);
     };
   });
+  console.timeEnd(`p5 ${p5id}`);
 
   return p;
 }

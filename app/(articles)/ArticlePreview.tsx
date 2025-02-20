@@ -32,8 +32,9 @@ function MaybeLink({
   return <div>{children}</div>;
 }
 
+const p5 = import("p5");
+
 export default function ArticlePreview({
-  image,
   title,
   description,
   metadata,
@@ -50,7 +51,7 @@ export default function ArticlePreview({
     if (!canvasRef.current) {
       return;
     }
-    gradientRenderer(canvasRef.current);
+    gradientRenderer(p5, canvasRef.current);
   }, []);
 
   return (

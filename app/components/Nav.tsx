@@ -6,7 +6,9 @@ const paths = [
   { path: "research", blocked: true },
 ];
 
-export default {
+const Nav = {
   Element,
   paths,
 };
+
+export default Nav;

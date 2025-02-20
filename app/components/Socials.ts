@@ -1,6 +1,6 @@
 import Images from "./Images";
 
-export default [
+const Socials = [
   {
     href: "https://x.com/neploxaudit",
     image: Images.Twitter,
@@ -18,3 +18,5 @@ export default [
     image: Images.Immunefi,
   },
 ];
+
+export default Socials;
