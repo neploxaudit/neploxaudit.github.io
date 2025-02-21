@@ -4,10 +4,31 @@ import Nav from "@/app/components/Nav";
 import ScrollDown from "@/app/components/ScrollDown";
 import Link from "next/link";
 import React from "react";
-import HiddenPreview from "../HiddenPreview";
+import { Article } from "../ArticlePreview";
+import PreviewBundle from "../PreviewBundle";
+
+function randomArticle(): Article {
+  return {
+    image: `/covers/secret/${Math.floor(Math.random() * 10 + 1)
+      .toString()
+      .padStart(2, "0")}.jpg`,
+    title: "█".repeat(Math.floor(Math.random() * 10 + 5)),
+    description: [...Array(3)]
+      .map(() => "█".repeat(Math.floor(Math.random() * 20 + 5)))
+      .join(" "),
+    metadata: {
+      author: [...Array(2)]
+        .map(() => "█".repeat(Math.floor(Math.random() * 8 + 4)))
+        .join(" "),
+      date: "█".repeat(Math.floor(Math.random() * 10 + 5)),
+    },
+    hidden: true,
+  };
+}
 
 export default function CTFArticles() {
   const numRandomArticles = 6;
+  const articles = [...Array(numRandomArticles)].map(randomArticle);
 
   return (
     <React.Fragment>
@@ -52,10 +73,8 @@ export default function CTFArticles() {
         <ScrollDown className="w-12 justify-self-end md:hidden" />
       </header>
 
-      <main className="mx-auto grid max-w-lg flex-auto auto-rows-max grid-cols-1 gap-x-8 gap-y-12 md:max-w-none md:grid-cols-2 lg:grid-cols-3">
-        {[...Array(numRandomArticles)].map((_, i) => (
-          <HiddenPreview key={i} />
-        ))}
+      <main className="mx-auto grid max-w-lg flex-auto auto-rows-max grid-cols-1 gap-x-8 gap-y-12 md:mx-0 md:max-w-none md:grid-cols-2 lg:grid-cols-3">
+        <PreviewBundle articles={articles} />
       </main>
 
       <Footer className="flex-none" />

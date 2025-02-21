@@ -13,11 +13,9 @@ export default function NavElement({
   const { canHover } = useContext(Context);
   const [shaking, setShaking] = useState(false);
 
-  const classHover = canHover
-    ? blocked
-      ? "hover:animate-shake"
-      : "hover:scale-110 transition-transform duration-300"
-    : "";
+  const classHover = blocked
+    ? "hover:animate-shake"
+    : "hover:scale-110 transition-transform duration-300";
   const classShaking = shaking ? "animate-shake" : "";
 
   return (

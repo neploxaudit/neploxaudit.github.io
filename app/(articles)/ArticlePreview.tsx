@@ -2,10 +2,9 @@
 
 import Context from "@/app/components/Context";
 import Link from "next/link";
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiLinkExternal, BiSolidLock } from "react-icons/bi";
 import { IoEyeOffOutline } from "react-icons/io5";
-import gradientRenderer from "./render";
 
 export type Article = {
   image: string;
@@ -29,30 +28,22 @@ function MaybeLink({
   if (href) {
     return <Link href={href}>{children}</Link>;
   }
-  return <div>{children}</div>;
+  return <React.Fragment>{children}</React.Fragment>;
 }
-
-const p5 = import("p5");
 
 export default function ArticlePreview({
   title,
   description,
   metadata,
   hidden,
-}: Article) {
+  canvasRef,
+}: Article & {
+  canvasRef: (ref: HTMLCanvasElement) => void;
+}) {
   const { canHover } = useContext(Context);
   const [shaking, setShaking] = useState(false);
   const classShaking = shaking ? "animate-shake" : "";
   const [locking, setLocking] = useState(false);
-
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    if (!canvasRef.current) {
-      return;
-    }
-    gradientRenderer(p5, canvasRef.current);
-  }, []);
 
   return (
     <div
@@ -84,7 +75,6 @@ export default function ArticlePreview({
           <canvas
             className="absolute inset-0 h-full w-full rounded-xl object-cover"
             ref={canvasRef}
-            style={{ display: "none" }}
           />
           {hidden && (
             <IoEyeOffOutline
