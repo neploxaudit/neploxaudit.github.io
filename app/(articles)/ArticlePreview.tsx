@@ -2,7 +2,7 @@
 
 import Context from "@/app/components/Context";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiLinkExternal, BiSolidLock } from "react-icons/bi";
 import { IoEyeOffOutline } from "react-icons/io5";
 
@@ -28,16 +28,18 @@ function MaybeLink({
   if (href) {
     return <Link href={href}>{children}</Link>;
   }
-  return <div>{children}</div>;
+  return <React.Fragment>{children}</React.Fragment>;
 }
 
 export default function ArticlePreview({
-  image,
   title,
   description,
   metadata,
   hidden,
-}: Article) {
+  canvasRef,
+}: Article & {
+  canvasRef: (ref: HTMLCanvasElement) => void;
+}) {
   const { canHover } = useContext(Context);
   const [shaking, setShaking] = useState(false);
   const classShaking = shaking ? "animate-shake" : "";
@@ -63,13 +65,17 @@ export default function ArticlePreview({
       <MaybeLink href={metadata.href ?? ""}>
         <div
           style={{
-            backgroundImage: `url(${image})`,
+            // backgroundImage: `url(${image})`,
             backgroundColor: "oklch(from var(--element) l c h / 0.2)",
             opacity: locking ? 1 : undefined,
           }}
           className={`article-preview-card relative flex aspect-[16/10] h-auto w-full flex-col items-end justify-between rounded-xl px-6 py-4 transition select-none ${hidden && "opacity-85 grayscale-32"}`}
           title={hidden ? undefined : title}
         >
+          <canvas
+            className="absolute inset-0 h-full w-full rounded-xl object-cover"
+            ref={canvasRef}
+          />
           {hidden && (
             <IoEyeOffOutline
               className={`article-preview-card-lock absolute top-1/2 left-1/2 -translate-1/2 text-surface ${locking ? "opacity-100" : "opacity-0"} h-12 w-12 transition-opacity duration-300`}

@@ -60,10 +60,12 @@ function Immunefi({ className }: { className?: string }) {
   );
 }
 
-export default {
+const Images = {
   Logo,
   Twitter,
   GitHub,
   Telegram,
   Immunefi,
 };
+
+export default Images;
