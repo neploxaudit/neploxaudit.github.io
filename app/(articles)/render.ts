@@ -22,7 +22,6 @@ uniform float size_div;
 uniform float far_grain;
 uniform float close_grain;
 uniform float blur_size;
-uniform vec2 spawn;
 uniform vec2 start;
 uniform vec2 size;
 
@@ -112,7 +111,6 @@ vec3 get_uv_clr (vec2 uv) {
 }
 
 void main() {
-    // vec2 uv = vTexCoord;
     vec2 uv = vec2((gl_FragCoord.x - start.x) / size.x, gl_FragCoord.y / size.y);
     uv.x = uv.x * size_div;
     uv.xy = uv.xy * 0.9;
@@ -152,7 +150,7 @@ function rand(_min: number, _max: number) {
   return _min * (1 - t) + _max * t;
 }
 
-function randCoors(): [number, number] {
+function randCoords(): [number, number] {
   return [rand(0.1, 0.9), rand(0.1, 0.9)];
 }
 
@@ -238,7 +236,6 @@ export function drawGradients(
 
   // Prepare uniform variables
   const size_div = gl.getUniformLocation(progDraw, "size_div");
-  const spawn = gl.getUniformLocation(progDraw, "spawn");
   const blur_size = gl.getUniformLocation(progDraw, "blur_size");
   const far_grain = gl.getUniformLocation(progDraw, "far_grain");
   const close_grain = gl.getUniformLocation(progDraw, "close_grain");
@@ -250,6 +247,7 @@ export function drawGradients(
   const g2_coords = gl.getUniformLocation(progDraw, "g2_coords");
   const g3_clr = gl.getUniformLocation(progDraw, "g3_clr");
   const g3_coords = gl.getUniformLocation(progDraw, "g3_coords");
+  const inPos = gl.getAttribLocation(progDraw, "aPosition");
   gl.useProgram(progDraw);
 
   gl.enable(gl.DEPTH_TEST);
@@ -288,17 +286,16 @@ export function drawGradients(
       gl.DYNAMIC_DRAW,
     );
 
-    gl.enableVertexAttribArray(0);
-    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(inPos);
+    gl.vertexAttribPointer(inPos, 2, gl.FLOAT, false, 0, 0);
 
     // Set uniform variable values
     const chosen_clrs = shuffle(allColors).slice(0, 3);
-    const g1 = { clr: chosen_clrs[0], coords: randCoors() };
-    const g2 = { clr: chosen_clrs[1], coords: randCoors() };
-    const g3 = { clr: chosen_clrs[2], coords: randCoors() };
+    const g1 = { clr: chosen_clrs[0], coords: randCoords() };
+    const g2 = { clr: chosen_clrs[1], coords: randCoords() };
+    const g3 = { clr: chosen_clrs[2], coords: randCoords() };
 
     gl.uniform1f(size_div, w / h); // to normalize coords in case canvas is rectangle
-    gl.uniform2f(spawn, Math.random() * 1000, Math.random() * 1000); // random coordinate shift on simplex field
     gl.uniform1f(blur_size, 0.09); // read the name
     gl.uniform1f(far_grain, 0.3); // grain for inner parts of shapes
     gl.uniform1f(close_grain, 0.09); // grain for smoothing shapes between lines
