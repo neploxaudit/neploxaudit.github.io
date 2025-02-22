@@ -22,6 +22,7 @@ uniform float size_div;
 uniform float far_grain;
 uniform float close_grain;
 uniform float blur_size;
+uniform vec2 spawn;
 uniform vec2 start;
 uniform vec2 size;
 
@@ -32,19 +33,12 @@ uniform vec3 g1_clr;
 uniform vec3 g2_clr;
 uniform vec3 g3_clr;
 
-vec2 skew (vec2 st) {
-    vec2 r = vec2(0.0);
-    r.x = 1.1547*st.x;
-    r.y = st.y+0.5*r.x;
-    return r;
-}
-
 float rand(vec2 co) {
     highp float a = 12.9898;
     highp float b = 78.233;
     highp float c = 43758.5453;
-    highp float dt= dot(co.xy ,vec2(a,b));
-    highp float sn= mod(dt,3.14);
+    highp float dt = dot(co.xy, vec2(a, b));
+    highp float sn = mod(dt, 3.14);
     return fract(sin(sn) * c);
 }
 
@@ -82,6 +76,7 @@ float lerp(float a, float b, float t) {
 }
 
 vec3 get_uv_clr (vec2 uv) {
+    uv = uv + spawn.xy;
     float shift_len = pow(rand(uv.xy*20.0), 10.) * far_grain;
     float shift_angle = pow(rand(uv.xy*10.0), 3.) * PI * 2.0;
     vec2 shift = vec2(cos(shift_angle), sin(shift_angle)) * shift_len;
@@ -92,9 +87,9 @@ vec3 get_uv_clr (vec2 uv) {
 
     uv = uv + shift2 + shift;
 
-    float n1 = distance(uv.xy, g1_coords) + snoise(vec2(uv.x * -1.0, uv.y)) * 0.3;
-    float n2 = distance(uv.xy, g2_coords) + snoise(vec2(uv.x, uv.y * -1.0)) * 0.3;
-    float n3 = distance(uv.xy, g3_coords) + snoise(vec2(uv.x, uv.y)) * 0.3;
+    float n1 = distance(uv.xy, g1_coords + spawn.xy) + snoise(vec2(uv.x * -1.0, uv.y)) * 0.3;
+    float n2 = distance(uv.xy, g2_coords + spawn.xy) + snoise(vec2(uv.x, uv.y * -1.0)) * 0.3;
+    float n3 = distance(uv.xy, g3_coords + spawn.xy) + snoise(vec2(uv.x, uv.y)) * 0.3;
 
     float min_n = min(n1, min(n2, n3));
     vec3 closest_clr = vec3(0.0);
@@ -113,7 +108,7 @@ vec3 get_uv_clr (vec2 uv) {
 void main() {
     vec2 uv = vec2((gl_FragCoord.x - start.x) / size.x, gl_FragCoord.y / size.y);
     uv.x = uv.x * size_div;
-    uv.xy = uv.xy * 0.9;
+    uv = uv.xy * 0.9;
     
     vec3 c2 = get_uv_clr(uv.xy + vec2(blur_size, 0));
     vec3 c3 = get_uv_clr(uv + vec2(-blur_size, 0));
@@ -141,7 +136,6 @@ void main() {
     vec3 clr4 = mix(mix(c14, c15, 0.5), mix(c16, c17, 0.5), 0.5);
 
     gl_FragColor = vec4((clr1 + clr2 + clr3 + clr4) / 4.0, 1.0);
-    // gl_FragColor = vec4(uv.x, uv.x, uv.x, 1.0);
 }
 `;
 
@@ -187,7 +181,6 @@ export function drawGradients(
 
   const initStart = performance.now();
   const rects = subcanvases.length;
-  // const mainCanvas = new OffscreenCanvas(w * rects, h);
   const mainCanvas = subcanvases[0];
   const gl = mainCanvas.getContext("webgl")!;
 
@@ -240,6 +233,7 @@ export function drawGradients(
   const far_grain = gl.getUniformLocation(progDraw, "far_grain");
   const close_grain = gl.getUniformLocation(progDraw, "close_grain");
   const size = gl.getUniformLocation(progDraw, "size");
+  const spawn = gl.getUniformLocation(progDraw, "spawn");
   const start = gl.getUniformLocation(progDraw, "start");
   const g1_clr = gl.getUniformLocation(progDraw, "g1_clr");
   const g1_coords = gl.getUniformLocation(progDraw, "g1_coords");
@@ -286,6 +280,7 @@ export function drawGradients(
       gl.DYNAMIC_DRAW,
     );
 
+    // gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
     gl.enableVertexAttribArray(inPos);
     gl.vertexAttribPointer(inPos, 2, gl.FLOAT, false, 0, 0);
 
@@ -300,6 +295,7 @@ export function drawGradients(
     gl.uniform1f(far_grain, 0.3); // grain for inner parts of shapes
     gl.uniform1f(close_grain, 0.09); // grain for smoothing shapes between lines
     gl.uniform2f(size, w, h);
+    gl.uniform2f(spawn, Math.random() * 3.0, Math.random() * 3.0);
     gl.uniform2f(start, w * rectNum, h);
     gl.uniform3f(g1_clr, ...g1.clr);
     gl.uniform2f(g1_coords, ...g1.coords);
@@ -314,19 +310,10 @@ export function drawGradients(
     gl.drawElements(gl.TRIANGLES, inx.length, gl.UNSIGNED_SHORT, 0);
     log(`draw took ${performance.now() - drawStart} ms`);
 
-    // const copyStart = performance.now();
-    // const subcanvas = subcanvases[rectNum];
-    // subcanvas
-    //   .getContext("2d", { alpha: false })!
-    //   .drawImage(mainCanvas, w * rectNum, 0, w, h, 0, 0, w, h);
-    // log(`copy took ${performance.now() - copyStart} ms`);
-
     gl.deleteBuffer(bufObj.pos);
     gl.deleteBuffer(bufObj.inx);
   }
 
-  // mainCanvas.width = 1;
-  // mainCanvas.height = 1;
   gl.deleteShader(vertShader);
   gl.deleteShader(fragShader);
   gl.deleteProgram(progDraw);
