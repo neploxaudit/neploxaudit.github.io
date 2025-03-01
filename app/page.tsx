@@ -29,9 +29,9 @@ const team = [
     ],
   },
   {
-    name: "Vsevolod",
+    name: "Seva",
     nickname: "Slonser",
-    description: "Security Researcher to the very core & a profitable Bug Bounty Hunter with a number of&thinsp;<span class='landing-highlight'> CVE </span>&thinsp;registered on his name.<br /><br />Seva makes the world a safer place by catching & reporting &thinsp;<span class='landing-highlight'> 0-day </span>&thinsp; vulnerabilities in products used by millions of users every day, including <span class='font-normal'>Metamask</span>, <span class='font-normal'>Tonkeeper</span>, <span class='font-normal'>Chromium</span>, <span class='font-normal'>Gmail</span>, <span class='font-normal'>Outlook</span> and <span class='font-normal'>DOMPurify</span>.",
+    description: "Security Researcher to the very core & a profitable Bug Bounty Hunter with a number of&thinsp;<span class='landing-highlight'> CVEs </span>&thinsp;registered on his name.<br /><br />Seva makes the world a safer place by catching & reporting &thinsp;<span class='landing-highlight'> 0-day </span>&thinsp; vulnerabilities in products used by millions of users every day, including <span class='font-normal'>Metamask</span>, <span class='font-normal'>Tonkeeper</span>, <span class='font-normal'>Chromium</span>, <span class='font-normal'>Gmail</span>, <span class='font-normal'>Outlook</span> and <span class='font-normal'>DOMPurify</span>.",
     src: "images/slonser.png",
     skills: ["CTF", "Speaker", "Bug Bounty", "0-day", "Research"],
     socials: [
@@ -291,10 +291,10 @@ export default function Landing() {
       </div>
       <div className="mt-20 pb-8">
         <h1 className="uppercase text-2xl text-center mb-6">Contact us</h1>
-        <form action="#" className="mx-auto space-y-4 max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+        <form action="https://form.neplox.security/contact" method="POST" className="mx-auto space-y-4 max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
           <div>
               <label className="font-sans font-light text-md lg:text-lg xl:text-xl">Subject</label>
-              <select id="subject" className="mt-2 block px-4 py-3 w-full text-sm lg:text-md xl:text-lg text-gray-900 bg-gray-50 rounded-xl outline outline-gray-300 focus:ring-theme-500 focus:outline-theme-500 dark:bg-gray-700 dark:outline-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-theme-500 dark:focus:outline-theme-500 dark:shadow-sm-light border border-transparent border-0 border-r-8 hover:cursor-pointer" onChange={(e) => {setSubject(subjectHint[e.target.value as keyof typeof subjectHint])}} defaultValue="" required>
+              <select name="subject" id="subject" className="mt-2 block px-4 py-3 w-full text-sm lg:text-md xl:text-lg text-gray-900 bg-gray-50 rounded-xl outline outline-gray-300 focus:ring-theme-500 focus:outline-theme-500 dark:bg-gray-700 dark:outline-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-theme-500 dark:focus:outline-theme-500 dark:shadow-sm-light border border-transparent border-0 border-r-8 hover:cursor-pointer" onChange={(e) => {setSubject(subjectHint[e.target.value as keyof typeof subjectHint])}} defaultValue="" required>
                 <option value="" disabled>Let us know how we can help you</option>
                 <option value="audit">Neplox, audit our product</option>
                 <option value="event">Neplox, help us organize an event</option>
@@ -307,12 +307,12 @@ export default function Landing() {
           </div>
           <div className="sm:col-span-2">
               <label className="font-sans font-light text-md lg:text-lg xl:text-xl">Your message</label>
-              <textarea id="message" className="mt-2 block px-4 py-3 w-full text-sm lg:text-md xl:text-lg text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-theme-500 focus:border-theme-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-theme-500 dark:focus:border-theme-500 h-32" placeholder="Leave a comment, a link to the repository or anything else that you find useful." required></textarea>
+              <textarea name="message" id="message" className="mt-2 block px-4 py-3 w-full text-sm lg:text-md xl:text-lg text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-theme-500 focus:border-theme-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-theme-500 dark:focus:border-theme-500 h-32" placeholder="Leave a comment, a link to the repository or anything else that you find useful." required></textarea>
           </div>
           <div>
               <label className="font-sans font-light text-md lg:text-lg xl:text-xl">Your contacts</label>
               <p className="font-sans font-light text-sm lg:text-md xl:text-lg opacity-60">How can we message you back?</p>
-              <input type="text" id="contacts" className="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm lg:text-md xl:text-lg rounded-xl focus:ring-theme-500 focus:border-theme-500 block w-full px-4 py-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-theme-500 dark:focus:border-theme-500 dark:shadow-sm-light" placeholder="Crazy Man, crazymanarmy@company.com" required/>
+              <input name="contacts" type="text" id="contacts" className="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm lg:text-md xl:text-lg rounded-xl focus:ring-theme-500 focus:border-theme-500 block w-full px-4 py-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-theme-500 dark:focus:border-theme-500 dark:shadow-sm-light" placeholder="Crazy Man, crazymanarmy@company.com" required/>
           </div>
           <div className="text-right">
             <button type="submit" className="uppercase font-sans font-normal text-md lg:text-lg xl:text-xl bg-theme py-2 px-4 text-background hover:scale-110 transition-transform duration-300 rounded-3xl rounded-tl-none hover:cursor-pointer">Send message</button>
