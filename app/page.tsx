@@ -194,7 +194,7 @@ export default function Landing() {
       </header>
 
       <div className="mt-20">
-        <h1 className="mb-6 text-center font-sans text-2xl font-normal uppercase">
+        <h1 className="mb-6 text-center font-theme-sans text-2xl font-normal uppercase">
           Core team
         </h1>
         <div className="flex flex-wrap justify-center space-x-4">
@@ -217,19 +217,19 @@ export default function Landing() {
                 width={819}
                 height={819}
               />
-              <p className="text-md mt-6 font-sans font-normal">
+              <p className="text-md mt-6 font-theme-sans font-normal">
                 <b className="theme-highlight text-md landing-highlight px-8 py-1 md:text-lg lg:text-xl">
                   {member.name}
                 </b>
               </p>
-              <span className="font-sans text-sm font-light opacity-75">
+              <span className="font-theme-sans text-sm font-light opacity-75">
                 @{member.nickname}
               </span>
               <p
-                className="lg:text-md my-4 text-justify font-sans text-sm font-light xl:text-lg"
+                className="lg:text-md my-4 text-justify font-theme-sans text-sm font-light xl:text-lg"
                 dangerouslySetInnerHTML={{ __html: member.description }}
               ></p>
-              <p className="mb-6 flex flex-wrap justify-center text-center font-sans text-xs font-light">
+              <p className="mb-6 flex flex-wrap justify-center text-center font-theme-sans text-xs font-light">
                 {member.skills.map((skill) => (
                   <b
                     key={member.nickname + skill}
@@ -260,7 +260,7 @@ export default function Landing() {
         </div>
       </div>
       <div className="mt-20">
-        <h1 className="mb-10 text-center font-sans text-2xl font-normal uppercase">
+        <h1 className="mb-10 text-center font-theme-sans text-2xl font-normal uppercase">
           About us
         </h1>
         <p className="m-auto my-8 px-4 text-justify font-theme-serif leading-relaxed font-normal sm:max-w-lg md:max-w-2xl lg:max-w-3xl lg:text-lg xl:max-w-4xl xl:text-xl">
@@ -268,7 +268,7 @@ export default function Landing() {
           consists of active members of the{" "}
           <a
             href="https://ctftime.org/team/83435/"
-            className="font-sans font-normal underline"
+            className="font-theme-sans font-normal underline"
           >
             C4TBuTS4D
           </a>{" "}
@@ -286,7 +286,7 @@ export default function Landing() {
             />
           </div>
           <div className="order-2 col-span-2 flex justify-center">
-            <ul className="md:text-md landing-achievements mt-0 w-fit list-none text-justify font-sans font-light md:mt-10 lg:text-lg xl:text-xl">
+            <ul className="md:text-md landing-achievements mt-0 w-fit list-none text-justify font-theme-sans font-light md:mt-10 lg:text-lg xl:text-xl">
               <li className="landing-highlight mb-2 w-fit border border-theme px-1 py-1 md:px-4 lg:px-8">
                 #<b>1</b>st in <b>GoogleCTF</b>{" "}
                 <span className="opacity-60">@ Tokyo</span>
@@ -323,7 +323,7 @@ export default function Landing() {
             />
           </div>
           <div className="order-7 col-span-3 float-right grid text-right md:order-6 md:col-span-2">
-            <ul className="md:text-md landing-achievements list-none pt-0 font-sans font-light md:pt-16 lg:text-lg xl:text-xl">
+            <ul className="md:text-md landing-achievements list-none pt-0 font-theme-sans font-light md:pt-16 lg:text-lg xl:text-xl">
               <li className="landing-highlight mb-2 w-fit border border-theme px-1 py-1 md:px-4 lg:px-8">
                 <b>Attacks on Crypto Wallets</b>, SECCON{" "}
                 <span className="opacity-60">@ Japan</span>
@@ -374,7 +374,7 @@ export default function Landing() {
           className="mx-auto max-w-md space-y-4 md:max-w-lg lg:max-w-xl xl:max-w-2xl"
         >
           <div>
-            <label className="text-md font-sans font-light lg:text-lg xl:text-xl">
+            <label className="text-md font-theme-sans font-light lg:text-lg xl:text-xl">
               Subject
             </label>
             <select
@@ -402,12 +402,12 @@ export default function Landing() {
               <option value="else">Neplox, it&apos;s not that simple</option>
             </select>
             <p
-              className="lg:text-md mt-2 font-sans text-sm font-light opacity-60 xl:text-lg"
+              className="lg:text-md mt-2 font-theme-sans text-sm font-light opacity-60 xl:text-lg"
               dangerouslySetInnerHTML={{ __html: subject }}
             ></p>
           </div>
           <div className="sm:col-span-2">
-            <label className="text-md font-sans font-light lg:text-lg xl:text-xl">
+            <label className="text-md font-theme-sans font-light lg:text-lg xl:text-xl">
               Your message
             </label>
             <textarea
@@ -419,10 +419,10 @@ export default function Landing() {
             ></textarea>
           </div>
           <div>
-            <label className="text-md font-sans font-light lg:text-lg xl:text-xl">
+            <label className="text-md font-theme-sans font-light lg:text-lg xl:text-xl">
               Your contacts
             </label>
-            <p className="lg:text-md font-sans text-sm font-light opacity-60 xl:text-lg">
+            <p className="lg:text-md font-theme-sans text-sm font-light opacity-60 xl:text-lg">
               How can we message you back?
             </p>
             <input
@@ -437,7 +437,7 @@ export default function Landing() {
           <div className="text-right">
             <button
               type="submit"
-              className="text-md text-background rounded-3xl rounded-tl-none bg-theme px-4 py-2 font-sans font-normal uppercase transition-transform duration-300 hover:scale-110 hover:cursor-pointer lg:text-lg xl:text-xl"
+              className="text-md text-background rounded-3xl rounded-tl-none bg-theme px-4 py-2 font-theme-sans font-normal uppercase transition-transform duration-300 hover:scale-110 hover:cursor-pointer lg:text-lg xl:text-xl"
             >
               Send message
             </button>
