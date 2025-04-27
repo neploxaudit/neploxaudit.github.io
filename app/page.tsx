@@ -352,7 +352,7 @@ export default function Landing() {
             />
           </div>
           <div className="order-5 col-span-1 grid md:order-7 md:col-span-2">
-            <p className="theme-highlight absolute z-10 -mt-2 -ml-48 rounded-3xl rounded-bl-none px-8 py-2 text-center font-horizon text-xl uppercase transition-transform duration-300 hover:scale-110 hover:cursor-pointer md:-ml-40 md:text-2xl lg:-ml-36 lg:text-3xl xl:text-4xl">
+            <p className="theme-highlight absolute z-10 -mt-2 -ml-56 rounded-3xl rounded-bl-none px-8 py-2 text-center font-horizon text-lg uppercase transition-transform duration-300 hover:scale-110 hover:cursor-pointer md:-ml-40 md:text-2xl lg:-ml-36 lg:text-3xl xl:text-4xl">
               <FaArrowTurnDown className="inline -scale-x-100 opacity-90" />
               &emsp;OUR RESEARCH
             </p>
