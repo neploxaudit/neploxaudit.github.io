@@ -158,8 +158,7 @@
     var(--color-surface) 50%,
     var(--color-theme) 50%
   );
-  -webkit-transition: background-position 1s;
-  -moz-transition: background-position 1s;
+  transition: background-position 1s;
 }
 
 .landing-member:hover .landing-highlight,
@@ -171,7 +170,8 @@
 .landing-animation {
   transform: scale(0.75);
   transition: transform 0.5s ease-in-out;
-  filter: invert(48%) sepia(91%) saturate(5422%) hue-rotate(14deg) brightness(106%) contrast(99%);
+  filter: invert(48%) sepia(91%) saturate(5422%) hue-rotate(14deg)
+    brightness(106%) contrast(99%);
 }
 
 .landing-member:hover .landing-animation {
