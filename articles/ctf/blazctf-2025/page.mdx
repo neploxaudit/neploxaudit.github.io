@@ -1,24 +1,68 @@
 # Ciao
 
 > [!NOTE]
-> [🟢]&ensp;**WELCOME**:&emsp;`193` solves
+> **WELCOME**:&emsp;`193` solves
 
-Ciao is a **welcome** challenge released at the very beginning of the **BlazCTF**. This is a textbook example of a **sanity check** CTF task. Its description implies that participants must look closely at the given transaction to discover _a hidden treasure_.<br />
+Ciao is a **welcome** challenge released at the very beginning of the **BlazCTF**. This is a textbook example of a **sanity check** CTF task. Its description implies that participants must look closely at the given transaction to discover _a hidden treasure_.
 
-+ [💡]&ensp;A hint* added to the description states that participants should have a look specifically at the **calls** within the transaction, with the use of an _explorer_.
+[💡]&ensp;A hint* added to the description states that participants should have a look specifically at the **calls** within the transaction, with the use of an _explorer_.
 
-> Tony, a web3 whiz, scoured blockchain transactions for hidden treasures. His diligence struck gold when he uncovered [a lucrative transaction](https://arbiscan.io/tx/0xd58271ed821a19fa5af95245e2be55782cad67f46556aa437e1af157267ce6d4) others had overlooked.<br />
+Test bullet list:
+- test test
+- test test
+  - test test
+    - test test
+
+Test numbered list:
+1. test test
+2. test test
+   1. test test
+      1. test test
+3. test test
+   1. test test
+   2. test test
+
+> Tony, a web3 whiz, scoured blockchain transactions for hidden treasures. His diligence struck gold when he uncovered [a lucrative transaction](https://arbiscan.io/tx/0xd58271ed821a19fa5af95245e2be55782cad67f46556aa437e1af157267ce6d4) others had overlooked.
 > 
 > *Hint: [Try Sentio Explorer and see what is called!](https://app.sentio.xyz/tx/42161/0xd58271ed821a19fa5af95245e2be55782cad67f46556aa437e1af157267ce6d4)
 
-```solidity
-print("Hello, World!")
+```sol title="solution.sol" test="test"
+pragma solidity ^0.4.23;
+
+contract Migrations {
+  address public owner;
+  uint public last_completed_migration;
+
+  constructor() public {
+    owner = msg.sender;
+  }
+
+  modifier restricted() {
+    if (msg.sender == owner) _;
+  }
+
+  function setCompleted(uint completed) public restricted {
+    last_completed_migration = completed;
+  }
+
+  function upgrade(address new_address) public restricted {
+    Migrations upgraded = Migrations(new_address);
+    upgraded.setCompleted(last_completed_migration);
+  }
+}
 ```
 
-<br />
+```html title="webpage.html"
+<blockquote>
+<p>Tony, a web3 whiz, scoured blockchain transactions for hidden treasures. His diligence struck gold when he uncovered <a href="https://arbiscan.io/tx/0xd58271ed821a19fa5af95245e2be55782cad67f46556aa437e1af157267ce6d4">a lucrative transaction</a> others had overlooked.<br></p>
+<p>*Hint: <a href="https://app.sentio.xyz/tx/42161/0xd58271ed821a19fa5af95245e2be55782cad67f46556aa437e1af157267ce6d4">Try Sentio Explorer and see what is called!</a></p>
+</blockquote>
+```
 
 ## 📑&ensp;TLDR
 The transaction has input data appended to it. This data is a hexadecimal string that may be converted to text, which contains the flag.
+
+![This is an alternative text number 1](blazctf-2025-flag.png)
 
 ---
 
@@ -47,16 +91,10 @@ private key value, `0x1337`.
 > [!NOTE]
 > [🟢]&ensp;**EASY**:&emsp;`35` solves
 
-<br />
-
 Cyber Cartel was an **easy**-difficulty challenge released in the midst of the **BlazCTF**. <br/><br/> Its description introduces participants to the main ideas behind the task: it tells about the _**multisig**_ "treasury" and the _**3 guardians**_, one of whom is the _participant themself_.
-
-<br />
 
 > Malone, Wiz and Box recently robbed a billionaire and deposited their proceeds into a multisig treasury.
 > And who is Box? The genius hacker behind everything. He's gonna rob his friends...
-
-<br />
 
 ## 📑&ensp;TLDR
 `CartelTreasury`'s contract `doom()` method transfers all of the `TREASURY`'s money to the caller's address, but it is `guarded` by a "multisig" `BodyGuard` contract. Since `signatures` are accepted no matter the size, whilst `recoverSigner` extracts the `v` / `r` / `s` components of constant length (`32 bytes`) and  `validateSignatures` compares signatures based on their `keccak256` hashes → it is possible to append "garbage" bytes to the same signature and successfully pass the multisig to call `doom()`.
@@ -154,6 +192,8 @@ By executing this mechanism in a carefully-crafted call from our own contract,
 we can get the bot to transfer arbitrary tokens to us by returning the desired token
 address from the `token0()` method of our contract.
 
+![Alternative text number 2 By executing this mechanism in a carefully-crafted call from our own contract, we can get the bot to transfer arbitrary tokens to us by returning the desired token address from the `token0()` method of our contract.](blazctf-2025-1.png)
+
 ---
 
 # solalloc
@@ -178,4 +218,3 @@ The custom `BlazAllocator` allows overflowing the free memory pointer
 by passing a large size value to the `malloc` implementation,
 which can be utilized to overwrite the `caller_key` stack variable in order
 to impersonate the admin and drain funds from the challenge's balance.
-`;

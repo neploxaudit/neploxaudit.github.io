@@ -13,7 +13,10 @@ const nextConfig = {
 const withMDX = createMDX({
   options: {
     remarkPlugins: [],
-    rehypePlugins: [["rehype-highlight", {}]],
+    rehypePlugins: [
+      ["rehype-mdx-import-media", {}],
+      ["rehype-highlight", {}],
+    ],
   },
 });
 
