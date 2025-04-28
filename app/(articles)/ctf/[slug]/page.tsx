@@ -18,7 +18,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
   );
 
   return (
-    <main className="my-8 prose font-theme-sans font-normal text-element">
+    <main className="prose-theme-light dark:prose-theme-dark my-8 prose">
       <Article />
     </main>
   );
