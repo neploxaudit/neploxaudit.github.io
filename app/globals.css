@@ -1,9 +1,30 @@
 @import "tailwindcss";
 
 :root {
+  --theme-raisin-100: oklch(92% 0.007 330);
+  --theme-raisin-200: oklch(87% 0.008 330);
+  --theme-raisin-300: oklch(75% 0.009 320);
+  --theme-raisin-400: oklch(58% 0.014 315);
+  --theme-raisin-500: oklch(47% 0.016 310);
+  --theme-raisin-600: oklch(39% 0.014 315);
+  --theme-raisin-700: oklch(33% 0.011 317.25);
+  --theme-raisin-800: oklch(29% 0.009 320);
+  --theme-raisin-900: oklch(25.5% 0.008 330);
+  --theme-raisin-950: oklch(17.5% 0.006 336);
+
+  --theme-stone-100: oklch(97% 0.007 90);
+  --theme-stone-200: oklch(95% 0.01 95);
+  --theme-stone-300: oklch(94.16% 0.0148 98.29);
+  --theme-stone-400: oklch(87% 0.016 100);
+  --theme-stone-500: oklch(73% 0.014 95);
+  --theme-stone-600: oklch(50% 0.01 92);
+  --theme-stone-700: oklch(40% 0.008 90);
+  --theme-stone-800: oklch(33% 0.008 88);
+  --theme-stone-900: oklch(29% 0.007 88);
+
   --theme: oklch(65.5% 0.1995 41.5);
-  --theme-light: oklch(94.16% 0.0148 98.29);
-  --theme-dark: oklch(25.5% 0.008 330);
+  --theme-light: var(--theme-stone-300);
+  --theme-dark: var(--theme-raisin-900);
 
   --surface: var(--theme-light);
   --element: var(--theme-dark);
@@ -38,6 +59,27 @@
 }
 
 @theme inline {
+  --color-raisin-100: var(--theme-raisin-100);
+  --color-raisin-200: var(--theme-raisin-200);
+  --color-raisin-300: var(--theme-raisin-300);
+  --color-raisin-400: var(--theme-raisin-400);
+  --color-raisin-500: var(--theme-raisin-500);
+  --color-raisin-600: var(--theme-raisin-600);
+  --color-raisin-700: var(--theme-raisin-700);
+  --color-raisin-800: var(--theme-raisin-800);
+  --color-raisin-900: var(--theme-raisin-900);
+  --color-raisin-950: var(--theme-raisin-950);
+
+  --color-stone-100: var(--theme-stone-100);
+  --color-stone-200: var(--theme-stone-200);
+  --color-stone-300: var(--theme-stone-300);
+  --color-stone-400: var(--theme-stone-400);
+  --color-stone-500: var(--theme-stone-500);
+  --color-stone-600: var(--theme-stone-600);
+  --color-stone-700: var(--theme-stone-700);
+  --color-stone-800: var(--theme-stone-800);
+  --color-stone-900: var(--theme-stone-900);
+
   --color-theme: var(--theme);
   --color-surface: var(--surface);
   --color-element: var(--element);
