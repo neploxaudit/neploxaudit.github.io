@@ -15,6 +15,7 @@ const withMDX = createMDX({
     remarkPlugins: [],
     rehypePlugins: [
       ["rehype-mdx-import-media", {}],
+      ["remark-gfm", {}],
       ["rehype-highlight", {}],
     ],
   },

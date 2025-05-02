@@ -67,7 +67,7 @@ export default function ArticlePreview({
             backgroundColor: "oklch(from var(--element) l c h / 0.2)",
             opacity: locking ? 1 : undefined,
           }}
-          className={`article-preview-card relative flex aspect-[16/10] h-auto w-full flex-col items-end justify-between rounded-xl px-6 py-4 transition select-none ${hidden && "opacity-85 grayscale-32"}`}
+          className={`article-preview-card relative flex aspect-16/10 h-auto w-full flex-col items-end justify-between rounded-xl px-6 py-4 transition select-none ${hidden && "opacity-85 grayscale-32"}`}
           title={hidden ? undefined : title}
         >
           <canvas

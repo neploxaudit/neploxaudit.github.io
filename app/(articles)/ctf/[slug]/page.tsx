@@ -17,36 +17,36 @@ type Params = {
 
 export default async function ArticlePage({ params }: { params: Params }) {
   const { default: Article } = await import(
-    `@/articles/ctf/${params.slug}/page.mdx`
+    `@/articles/ctf/${params.slug}/README.mdx`
   );
 
-  const _blockQuote = "prose-blockquote:my-8";
-  const blockQuote =
-    "prose-blockquote:mx-2 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:font-normal";
+  const quote =
+    "prose-blockquote:mx-2 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:bg-stone-300 prose-blockquote:dark:bg-raisin-800 prose-blockquote:font-normal prose-p:in-[blockquote]:first:pt-3 prose-p:in-[blockquote]:first:before:content-none prose-p:in-[blockquote]:last:after:content-none prose-p:in-[blockquote]:last:pb-3 prose-blockquote:rounded-tr-xs prose-blockquote:rounded-br-xs";
   const code =
-    "prose-code:not-[.hljs]:bg-element-10 prose-code:font-theme-mono prose-code:font-[500] prose-code:not-[.hljs]:rounded-lg prose-code:not-[.hljs]:px-2 prose-code:not-[.hljs]:py-1";
-  const pre =
-    "prose-pre:has-[.hljs]:mx-2 prose-pre:has-[.hljs]:my-6 prose-pre:has-[.hljs]:rounded-lg prose-pre:has-[.hljs]:p-8 prose-pre:has-[.hljs]:break-all";
+    "prose-code:before:content-none prose-code:after:content-none prose-code:font-theme-mono prose-code:font-medium prose-code:not-[.hljs]:wrap-anywhere prose-code:not-[.hljs]:bg-stone-350 prose-code:not-[.hljs]:dark:bg-raisin-700 prose-code:not-[.hljs]:px-[0.4em] prose-code:not-[.hljs]:py-[0.2em] prose-code:not-[.hljs]:rounded-lg";
+  const pre = "prose-pre:has-[.hljs]:rounded-lg";
   const ol = "prose-ol:pl-10 prose-ol:leading-6";
   const ul = "prose-ul:pl-10 prose-ul:leading-6";
-  const h1 = "prose-h1:mb-12 prose-h1:text-4xl";
-  const h2 = "prose-h2:mb-8 prose-h2:text-3xl";
-  const h3 = "prose-h3:text-2xl";
-  const h4 = "prose-h4:text-xl";
-  const h5 = "prose-h5:text-lg";
-  const p = "prose-p:p-1";
   const a =
-    "prose-a:font-[400] prose-a:text-theme prose-a:no-underline prose-a:hover:underline";
-  const strong = "prose-strong:font-[500]";
+    "prose-a:font-normal prose-a:text-theme prose-a:underline prose-a:wrap-anywhere";
+  const strong = "prose-strong:font-medium";
   const img =
-    "prose-img:m-auto prose-img:max-h-[75vh] prose-img:w-auto prose-img:rounded-lg";
-  const hr = "prose-hr:mx-auto prose-hr:mt-12 prose-hr:mb-16 prose-hr:w-4/5";
+    "prose-img:rounded-lg prose-img:mx-auto prose-img:max-h-[80vh] prose-img:w-auto prose-img:mx-auto";
+  const hr = "prose-hr:w-9/10 prose-hr:mx-auto";
 
   return (
     <main
       className={[
-        "prose-theme mx-auto my-8 prose w-4/5 text-pretty transition-all duration-300",
-        blockQuote,
+        "prose-theme mx-auto prose prose-sm mt-4 w-full max-w-none px-2 text-base text-pretty md:prose-base md:w-4/5 md:px-0 md:text-base lg:max-w-[100ch]",
+        quote,
+        code,
+        pre,
+        img,
+        hr,
+        ol,
+        ul,
+        a,
+        strong,
       ].join(" ")}
     >
       <Article />
