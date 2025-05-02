@@ -118,7 +118,7 @@ export default function Landing() {
           // 1. justify-self-center for centering the top horizontal NEPLOX text to the width of the logo,
           // which is bigger horizontally than it is vertically.
           // 2. text-[2rem] is the size of the social icons, we match this size on small layouts for consistency.
-          className="col-start-2 row-start-1 justify-self-center font-horizon text-[2rem] leading-none text-theme md:text-[min(10vh,6vw)]"
+          className="col-start-1 -col-end-1 row-start-1 justify-self-center font-horizon text-[2rem] leading-none text-theme sm:col-start-2 sm:col-end-auto md:text-[min(10vh,6vw)]"
         >
           NEPLOX
         </h1>
@@ -133,7 +133,7 @@ export default function Landing() {
         </h1>
         <Images.Logo
           // Extend vertically to the height of the sideways NEPLOX text, and automatically scale horizontally with the aspect ratio
-          className="col-start-2 row-start-2 mx-auto w-auto max-w-60 select-none md:max-w-full lg:h-full"
+          className="col-start-2 row-start-2 m-auto w-auto max-w-60 select-none md:max-w-full lg:h-full"
         />
 
         {/* Signature */}
