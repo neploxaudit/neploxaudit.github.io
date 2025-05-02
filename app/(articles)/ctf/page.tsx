@@ -1,5 +1,6 @@
 import { Article } from "../ArticlePreview";
 import PreviewBundle from "../PreviewBundle";
+import "./article-listing.css";
 
 function randomArticle(): Article {
   return {

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Mate, Rubik } from "next/font/google";
+import { JetBrains_Mono, Mate, Rubik } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -19,7 +19,7 @@ const themeSans = Rubik({
   subsets: ["latin"],
   display: "swap",
   variable: "--nextjs-font-theme-sans",
-  weight: ["300", "400", "700"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const themeSerif = Mate({
@@ -27,6 +27,13 @@ const themeSerif = Mate({
   display: "swap",
   variable: "--nextjs-font-theme-serif",
   weight: ["400"],
+});
+
+const themeMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--nextjs-font-theme-mono",
+  weight: ["300", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -67,7 +74,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${horizon.variable} ${horizonOutlined.variable} ${themeSans.variable} ${themeSerif.variable} bg-surface font-theme-sans text-element antialiased`}
+        className={`${horizon.variable} ${horizonOutlined.variable} ${themeSans.variable} ${themeSerif.variable} ${themeMono.variable} bg-surface font-theme-sans text-element antialiased`}
       >
         <div className="flex max-w-full flex-col gap-8 px-[4vw] pb-8 md:min-h-screen md:w-screen 2xl:px-[8vw]">
           {children}
