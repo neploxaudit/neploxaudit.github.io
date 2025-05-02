@@ -15,8 +15,8 @@
   --tw-prose-kbd: var(--theme-raisin-900);
   --tw-prose-kbd-shadows: rgb(from var(--theme-raisin-900) R G B);
   --tw-prose-code: var(--theme-raisin-900);
-  --tw-prose-pre-code: var(--theme-raisin-100);
-  --tw-prose-pre-bg: var(--theme-stone-900);
+  --tw-prose-pre-code: var(--theme-raisin-700);
+  --tw-prose-pre-bg: var(--theme-stone-300);
   --tw-prose-th-borders: var(--theme-raisin-300);
   --tw-prose-td-borders: var(--theme-raisin-200);
 
@@ -36,7 +36,7 @@
     --tw-prose-kbd-shadows: rgb(from var(--theme-stone-100) R G B);
     --tw-prose-code: var(--theme-stone-100);
     --tw-prose-pre-code: var(--theme-stone-200);
-    --tw-prose-pre-bg: var(--theme-raisin-950);
+    --tw-prose-pre-bg: var(--theme-raisin-800);
     --tw-prose-th-borders: var(--theme-stone-600);
     --tw-prose-td-borders: var(--theme-stone-700);
   }
