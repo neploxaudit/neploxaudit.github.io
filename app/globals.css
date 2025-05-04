@@ -13,6 +13,7 @@
   --theme-raisin-900: oklch(25.5% 0.008 330);
   --theme-raisin-950: oklch(17.5% 0.006 336);
 
+  --theme-stone-50: oklch(99.5% 0.003 95);
   --theme-stone-100: oklch(95% 0.01 95);
   --theme-stone-200: oklch(94.16% 0.0148 98.29);
   --theme-stone-300: oklch(92% 0.015 99.3);
@@ -72,6 +73,7 @@
   --color-raisin-900: var(--theme-raisin-900);
   --color-raisin-950: var(--theme-raisin-950);
 
+  --color-stone-50: var(--theme-stone-50);
   --color-stone-100: var(--theme-stone-100);
   --color-stone-200: var(--theme-stone-200);
   --color-stone-300: var(--theme-stone-300);
@@ -190,7 +192,7 @@
 }
 
 .theme-highlight {
-  color: var(--color-surface);
+  color: var(--color-stone-200);
   font-weight: 400;
   white-space: nowrap;
   background-color: var(--color-theme);
@@ -209,17 +211,22 @@
 
 .landing-member:hover .landing-highlight,
 .landing-achievements:hover .landing-highlight {
-  color: var(--color-surface);
+  color: var(--theme-stone-200);
   background-position: -100% 0;
 }
 
-.landing-animation {
-  transform: scale(0.75);
-  transition: transform 0.5s ease-in-out;
-  filter: invert(48%) sepia(91%) saturate(5422%) hue-rotate(14deg)
-    brightness(106%) contrast(99%);
-}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg width='32px' height='32px' viewBox='0 0 24 24' fill='%23494843' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z'/></svg>");
+  background-size: 16px;
+  background-position: calc(100% - 20px) center;
+  background-repeat: no-repeat;
 
-.landing-member:hover .landing-animation {
-  transform: rotate(30deg) scale(1.1);
+  background-color: var(--theme-stone-50);
+  @variant dark {
+    background-image: url("data:image/svg+xml;utf8,<svg width='32px' height='32px' viewBox='0 0 24 24' fill='%237d7880' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M12.7071 14.7071C12.3166 15.0976 11.6834 15.0976 11.2929 14.7071L6.29289 9.70711C5.90237 9.31658 5.90237 8.68342 6.29289 8.29289C6.68342 7.90237 7.31658 7.90237 7.70711 8.29289L12 12.5858L16.2929 8.29289C16.6834 7.90237 17.3166 7.90237 17.7071 8.29289C18.0976 8.68342 18.0976 9.31658 17.7071 9.70711L12.7071 14.7071Z'/></svg>");
+    background-color: var(--theme-raisin-800);
+  }
 }
