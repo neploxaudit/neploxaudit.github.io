@@ -6,10 +6,14 @@ import Socials from "@/app/components/Socials";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  PiArrowBendLeftDownBold,
   PiArrowBendLeftDownLight,
   PiArrowBendRightUpLight,
   PiArrowLineUpBold,
+  PiChats,
+  PiCode,
   PiLinkLight,
+  PiMagnifyingGlass,
 } from "react-icons/pi";
 import Footer from "./components/Footer";
 import Signature from "./components/Signature";
@@ -18,7 +22,7 @@ import qwqoro from "@/public/images/qwqoro.png";
 import renbou from "@/public/images/renbou.png";
 import slonser from "@/public/images/slonser.png";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const DescHighlight = ({ children }: { children: React.ReactNode }) => (
   <strong className="landing-highlight font-light whitespace-nowrap">
@@ -155,6 +159,7 @@ export default function Landing() {
   };
 
   const [subject, setSubject] = useState<keyof typeof subjectHint>("audit");
+  const contactUsRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -206,32 +211,22 @@ export default function Landing() {
         <div className="col-start-1 -col-end-1 row-start-5 flex min-h-0 flex-col items-center justify-evenly gap-y-6 md:col-start-3 md:col-end-auto md:row-start-2">
           <p className="max-w-lg text-justify font-theme-serif leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
             Formed by like-minded, top-tier{" "}
-            <b className="text-highlight text-stone-200">
+            <b className="text-highlight">
               &thinsp;security researchers&thinsp;
             </b>{" "}
             from diverse backgrounds, the{" "}
             <b className="font-theme-sans font-medium text-theme">Neplox</b>{" "}
             team is fueled by{" "}
-            <b className="text-highlight text-stone-200">
-              &thinsp;curiosity&thinsp;
-            </b>{" "}
-            to explore and{" "}
-            <b className="text-highlight text-stone-200">
-              &thinsp;secure&thinsp;
-            </b>{" "}
+            <b className="text-highlight">&thinsp;curiosity&thinsp;</b> to
+            explore and <b className="text-highlight">&thinsp;secure&thinsp;</b>{" "}
             modern systems.
           </p>
           <p className="max-w-lg text-justify font-theme-serif leading-relaxed font-normal lg:text-lg/7 xl:text-xl/7">
             From international CTF winners to hardened reverse engineers and bug
             bounty hunters, our unique skillsets come together to offer a{" "}
-            <b className="text-highlight text-stone-200">
-              &thinsp;fresh perspective&thinsp;
-            </b>{" "}
+            <b className="text-highlight">&thinsp;fresh perspective&thinsp;</b>{" "}
             on the security of{" "}
-            <b className="text-highlight text-stone-200">
-              &thinsp;Web3&thinsp;
-            </b>{" "}
-            ecosystems.
+            <b className="text-highlight">&thinsp;Web3&thinsp;</b> ecosystems.
           </p>
         </div>
 
@@ -250,11 +245,107 @@ export default function Landing() {
         </div>
       </header>
 
+      {/* Contact us */}
+      <button
+        className="my-8 w-full rounded-3xl rounded-br-none border-2 border-theme bg-surface py-3 text-center font-theme-sans font-medium text-theme transition duration-300 hover:cursor-pointer hover:bg-theme hover:text-surface lg:w-56 lg:text-lg"
+        onClick={() =>
+          contactUsRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          })
+        }
+      >
+        <PiArrowBendLeftDownBold
+          className="inline align-middle font-bold"
+          size="1.2em"
+        />
+        <span className="align-middle">&ensp;CONTACT US</span>
+      </button>
+
+      {/* Skills */}
+      <div className="flex flex-col gap-11">
+        <div>
+          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase xl:text-2xl">
+            <PiChats className="inline align-top text-3xl xl:text-5xl" />{" "}
+            <span
+              className="font-horizon-outlined"
+              style={{
+                WebkitTextStrokeWidth: "0.05em",
+              }}
+            >
+              We
+            </span>{" "}
+            <strong>Guide</strong>
+          </h2>
+          <p className="mx-2 mt-3 border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto">
+            With <b className="text-highlight">&thinsp;senior-level&thinsp;</b>{" "}
+            cloud security and infrastructure engineers on our team, we can
+            guide your project from the ground up, preventing architectural
+            issues which could otherwise become detrimental to your success.
+          </p>
+        </div>
+        <div>
+          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase xl:text-2xl">
+            <PiCode className="inline align-middle text-3xl xl:text-5xl" />{" "}
+            <strong>Web2</strong>
+            <span className="font-theme-sans text-3xl">/</span>
+            <strong>3</strong>{" "}
+            <span
+              className="font-horizon-outlined"
+              style={{
+                WebkitTextStrokeWidth: "0.05em",
+              }}
+            >
+              Audit
+            </span>
+          </h2>
+          <div className="mx-2 mt-3 flex flex-col gap-y-2 border-l-4 border-stone-500 py-1 pl-3">
+            <p className="text-justify font-theme-serif leading-relaxed font-normal hyphens-auto">
+              Our auditors come from AppSec / Penetration Testing backgrounds,
+              with expertise formed through{" "}
+              <b className="text-highlight">&thinsp;over 100 audits&thinsp;</b>{" "}
+              of classic Web2 products over the years.
+            </p>
+            <p className="text-justify font-theme-serif leading-relaxed font-normal hyphens-auto">
+              By applying this experience alongside our{" "}
+              <b className="text-highlight">
+                &thinsp;competitive mindset&thinsp;
+              </b>{" "}
+              as one of the top CTF teams in the world, we are able to secure
+              innovative systems before they become mainstream.
+            </p>
+          </div>
+        </div>
+        <div>
+          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase xl:text-2xl">
+            <PiMagnifyingGlass className="inline align-top text-3xl xl:text-5xl" />{" "}
+            <span
+              className="font-horizon-outlined"
+              style={{
+                WebkitTextStrokeWidth: "0.05em",
+              }}
+            >
+              We
+            </span>{" "}
+            <strong>Research</strong>
+          </h2>
+          <p className="mx-2 mt-3 border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto">
+            We don't blindly trust even renowned libraries and products. With
+            zero-day vulnerabilities reported to{" "}
+            <span className="text-highlight">
+              &thinsp;leading vendors&thinsp;
+            </span>
+            , we dig deep into the ecosystem to protect your project from from
+            unconventional attack vectors before they are exploited.
+          </p>
+        </div>
+      </div>
+
       {/* Core team */}
       <div className="mt-16">
-        <h1 className="mb-8 text-center font-horizon text-4xl uppercase">
+        <h2 className="mb-8 text-center font-horizon text-[2rem] uppercase">
           Core team
-        </h1>
+        </h2>
         <div className="flex flex-wrap justify-center gap-6 lg:gap-10 xl:gap-16">
           {team.map((member) => (
             <div
@@ -310,9 +401,9 @@ export default function Landing() {
 
       {/* About us */}
       <div className="mt-16">
-        <h1 className="mb-8 text-center font-horizon text-4xl uppercase">
+        <h2 className="mb-8 text-center font-horizon text-[2rem] uppercase">
           About us
-        </h1>
+        </h2>
         <p className="mx-auto mb-8 px-4 text-justify font-theme-serif leading-relaxed font-normal sm:max-w-lg md:max-w-2xl lg:max-w-3xl lg:text-lg xl:max-w-4xl xl:text-xl">
           <b className="font-theme-sans font-medium text-theme">Neplox</b> was
           founded by and mainly consists of active members of the{" "}
@@ -396,31 +487,31 @@ export default function Landing() {
                 <PiLinkLight className="mr-2 inline opacity-0" />
                 &emsp;.&ensp;.&ensp;.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
               </li>
-              <li className="mb-2 w-fit border border-theme px-2 py-1 lg:pr-4 xl:pr-8">
+              <li className="mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
                 <PiLinkLight className="mr-2 inline opacity-0" />
                 <b>Attacks on Crypto Wallets</b>, ZER0CON
                 <span className="opacity-60"> @ Korea</span>
               </li>
-              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 lg:pr-4 xl:pr-8">
+              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
                 <a href="https://blobs.neplox.security/attacking-crypto-wallets.pdf">
                   <PiLinkLight className="mr-2 inline" />
                   <b>Attacks on Crypto Wallets</b>, SECCON
                   <span className="opacity-60"> @ Japan</span>
                 </a>
               </li>
-              <li className="mb-2 w-fit border border-theme px-2 py-1 lg:pr-4 xl:pr-8">
+              <li className="mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
                 <PiLinkLight className="mr-2 inline opacity-0" />
                 <b>Chrome Security</b>, Positive Hack Talks
                 <span className="opacity-60"> @ India</span>
               </li>
-              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 lg:pr-4 xl:pr-8">
+              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
                 <a href="https://youtube.com/watch?v=jVw11eLnTek">
                   <PiLinkLight className="mr-2 inline" />
                   <b>Cybercrime in Dating</b>, SAS
                   <span className="opacity-60"> @ Indonesia</span>
                 </a>
               </li>
-              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 lg:pr-4 xl:pr-8">
+              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
                 <a href="https://qwqoro.works/videos/HaHacking_You've-got-mail.mp4">
                   <PiLinkLight className="mr-2 inline" />
                   <b>Attacks on Email Services</b>, PHDays
@@ -464,13 +555,13 @@ export default function Landing() {
       </div>
 
       {/* Contact form */}
-      <div className="mt-16">
-        <h1
+      <div className="mt-16" ref={contactUsRef}>
+        <h2
           id="contact-us"
-          className="mb-8 text-center font-horizon text-4xl uppercase"
+          className="mb-8 text-center font-horizon text-[2rem] uppercase"
         >
           Contact us
-        </h1>
+        </h2>
         <p className="mx-auto mb-6 max-w-md text-justify font-theme-sans font-normal md:max-w-lg lg:max-w-xl lg:text-lg xl:max-w-2xl">
           Ping us with a vague topic and we'll get back to you ASAP to discuss
           the details.

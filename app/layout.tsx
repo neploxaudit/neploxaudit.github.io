@@ -37,9 +37,9 @@ const themeMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Neplox",
+  title: "Neplox | Web3 Security",
   description:
-    "Neplox – Web3 CTF, Research, and Audit team. Founded by C4T BuT S4D.",
+    "Neplox – research-powered Web3 security. Founded by C4T BuT S4D.",
   keywords: [
     "Neplox",
     "Neplox Audit",

@@ -113,7 +113,8 @@
   font-weight: 400;
   white-space: nowrap;
   background-color: var(--color-theme);
-  color: var(--color-surface);
+  color: var(--theme-stone-200);
+  -webkit-text-stroke-width: 0.025em;
 }
 
 .header-grid {
