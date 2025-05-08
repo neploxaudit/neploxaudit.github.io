@@ -6,9 +6,9 @@ import Socials from "@/app/components/Socials";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  PiArrowBendLeftDown,
   PiArrowBendLeftDownBold,
-  PiArrowBendLeftDownLight,
-  PiArrowBendRightUpLight,
+  PiArrowBendRightUp,
   PiArrowLineUpBold,
   PiChats,
   PiCode,
@@ -265,8 +265,8 @@ export default function Landing() {
       {/* Skills */}
       <div className="flex flex-col gap-11">
         <div>
-          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase xl:text-2xl">
-            <PiChats className="inline align-top text-3xl xl:text-5xl" />{" "}
+          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase">
+            <PiChats className="inline align-top text-3xl lg:align-bottom lg:text-4xl" />{" "}
             <span
               className="font-horizon-outlined"
               style={{
@@ -277,7 +277,7 @@ export default function Landing() {
             </span>{" "}
             <strong>Guide</strong>
           </h2>
-          <p className="mx-2 mt-3 border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto">
+          <p className="mx-2 mt-3 border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto sm:mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-3xl lg:text-lg/7 xl:max-w-4xl xl:text-xl/7 dark:border-raisin-600">
             With <b className="text-highlight">&thinsp;senior-level&thinsp;</b>{" "}
             cloud security and infrastructure engineers on our team, we can
             guide your project from the ground up, preventing architectural
@@ -285,8 +285,8 @@ export default function Landing() {
           </p>
         </div>
         <div>
-          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase xl:text-2xl">
-            <PiCode className="inline align-middle text-3xl xl:text-5xl" />{" "}
+          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase">
+            <PiCode className="inline align-middle text-3xl lg:text-4xl" />{" "}
             <strong>Web2</strong>
             <span className="font-theme-sans text-3xl">/</span>
             <strong>3</strong>{" "}
@@ -299,14 +299,14 @@ export default function Landing() {
               Audit
             </span>
           </h2>
-          <div className="mx-2 mt-3 flex flex-col gap-y-2 border-l-4 border-stone-500 py-1 pl-3">
-            <p className="text-justify font-theme-serif leading-relaxed font-normal hyphens-auto">
+          <div className="mx-2 mt-3 flex flex-col gap-y-2 border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto sm:mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-3xl lg:text-lg/7 xl:max-w-4xl xl:text-xl/7 dark:border-raisin-600">
+            <p>
               Our auditors come from AppSec / Penetration Testing backgrounds,
               with expertise formed through{" "}
               <b className="text-highlight">&thinsp;over 100 audits&thinsp;</b>{" "}
               of classic Web2 products over the years.
             </p>
-            <p className="text-justify font-theme-serif leading-relaxed font-normal hyphens-auto">
+            <p>
               By applying this experience alongside our{" "}
               <b className="text-highlight">
                 &thinsp;competitive mindset&thinsp;
@@ -317,8 +317,8 @@ export default function Landing() {
           </div>
         </div>
         <div>
-          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase xl:text-2xl">
-            <PiMagnifyingGlass className="inline align-top text-3xl xl:text-5xl" />{" "}
+          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase">
+            <PiMagnifyingGlass className="inline align-top text-3xl lg:align-middle lg:text-4xl" />{" "}
             <span
               className="font-horizon-outlined"
               style={{
@@ -329,7 +329,7 @@ export default function Landing() {
             </span>{" "}
             <strong>Research</strong>
           </h2>
-          <p className="mx-2 mt-3 border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto">
+          <p className="mx-2 mt-3 border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto sm:mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-3xl lg:text-lg/7 xl:max-w-4xl xl:text-xl/7 dark:border-raisin-600">
             We don't blindly trust even renowned libraries and products. With
             zero-day vulnerabilities reported to{" "}
             <span className="text-highlight">
@@ -353,7 +353,7 @@ export default function Landing() {
               className="landing-member group w-64 py-4 text-center xl:w-80"
             >
               <Image
-                className="landing-member-animation m-auto h-auto w-40 rounded-full transition-transform duration-300 group-hover:scale-110 lg:w-48 xl:w-64"
+                className="landing-member-animation m-auto h-auto w-40 rounded-full transition-transform duration-300 group-hover:scale-110 hover:cursor-zoom-in lg:w-48 xl:w-64"
                 src={member.src}
                 alt={member.nickname}
               />
@@ -399,12 +399,12 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* About us */}
+      {/* Our work */}
       <div className="mt-16">
         <h2 className="mb-8 text-center font-horizon text-[2rem] uppercase">
-          About us
+          Our work
         </h2>
-        <p className="mx-auto mb-8 px-4 text-justify font-theme-serif leading-relaxed font-normal sm:max-w-lg md:max-w-2xl lg:max-w-3xl lg:text-lg xl:max-w-4xl xl:text-xl">
+        <p className="mx-auto mb-8 px-4 text-justify font-theme-serif leading-relaxed font-normal sm:max-w-lg sm:px-0 md:max-w-2xl lg:max-w-3xl lg:text-lg/7 xl:max-w-4xl xl:text-xl/7">
           <b className="font-theme-sans font-medium text-theme">Neplox</b> was
           founded by and mainly consists of active members of the{" "}
           <b className="group font-theme-sans font-medium text-theme underline">
@@ -471,7 +471,7 @@ export default function Landing() {
                 OUR
               </span>{" "}
               <b className="text-surface">WINS</b>&ensp;
-              <PiArrowBendRightUpLight className="inline text-surface! opacity-90" />
+              <PiArrowBendRightUp className="inline text-surface! opacity-90" />
             </p>
             <Image
               className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
@@ -531,7 +531,7 @@ export default function Landing() {
           </div>
           <div className="order-5 col-span-1 grid md:order-7 md:col-span-2">
             <p className="theme-highlight absolute z-10 -mt-4 -ml-56 rounded-3xl rounded-bl-none px-8 py-2 text-center font-horizon text-xl text-theme! uppercase transition-all duration-300 hover:scale-110 hover:cursor-pointer hover:text-surface! md:-ml-40 md:text-2xl lg:-ml-36 lg:text-3xl xl:text-4xl">
-              <PiArrowBendLeftDownLight className="inline text-surface! opacity-90" />
+              <PiArrowBendLeftDown className="inline text-surface! opacity-90" />
               &ensp;
               <span
                 style={{
@@ -592,7 +592,7 @@ export default function Landing() {
               <option value="else">Neplox, it&apos;s not that simple</option>
             </select>
             <p
-              className="mt-2 font-theme-sans text-sm font-light text-raisin-600 lg:text-base dark:text-stone-300"
+              className="mt-2 font-theme-sans text-sm font-light hyphens-auto text-raisin-600 lg:text-base dark:text-stone-300"
               dangerouslySetInnerHTML={{ __html: subjectHint[subject] }}
             ></p>
           </div>
