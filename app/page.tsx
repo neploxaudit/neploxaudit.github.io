@@ -1,8 +1,5 @@
 "use client";
 
-import Images from "@/app/components/Images";
-import Nav from "@/app/components/Nav";
-import Socials from "@/app/components/Socials";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -10,19 +7,21 @@ import {
   PiArrowBendLeftDownBold,
   PiArrowBendRightUp,
   PiArrowLineUpBold,
-  PiChats,
-  PiCode,
   PiLinkLight,
-  PiMagnifyingGlass,
 } from "react-icons/pi";
-import Footer from "./components/Footer";
-import Signature from "./components/Signature";
+
+import Footer from "@/app/components/Footer";
+import Images from "@/app/components/Images";
+import Nav from "@/app/components/Nav";
+import Signature from "@/app/components/Signature";
+import Socials from "@/app/components/Socials";
+import FormHint from "@/app/FormHint";
+import Skills from "@/app/Skills";
 
 import qwqoro from "@/public/images/qwqoro.png";
 import renbou from "@/public/images/renbou.png";
 import slonser from "@/public/images/slonser.png";
-
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 const DescHighlight = ({ children }: { children: React.ReactNode }) => (
   <strong className="landing-highlight font-light whitespace-nowrap">
@@ -144,21 +143,6 @@ const team = [
 ];
 
 export default function Landing() {
-  const subjectHint = {
-    audit:
-      "Run a quick or thorough <strong>security assessment</strong> of your product, including <strong>Web2</strong> and <strong>Mobile</strong> applications, <strong>Blockchain</strong> technologies, <strong>Web3 DApps</strong> and <strong>Smart Contracts</strong>.",
-    event:
-      "Partner up to <strong>develop tasks</strong>, workshops, or speeches for your event.",
-    invite:
-      "Invite Neplox to participate in a <strong>competition</strong> (CTF, hackathon, etc.), a <strong>conference</strong> or a <strong>live stream</strong> held by you.",
-    collaboration:
-      "Collaborate on an <strong>audit</strong>, a <strong>research</strong> or a <strong>competition</strong> together with your team.",
-    conversation:
-      "Hold a private or a public conversation with us, a <strong>meeting</strong>, a <strong>call</strong> or a <strong>chat</strong>, or <strong>interview</strong> us.",
-    else: "Discuss any other topic with us.",
-  };
-
-  const [subject, setSubject] = useState<keyof typeof subjectHint>("audit");
   const contactUsRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -247,7 +231,7 @@ export default function Landing() {
 
       {/* Contact us */}
       <button
-        className="my-8 w-full rounded-3xl rounded-br-none border-2 border-theme bg-surface py-3 text-center font-theme-sans font-medium text-theme transition duration-300 hover:cursor-pointer hover:bg-theme hover:text-surface lg:w-56 lg:text-lg"
+        className="mx-auto my-8 w-full max-w-lg rounded-3xl rounded-br-none border-2 border-theme bg-surface py-3 text-center font-theme-sans font-medium text-theme transition duration-300 hover:cursor-pointer hover:bg-theme hover:text-surface lg:w-56 lg:max-w-none lg:text-lg"
         onClick={() =>
           contactUsRef.current?.scrollIntoView({
             behavior: "smooth",
@@ -263,83 +247,7 @@ export default function Landing() {
       </button>
 
       {/* Skills */}
-      <div className="flex flex-col gap-11">
-        <div>
-          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase">
-            <PiChats className="inline align-top text-3xl lg:align-bottom lg:text-4xl" />{" "}
-            <span
-              className="font-horizon-outlined"
-              style={{
-                WebkitTextStrokeWidth: "0.05em",
-              }}
-            >
-              We
-            </span>{" "}
-            <strong>Guide</strong>
-          </h2>
-          <p className="mx-2 mt-3 border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto sm:mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-3xl lg:text-lg/7 xl:max-w-4xl xl:text-xl/7 dark:border-raisin-600">
-            With <b className="text-highlight">&thinsp;senior-level&thinsp;</b>{" "}
-            cloud security and infrastructure engineers on our team, we can
-            guide your project from the ground up, preventing architectural
-            issues which could otherwise become detrimental to your success.
-          </p>
-        </div>
-        <div>
-          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase">
-            <PiCode className="inline align-middle text-3xl lg:text-4xl" />{" "}
-            <strong>Web2</strong>
-            <span className="font-theme-sans text-3xl">/</span>
-            <strong>3</strong>{" "}
-            <span
-              className="font-horizon-outlined"
-              style={{
-                WebkitTextStrokeWidth: "0.05em",
-              }}
-            >
-              Audit
-            </span>
-          </h2>
-          <div className="mx-2 mt-3 flex flex-col gap-y-2 border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto sm:mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-3xl lg:text-lg/7 xl:max-w-4xl xl:text-xl/7 dark:border-raisin-600">
-            <p>
-              Our auditors come from AppSec / Penetration Testing backgrounds,
-              with expertise formed through{" "}
-              <b className="text-highlight">&thinsp;over 100 audits&thinsp;</b>{" "}
-              of classic Web2 products over the years.
-            </p>
-            <p>
-              By applying this experience alongside our{" "}
-              <b className="text-highlight">
-                &thinsp;competitive mindset&thinsp;
-              </b>{" "}
-              as one of the top CTF teams in the world, we are able to secure
-              innovative systems before they become mainstream.
-            </p>
-          </div>
-        </div>
-        <div>
-          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase">
-            <PiMagnifyingGlass className="inline align-top text-3xl lg:align-middle lg:text-4xl" />{" "}
-            <span
-              className="font-horizon-outlined"
-              style={{
-                WebkitTextStrokeWidth: "0.05em",
-              }}
-            >
-              We
-            </span>{" "}
-            <strong>Research</strong>
-          </h2>
-          <p className="mx-2 mt-3 border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto sm:mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-3xl lg:text-lg/7 xl:max-w-4xl xl:text-xl/7 dark:border-raisin-600">
-            We don't blindly trust even renowned libraries and products. With
-            zero-day vulnerabilities reported to{" "}
-            <span className="text-highlight">
-              &thinsp;leading vendors&thinsp;
-            </span>
-            , we dig deep into the ecosystem to protect your project from from
-            unconventional attack vectors before they are exploited.
-          </p>
-        </div>
-      </div>
+      <Skills />
 
       {/* Core team */}
       <div className="mt-16">
@@ -372,7 +280,7 @@ export default function Landing() {
                 {member.skills.map((skill) => (
                   <b
                     key={member.nickname + skill}
-                    className="theme-highlight mx-1 my-0.5 rounded-3xl rounded-tl-none px-2 py-0.5"
+                    className="mx-1 my-0.5 rounded-3xl rounded-tl-none text-highlight px-2 py-0.5"
                   >
                     &thinsp;{skill}&thinsp;
                   </b>
@@ -461,7 +369,7 @@ export default function Landing() {
             />
           </div>
           <div className="order-4 col-span-2 grid">
-            <p className="theme-highlight absolute z-10 -mt-12 -ml-24 rounded-3xl rounded-tr-none px-8 py-2 text-center font-horizon text-xl text-theme! uppercase transition-all duration-300 hover:scale-110 hover:cursor-pointer hover:text-surface! md:-ml-16 md:text-2xl lg:-ml-8 lg:text-3xl xl:text-4xl">
+            <p className="absolute z-10 -mt-12 -ml-24 rounded-3xl rounded-tr-none text-highlight px-8 py-2 text-center font-horizon text-xl text-theme! uppercase transition-all duration-300 hover:scale-110 hover:cursor-pointer hover:text-surface! md:-ml-16 md:text-2xl lg:-ml-8 lg:text-3xl xl:text-4xl">
               <span
                 style={{
                   WebkitTextStrokeWidth: "0.05em",
@@ -530,7 +438,7 @@ export default function Landing() {
             />
           </div>
           <div className="order-5 col-span-1 grid md:order-7 md:col-span-2">
-            <p className="theme-highlight absolute z-10 -mt-4 -ml-56 rounded-3xl rounded-bl-none px-8 py-2 text-center font-horizon text-xl text-theme! uppercase transition-all duration-300 hover:scale-110 hover:cursor-pointer hover:text-surface! md:-ml-40 md:text-2xl lg:-ml-36 lg:text-3xl xl:text-4xl">
+            <p className="absolute z-10 -mt-4 -ml-56 rounded-3xl rounded-bl-none text-highlight px-8 py-2 text-center font-horizon text-xl text-theme! uppercase transition-all duration-300 hover:scale-110 hover:cursor-pointer hover:text-surface! md:-ml-40 md:text-2xl lg:-ml-36 lg:text-3xl xl:text-4xl">
               <PiArrowBendLeftDown className="inline text-surface! opacity-90" />
               &ensp;
               <span
@@ -571,31 +479,7 @@ export default function Landing() {
           method="POST"
           className="mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl"
         >
-          <div className="mb-6">
-            <select
-              name="subject"
-              id="subject"
-              className="block w-full rounded-lg border border-stone-600 px-4 py-3 hover:cursor-pointer lg:text-lg dark:border-raisin-500"
-              onChange={(e) => {
-                setSubject(e.target.value as keyof typeof subjectHint);
-              }}
-              defaultValue="audit"
-              required
-            >
-              <option value="audit">Neplox, audit our product</option>
-              <option value="event">Neplox, help us organize an event</option>
-              <option value="invite">Neplox, participate in our event</option>
-              <option value="collaboration">Neplox, let&apos;s team up</option>
-              <option value="conversation">
-                Neplox, we&apos;ve got questions
-              </option>
-              <option value="else">Neplox, it&apos;s not that simple</option>
-            </select>
-            <p
-              className="mt-2 font-theme-sans text-sm font-light hyphens-auto text-raisin-600 lg:text-base dark:text-stone-300"
-              dangerouslySetInnerHTML={{ __html: subjectHint[subject] }}
-            ></p>
-          </div>
+          <FormHint />
           <div className="mb-4">
             <label
               htmlFor="contacts"
