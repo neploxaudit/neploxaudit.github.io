@@ -7,7 +7,6 @@ import { BiLinkExternal, BiSolidLock } from "react-icons/bi";
 import { IoEyeOffOutline } from "react-icons/io5";
 
 export type Article = {
-  image: string;
   title: string;
   description: string;
   metadata: {
@@ -47,7 +46,7 @@ export default function ArticlePreview({
 
   return (
     <div
-      className={`article-preview ${hidden && "article-hidden"} transition-transform duration-300 hover:scale-105 hover:cursor-not-allowed`}
+      className={`article-preview ${hidden && "article-hidden"} transition-transform duration-300 hover:scale-105 ${hidden ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
       onClick={(e) => {
         if (!hidden) {
           return;
@@ -65,11 +64,10 @@ export default function ArticlePreview({
       <MaybeLink href={metadata.href ?? ""}>
         <div
           style={{
-            // backgroundImage: `url(${image})`,
             backgroundColor: "oklch(from var(--element) l c h / 0.2)",
             opacity: locking ? 1 : undefined,
           }}
-          className={`article-preview-card relative flex aspect-[16/10] h-auto w-full flex-col items-end justify-between rounded-xl px-6 py-4 transition select-none ${hidden && "opacity-85 grayscale-32"}`}
+          className={`article-preview-card relative flex aspect-16/10 h-auto w-full flex-col items-end justify-between rounded-xl px-6 py-4 transition select-none ${hidden && "opacity-85 grayscale-32"}`}
           title={hidden ? undefined : title}
         >
           <canvas
@@ -81,10 +79,10 @@ export default function ArticlePreview({
               className={`article-preview-card-lock absolute top-1/2 left-1/2 -translate-1/2 text-surface ${locking ? "opacity-100" : "opacity-0"} h-12 w-12 transition-opacity duration-300`}
             />
           )}
-          <span className={`text-xs ${hidden && "opacity-40"}`}>
+          <span className={`font-theme-sans text-xs ${hidden && "opacity-40"}`}>
             [ {metadata.date} ]
           </span>
-          <span className={`text-xs ${hidden && "opacity-40"}`}>
+          <span className={`font-theme-sans text-xs ${hidden && "opacity-40"}`}>
             by [ {metadata.author} ]
           </span>
         </div>
@@ -93,7 +91,7 @@ export default function ArticlePreview({
           style={{ WebkitTextStrokeWidth: "0.01em" }}
         >
           <span
-            className={`article-preview-title mx-3 ${classShaking}`}
+            className={`article-preview-title mx-3 font-theme-sans font-medium ${classShaking}`}
             onAnimationEnd={() => hidden && !canHover && setShaking(false)}
           >
             {title}
