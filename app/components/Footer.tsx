@@ -49,10 +49,10 @@ export default function Footer({ className }: { className?: string }) {
             </span>
           </span>
           <a
-            className="block text-xs text-raisin-500 duration-200 hover:text-element lg:ml-5 lg:inline-block lg:text-sm dark:text-stone-500"
+            className="block align-middle font-theme-mono text-xs text-raisin-500 duration-200 hover:text-element lg:ml-5 lg:inline-block lg:text-sm dark:text-stone-500"
             href="mailto:team@neplox.security"
           >
-            <pre className="inline align-middle">[team@neplox.security]</pre>
+            [&thinsp;team@neplox.security&thinsp;]
           </a>
         </div>
         <ScrollUp />
