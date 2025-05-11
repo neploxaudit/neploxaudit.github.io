@@ -80,7 +80,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
       return (
         <pre {...props}>
-          <label className="sticky top-0 left-0 block w-full bg-raisin-700 px-[1em] py-[0.666667em] text-stone-100 md:px-[1.14286em] md:py-[.857143em]">
+          <label className="sticky top-0 left-0 block w-full bg-stone-400 px-[1em] py-[0.666667em] text-raisin-900 md:px-[1.14286em] md:py-[.857143em] dark:bg-raisin-700 dark:text-stone-100">
             {title}
           </label>
           <div
