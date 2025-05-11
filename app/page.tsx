@@ -7,7 +7,10 @@ import {
   PiArrowBendLeftDownBold,
   PiArrowBendRightUp,
   PiArrowLineUpBold,
+  PiChats,
+  PiCode,
   PiLinkLight,
+  PiMagnifyingGlass,
 } from "react-icons/pi";
 
 import Footer from "@/app/components/Footer";
@@ -16,7 +19,6 @@ import Nav from "@/app/components/Nav";
 import Signature from "@/app/components/Signature";
 import Socials from "@/app/components/Socials";
 import FormHint from "@/app/FormHint";
-import Skills from "@/app/Skills";
 
 import qwqoro from "@/public/images/qwqoro.png";
 import renbou from "@/public/images/renbou.png";
@@ -231,7 +233,7 @@ export default function Landing() {
 
       {/* Contact us */}
       <button
-        className="mx-auto my-8 w-full max-w-lg rounded-3xl rounded-br-none border-2 border-theme bg-surface py-3 text-center font-theme-sans font-medium text-theme transition duration-300 hover:cursor-pointer hover:bg-theme hover:text-surface lg:w-56 lg:max-w-none lg:text-lg"
+        className="mx-auto my-8 w-full max-w-lg rounded-3xl rounded-br-none border-2 border-theme bg-surface py-3 text-center font-theme-sans font-medium text-theme transition duration-300 hover:cursor-pointer hover:bg-theme hover:text-surface lg:max-w-xl lg:text-lg xl:max-w-2xl"
         onClick={() =>
           contactUsRef.current?.scrollIntoView({
             behavior: "smooth",
@@ -247,7 +249,71 @@ export default function Landing() {
       </button>
 
       {/* Skills */}
-      <Skills />
+      <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-10">
+        <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase lg:row-start-1 lg:self-end lg:leading-10">
+          <PiChats className="inline align-top text-3xl lg:text-4xl" />{" "}
+          <span className="text-surface text-outline-theme">We</span>{" "}
+          <strong>Guide</strong>
+        </h2>
+        <p
+          className={[
+            "mx-auto mt-3 max-w-lg border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto dark:border-raisin-600",
+            "lg:row-start-2 lg:max-w-xl lg:border-l-0 lg:pl-0 lg:text-lg/7 xl:text-xl/7",
+          ].join(" ")}
+        >
+          With <b className="text-highlight">&thinsp;senior-level&thinsp;</b>{" "}
+          cloud security and infrastructure engineers on our team, we can guide
+          your project from the ground up, preventing architectural issues which
+          could otherwise become detrimental to your success.
+        </p>
+
+        <h2 className="mt-11 text-center font-horizon text-[2rem] leading-8 text-theme uppercase lg:row-start-1 lg:mt-0 lg:self-end lg:leading-10">
+          <PiCode className="inline align-middle text-3xl lg:text-4xl" />{" "}
+          <strong>Web2</strong>
+          <span className="font-theme-sans">/</span>
+          <strong>3</strong>{" "}
+          <span className="text-surface text-outline-theme">Audit</span>
+        </h2>
+        <p
+          className={[
+            "mx-auto mt-3 max-w-lg border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto dark:border-raisin-600",
+            "lg:row-start-2 lg:max-w-xl lg:border-l-0 lg:pl-0 lg:text-lg/7 xl:text-xl/7",
+          ].join(" ")}
+        >
+          Our auditors come from AppSec / Penetration Testing backgrounds, with
+          expertise formed through{" "}
+          <b className="text-highlight">&thinsp;over 100 audits&thinsp;</b> of
+          classic Web2 products over the years.
+          <br />
+          <br />
+          By applying this experience alongside our{" "}
+          <b className="text-highlight">
+            &thinsp;competitive mindset&thinsp;
+          </b>{" "}
+          as one of the top CTF teams in the world, we are able to secure
+          innovative systems before they become mainstream.
+        </p>
+
+        <h2 className="mt-11 text-center font-horizon text-[2rem] leading-8 text-theme uppercase lg:row-start-1 lg:mt-0 lg:self-end lg:leading-10">
+          <PiMagnifyingGlass className="inline align-top text-3xl lg:text-4xl" />{" "}
+          <span className="text-surface text-outline-theme">We</span>{" "}
+          <strong>Research</strong>
+        </h2>
+        <p
+          className={[
+            "mx-auto mt-3 max-w-lg border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto dark:border-raisin-600",
+            "lg:row-start-2 lg:max-w-xl lg:border-l-0 lg:pl-0 lg:text-lg/7 xl:text-xl/7",
+          ].join(" ")}
+        >
+          We don't blindly trust even renowned libraries and products. With
+          zero-day vulnerabilities reported to{" "}
+          <span className="text-highlight">
+            &thinsp;leading vendors&thinsp;
+          </span>
+          , we dig deep into the ecosystem to protect your project from from
+          unconventional attack vectors before they are exploited.
+        </p>
+      </div>
 
       {/* Core team */}
       <div className="mt-16">

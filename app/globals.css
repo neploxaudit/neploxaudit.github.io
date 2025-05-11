@@ -117,59 +117,9 @@
   -webkit-text-stroke-width: 0.025em;
 }
 
-/* kudos https://nickymeuleman.netlify.app/blog/css-animated-wrapping-underline/ */
-@utility text-underline {
-  background-image: linear-gradient(var(--color-surface), var(--color-surface)),
-    linear-gradient(var(--color-theme), var(--color-theme)),
-    linear-gradient(var(--color-theme), var(--color-theme));
-  background-size:
-    50px 2px,
-    0 2px,
-    100% 2px;
-  background-position:
-    calc(50px * -1) 100%,
-    0% 100%,
-    100% 100%;
-  background-repeat: no-repeat;
-  transition:
-    background-size 300ms cubic-bezier(0.39, 0.575, 0.565, 1),
-    background-position 300ms cubic-bezier(0.39, 0.575, 0.565, 1);
-}
-
-@utility text-underline-toggle {
-  background-size:
-    50px 2px,
-    100% 2px,
-    0 2px;
-  background-position:
-    calc(100% + 50px) 100%,
-    0 100%,
-    100% 100%;
-}
-
-@utility text-underline-surface {
-  background-image: linear-gradient(var(--color-surface), var(--color-surface)),
-    linear-gradient(var(--color-theme), var(--color-theme)),
-    linear-gradient(var(--color-stone-500), var(--color-stone-500));
-
-  @variant dark {
-    background-image: linear-gradient(
-        var(--color-surface),
-        var(--color-surface)
-      ),
-      linear-gradient(var(--color-theme), var(--color-theme)),
-      linear-gradient(var(--color-raisin-600), var(--color-raisin-600));
-  }
-}
-
 @utility text-outline-theme {
   -webkit-text-stroke-width: 0.05em;
   -webkit-text-stroke-color: var(--color-theme);
-}
-
-@utility text-outline-none {
-  -webkit-text-stroke-width: unset;
-  -webkit-text-stroke-color: unset;
 }
 
 .header-grid {
