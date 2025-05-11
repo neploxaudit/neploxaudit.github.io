@@ -37,7 +37,8 @@ export default async function ArticlePage({
     "prose-code:before:content-none prose-code:after:content-none prose-code:font-theme-mono prose-code:font-medium";
   const codeInline =
     "prose-code:not-in-[pre]:wrap-anywhere prose-code:not-in-[pre]:bg-stone-350 prose-code:not-in-[pre]:dark:bg-raisin-700 prose-code:not-in-[pre]:px-[0.4em] prose-code:not-in-[pre]:py-[0.2em] prose-code:not-in-[pre]:rounded-lg";
-  const pre = "prose-pre:rounded-lg";
+  const pre =
+    "prose-pre:rounded-lg prose-pre:ps-0 prose-pre:pe-0 prose-pre:pt-0 prose-pre:pb-0"; // padding set in mdx-components.tsx
   const ol = "prose-ol:pl-10 prose-ol:leading-6";
   const ul = "prose-ul:pl-10 prose-ul:leading-6";
   const a =

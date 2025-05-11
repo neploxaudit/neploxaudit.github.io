@@ -17,6 +17,7 @@ const withMDX = createMDX({
     remarkPlugins: [
       ["remark-gfm", {}],
       ["remark-github-blockquote-alert", { tagName: "blockquote" }],
+      ["remark-code-title", {}],
     ],
     rehypePlugins: [
       ["rehype-mdx-import-media", {}],

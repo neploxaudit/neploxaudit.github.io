@@ -56,6 +56,43 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
       return <blockquote {...props}>{children}</blockquote>;
     },
+
+    // Transform remark-code-title attribute to actual label.
+    pre: (
+      props: React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLPreElement>,
+        HTMLPreElement
+      >,
+    ) => {
+      const children = React.Children.toArray(props.children);
+      if (
+        children.length !== 1 ||
+        !React.isValidElement(children[0]) ||
+        children[0].type !== "code" ||
+        !(children[0].props instanceof Object) ||
+        !Object.hasOwn(children[0].props, "title")
+      ) {
+        return <pre {...props} />;
+      }
+
+      const code = children[0] as React.ReactElement;
+      const title = (code.props as any).title;
+
+      return (
+        <pre {...props}>
+          <label className="sticky top-0 left-0 block w-full bg-raisin-700 px-[1em] py-[0.666667em] text-stone-100 md:px-[1.14286em] md:py-[.857143em]">
+            {title}
+          </label>
+          <div
+            // Values from https://github.com/tailwindlabs/tailwindcss-typography/blob/632970e3ce6fc10d1bfd8fb46cc9083d0d32986d/src/styles.js#L96
+            className="px-[1em] py-[0.666667em] md:px-[1.14286em] md:py-[.857143em]"
+          >
+            {code}
+          </div>
+        </pre>
+      );
+    },
+
     ...components,
   };
 }
