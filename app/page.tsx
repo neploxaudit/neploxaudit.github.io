@@ -305,7 +305,7 @@ export default function Landing() {
             "lg:row-start-2 lg:max-w-xl lg:border-l-0 lg:pl-0 lg:text-lg/7 xl:text-xl/7",
           ].join(" ")}
         >
-          We don't blindly trust even renowned libraries and products. With
+          We don&apos;t blindly trust even renowned libraries and products. With
           zero-day vulnerabilities reported to{" "}
           <span className="text-highlight">
             &thinsp;leading vendors&thinsp;
@@ -537,8 +537,8 @@ export default function Landing() {
           Contact us
         </h2>
         <p className="mx-auto mb-6 max-w-md text-justify font-theme-sans font-normal md:max-w-lg lg:max-w-xl lg:text-lg xl:max-w-2xl">
-          Ping us with a vague topic and we'll get back to you ASAP to discuss
-          the details.
+          Ping us with a vague topic and we&apos;ll get back to you ASAP to
+          discuss the details.
         </p>
         <form
           action="https://form.neplox.security/contact"

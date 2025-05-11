@@ -5,19 +5,29 @@ import "@wooorm/starry-night/style/both";
 import "./article.css";
 
 export async function generateStaticParams() {
-  const dirs = await fs.readdir(path.join(process.cwd(), "articles/ctf"));
-  return dirs.map((dir) => ({
-    slug: dir,
-  }));
+  const dirs = await fs.readdir(path.join(process.cwd(), "articles/ctf"), {
+    withFileTypes: true,
+  });
+
+  return dirs
+    .filter((dir) => dir.isDirectory())
+    .map((dir) => ({
+      slug: dir.name,
+    }));
 }
 
 type Params = {
   slug: string;
 };
 
-export default async function ArticlePage({ params }: { params: Params }) {
+export default async function ArticlePage({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  const { slug } = await params;
   const { default: Article } = await import(
-    `@/articles/ctf/${params.slug}/README.mdx`
+    `@/articles/ctf/${slug}/README.mdx`
   );
 
   const quote =
