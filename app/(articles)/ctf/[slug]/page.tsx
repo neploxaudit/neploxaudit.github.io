@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 
 import "@wooorm/starry-night/style/both";
+import "./alert.css";
 import "./article.css";
 
 export async function generateStaticParams() {

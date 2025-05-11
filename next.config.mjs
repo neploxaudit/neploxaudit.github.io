@@ -14,10 +14,12 @@ const nextConfig = {
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [
+      ["remark-gfm", {}],
+      ["remark-github-blockquote-alert", { tagName: "blockquote" }],
+    ],
     rehypePlugins: [
       ["rehype-mdx-import-media", {}],
-      ["remark-gfm", {}],
       [
         "rehype-starry-night",
         { grammars: grammarsCommon.concat([grammarSolidity]) },
