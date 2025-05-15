@@ -1,6 +1,8 @@
 import createMDX from "@next/mdx";
 import { common as grammarsCommon } from "@wooorm/starry-night";
+
 import grammarSolidity from "@wooorm/starry-night/source.solidity";
+import grammarDockerfile from "@wooorm/starry-night/source.dockerfile";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -14,13 +16,18 @@ const nextConfig = {
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [],
+    remarkPlugins: [
+      ["remark-gfm", {}],
+      ["remark-github-blockquote-alert", { tagName: "blockquote" }],
+      ["remark-code-title", {}],
+    ],
     rehypePlugins: [
       ["rehype-mdx-import-media", {}],
-      ["remark-gfm", {}],
       [
         "rehype-starry-night",
-        { grammars: grammarsCommon.concat([grammarSolidity]) },
+        {
+          grammars: grammarsCommon.concat([grammarSolidity, grammarDockerfile]),
+        },
       ],
     ],
   },

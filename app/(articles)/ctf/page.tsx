@@ -18,10 +18,21 @@ function randomArticle(): Article {
   };
 }
 
-const Articles: Article[] = [];
+const Articles: Article[] = [
+  {
+    title: "Article 1",
+    description: "Article Description 1",
+    metadata: {
+      author: "Artem Mikheev",
+      date: "17.03.2025",
+      href: "/ctf/blazctf-2025",
+    },
+    hidden: false,
+  },
+];
 
 export default function CTFArticles() {
-  const numRandomArticles = 6;
+  const numRandomArticles = 5;
   const articles = Articles.concat(
     [...Array(numRandomArticles)].map(randomArticle),
   );
