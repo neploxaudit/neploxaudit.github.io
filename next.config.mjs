@@ -1,6 +1,8 @@
 import createMDX from "@next/mdx";
 import { common as grammarsCommon } from "@wooorm/starry-night";
+
 import grammarSolidity from "@wooorm/starry-night/source.solidity";
+import grammarDockerfile from "@wooorm/starry-night/source.dockerfile";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -23,7 +25,9 @@ const withMDX = createMDX({
       ["rehype-mdx-import-media", {}],
       [
         "rehype-starry-night",
-        { grammars: grammarsCommon.concat([grammarSolidity]) },
+        {
+          grammars: grammarsCommon.concat([grammarSolidity, grammarDockerfile]),
+        },
       ],
     ],
   },

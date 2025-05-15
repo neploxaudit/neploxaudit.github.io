@@ -72,7 +72,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         !(children[0].props instanceof Object) ||
         !Object.hasOwn(children[0].props, "title")
       ) {
-        return <pre {...props} />;
+        return (
+          <pre
+            {...props}
+            className="px-[1em]! py-[0.666667em]! md:px-[1.14286em]! md:py-[.857143em]!"
+          />
+        );
       }
 
       const code = children[0] as React.ReactElement;
