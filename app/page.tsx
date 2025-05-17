@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 import {
   PiArrowBendLeftDown,
   PiArrowBendLeftDownBold,
@@ -14,16 +15,15 @@ import {
 } from "react-icons/pi";
 
 import Footer from "@/app/components/Footer";
+import FormHint from "@/app/components/FormHint";
 import Images from "@/app/components/Images";
 import Nav from "@/app/components/Nav";
 import Signature from "@/app/components/Signature";
 import Socials from "@/app/components/Socials";
-import FormHint from "@/app/FormHint";
 
 import qwqoro from "@/public/images/qwqoro.png";
 import renbou from "@/public/images/renbou.png";
 import slonser from "@/public/images/slonser.png";
-import { useRef } from "react";
 
 const DescHighlight = ({ children }: { children: React.ReactNode }) => (
   <strong className="landing-highlight font-light whitespace-nowrap">

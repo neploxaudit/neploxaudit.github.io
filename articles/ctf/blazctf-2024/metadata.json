@@ -1,0 +1,6 @@
+{
+  "title": "Draining a Solana Vault through Pointer Corruption",
+  "summary": "Step-by-step exploitation of a binary vulnerability in a Solana smart contract, and our other writeups for BlazCTF 2024.",
+  "author": "renbou",
+  "publishedAt": "2024-11-23T10:00:00Z"
+}

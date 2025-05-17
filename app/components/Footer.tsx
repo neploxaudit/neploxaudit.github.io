@@ -1,6 +1,8 @@
-import Socials from "@/app/components/Socials";
 import Link from "next/link";
 import { BiCopyright } from "react-icons/bi";
+
+import Socials from "@/app/components/Socials";
+
 import ScrollUp from "./ScrollUp";
 import Signature from "./Signature";
 

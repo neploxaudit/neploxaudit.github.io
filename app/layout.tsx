@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Mate, Rubik } from "next/font/google";
 import localFont from "next/font/local";
+
 import "./globals.css";
 
 const horizon = localFont({
@@ -37,29 +38,11 @@ const themeMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Neplox | Web3 Security",
-  description:
-    "Neplox – research-powered Web3 security. Founded by C4T BuT S4D.",
-  keywords: [
-    "Neplox",
-    "Neplox Audit",
-    "neploxaudit",
-    "Web 3",
-    "Web3",
-    "Audit",
-    "CTF",
-    "Research",
-    "Cybersecurity",
-    "Researcher",
-    "Pentester",
-    "Penetration Tester",
-    "Web3 Audit",
-    "Web3 CTF",
-    "Web3 Research",
-    "C4T BuT S4D",
-    "C4TBuTS4D",
-  ],
-  authors: [{ name: "Neplox Team" }],
+  title: "Neplox — Web3 Security",
+  description: [
+    "Research-powered Web3 security team founded by top-ranked competitive hacking team.",
+    "Audits for crypto wallets, L1/L2 chains, and smart contracts.",
+  ].join(" "),
 };
 
 export const viewport: Viewport = {
