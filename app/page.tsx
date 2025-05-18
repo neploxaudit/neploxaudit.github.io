@@ -21,6 +21,11 @@ import Nav from "@/app/components/Nav";
 import Signature from "@/app/components/Signature";
 import Socials from "@/app/components/Socials";
 
+import photo1 from "@/public/images/photo1.jpg";
+import photo2 from "@/public/images/photo2.jpg";
+import photo3 from "@/public/images/photo3.jpg";
+import photo4 from "@/public/images/photo4.jpg";
+import photo from "@/public/images/photo.jpg";
 import qwqoro from "@/public/images/qwqoro.png";
 import renbou from "@/public/images/renbou.png";
 import slonser from "@/public/images/slonser.png";
@@ -330,6 +335,7 @@ export default function Landing() {
                 className="landing-member-animation m-auto h-auto w-40 rounded-full transition-transform duration-300 group-hover:scale-110 hover:cursor-zoom-in lg:w-48 xl:w-64"
                 src={member.src}
                 alt={member.nickname}
+                sizes="(max-width: 768px) 50vw, 33vw"
               />
               <p className="text-md mt-4 font-theme-sans font-normal">
                 <b className="text-md landing-highlight px-8 py-1 font-normal md:text-lg lg:text-xl">
@@ -393,10 +399,9 @@ export default function Landing() {
           <div className="order-1 col-span-1 mt-10 grid md:col-span-2 md:mt-0">
             <Image
               className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
-              src="images/photo1.jpg"
+              src={photo1}
               alt="Elizabeth giving a talk at SAS conference"
-              width={2000}
-              height={1333}
+              sizes="(max-width: 768px) 20vw, 50vw"
             />
           </div>
           <div className="order-2 col-span-2 flex justify-center">
@@ -428,10 +433,9 @@ export default function Landing() {
           <div className="order-3 col-span-1 grid">
             <Image
               className="mt-2 h-auto max-w-full scale-105 rounded-lg grayscale transition-all duration-300 hover:scale-125 hover:cursor-zoom-in hover:grayscale-0 md:mt-16"
-              src="images/photo4.jpg"
+              src={photo4}
               alt="C4T BuT S4D team celebrating victory on HITB"
-              width={2000}
-              height={1500}
+              sizes="33vw"
             />
           </div>
           <div className="order-4 col-span-2 grid">
@@ -449,10 +453,9 @@ export default function Landing() {
             </p>
             <Image
               className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
-              src="images/photo2.jpg"
+              src={photo2}
               alt="C4T BuT S4D team celebrating first place on GoogleCTF"
-              width={2560}
-              height={1514}
+              sizes="(max-width: 768px) 75vw, 50vw"
             />
           </div>
           <div className="order-7 col-span-3 float-right grid text-right md:order-6 md:col-span-2">
@@ -497,10 +500,9 @@ export default function Landing() {
           <div className="order-5 col-span-2 grid md:col-span-1">
             <Image
               className="mt-0 h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0 md:-mt-16 md:scale-105 md:hover:scale-125"
-              src="images/photo3.jpg"
+              src={photo3}
               alt="C4T BuT S4D celebrating another victory on RuCTF"
-              width={2000}
-              height={1272}
+              sizes="(max-width: 768px) 75vw, 33vw"
             />
           </div>
           <div className="order-5 col-span-1 grid md:order-7 md:col-span-2">
@@ -519,10 +521,9 @@ export default function Landing() {
             </p>
             <Image
               className="mt-10 h-auto max-w-full scale-105 rounded-lg grayscale transition-all duration-300 hover:scale-125 hover:cursor-zoom-in hover:grayscale-0 md:mt-0 md:scale-100 md:hover:scale-110"
-              src="images/photo.jpg"
+              src={photo}
               alt="Vsevolod and Elizabeth giving a talk about email security"
-              width={1024}
-              height={682}
+              sizes="(max-width: 768px) 33vw, 50vw"
             />
           </div>
         </div>

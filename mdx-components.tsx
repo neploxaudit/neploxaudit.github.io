@@ -7,7 +7,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     img: (props: React.ComponentProps<typeof Image>) => {
       return (
         <>
-          <Image {...props} />
+          <Image
+            {...props}
+            sizes="(max-width: 1024px) 100vw, (max-width: 1440px) 75vw, 50vw"
+          />
           <span className="text-center text-sm text-stone-500">
             {props.alt}
           </span>

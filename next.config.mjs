@@ -7,6 +7,10 @@ import withExportImages from "next-export-optimize-images";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",
+  images: {
+    deviceSizes: [384, 768, 1024, 2048],
+    imageSizes: [128, 256],
+  },
   reactStrictMode: false,
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 };
