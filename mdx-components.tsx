@@ -1,5 +1,5 @@
 import type { MDXComponents } from "mdx/types";
-import Image from "next/image";
+import Image from "next-export-optimize-images/image";
 import React from "react";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {

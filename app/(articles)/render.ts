@@ -160,7 +160,7 @@ type drawConfig = {
   pixelRatio: number;
 };
 
-const DEBUG = true;
+const DEBUG = false;
 
 function log(message: string) {
   if (DEBUG) {
