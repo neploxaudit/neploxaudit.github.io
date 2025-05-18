@@ -1,91 +1,25 @@
 import "@wooorm/starry-night/style/both";
 import { Metadata } from "next";
-import path from "path";
-import { cache } from "react";
-import { z } from "zod";
 
+import * as articles from "@/app/(articles)";
 import { baseUrl } from "@/app/sitemap";
 
 import "./alert.css";
 import "./article.css";
 
-import fs from "fs/promises";
-
-type Params = {
-  slug: string;
-};
-
-const ArticleMetadata = z.object({
-  title: z
-    .string()
-    .nonempty()
-    // Recommended by pretty much all SEO platforms and search engines (e.g. Google)
-    .max(60, "Title should be less than 60 characters"),
-  summary: z
-    .string()
-    .nonempty()
-    // https://ogtester.com/blog/what-is-maximum-length-of-og-title-and-og-description
-    .max(150, "Summary should be less than 150 characters"),
-  author: z.enum(["renbou", "qwqoro", "slonser"]),
-  publishedAt: z.string().datetime(),
-});
-
-type ArticleMetadata = z.infer<typeof ArticleMetadata>;
-
-type AuthorInfo = {
-  name: string;
-  twitter?: string;
-  link: URL;
-};
-
-const authors: Record<ArticleMetadata["author"], AuthorInfo> = {
-  renbou: {
-    name: "Artem Mikheev",
-    link: new URL("https://github.com/renbou"),
-  },
-  qwqoro: {
-    name: "Elizaveta Tishina",
-    twitter: "qwqoro",
-    link: new URL("https://x.com/qwqoro"),
-  },
-  slonser: {
-    name: "Vsevolod Kokorin",
-    twitter: "slonser_",
-    link: new URL("https://x.com/slonser_"),
-  },
-};
-
-const loadArticleMetadata = cache(async function (
-  slug: string,
-): Promise<ArticleMetadata> {
-  const rawMetadata = await fs.readFile(
-    path.join(process.cwd(), "articles/ctf", slug, "metadata.json"),
-    { encoding: "utf-8" },
-  );
-  return ArticleMetadata.parse(JSON.parse(rawMetadata));
-});
-
-export async function generateStaticParams(): Promise<Params[]> {
-  const dirs = await fs.readdir(path.join(process.cwd(), "articles/ctf"), {
-    withFileTypes: true,
-  });
-
-  return dirs
-    .filter((dir) => dir.isDirectory())
-    .map((dir) => ({
-      slug: dir.name,
-    }));
+export async function generateStaticParams(): Promise<articles.Params[]> {
+  return articles.list("ctf");
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<Params>;
+  params: Promise<articles.Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
 
-  const metadata = await loadArticleMetadata(slug);
-  const author = authors[metadata.author];
+  const metadata = await articles.loadMetadata("ctf", slug);
+  const author = articles.authors[metadata.author];
 
   return {
     title: metadata.title,
@@ -112,7 +46,7 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<Params>;
+  params: Promise<articles.Params>;
 }) {
   const { slug } = await params;
   const { default: Article } = await import(
