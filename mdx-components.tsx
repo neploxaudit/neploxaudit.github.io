@@ -1,19 +1,50 @@
 import type { MDXComponents } from "mdx/types";
 import Image from "next-export-optimize-images/image";
+import Link from "next/link";
 import React from "react";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
+    a: (props: React.ComponentProps<typeof Link>) => {
+      let rel = "";
+      let target = "";
+
+      if (!props.href) {
+        return <Link {...props} />;
+      } else if (typeof props.href === "string") {
+        if (new URL(props.href).hostname !== "neplox.security") {
+          rel = "noopener noreferrer";
+          target = "_blank";
+        }
+      } else if (props.href.hostname !== "neplox.security") {
+        rel = "noopener noreferrer";
+        target = "_blank";
+      }
+
+      return <Link {...props} rel={rel} target={target} />;
+    },
+
     img: (props: React.ComponentProps<typeof Image>) => {
+      let alt = props.alt;
+      let loading: "eager" | "lazy" = "lazy";
+      let fetchPriority: "high" | undefined = undefined;
+
+      if (alt.startsWith("preload")) {
+        alt = alt.substring(7).trimStart();
+        loading = "eager";
+        fetchPriority = "high";
+      }
+
       return (
         <>
           <Image
             {...props}
             sizes="(max-width: 1024px) 100vw, (max-width: 1440px) 75vw, 50vw"
+            alt={alt}
+            loading={loading}
+            fetchPriority={fetchPriority}
           />
-          <span className="text-center text-sm text-stone-500">
-            {props.alt}
-          </span>
+          <span className="text-center text-sm text-stone-500">{alt}</span>
         </>
       );
     },
