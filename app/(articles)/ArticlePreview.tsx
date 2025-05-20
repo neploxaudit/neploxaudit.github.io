@@ -1,12 +1,13 @@
 "use client";
 
-import Context from "@/app/components/Context";
 import Link from "next/link";
 import React, { useContext, useState } from "react";
 import { BiLinkExternal, BiSolidLock } from "react-icons/bi";
 import { IoEyeOffOutline } from "react-icons/io5";
 
-export type Article = {
+import Context from "@/app/components/Context";
+
+export type PreviewProps = {
   title: string;
   description: string;
   metadata: {
@@ -36,7 +37,7 @@ export default function ArticlePreview({
   metadata,
   hidden,
   canvasRef,
-}: Article & {
+}: PreviewProps & {
   canvasRef: (ref: HTMLCanvasElement) => void;
 }) {
   const { canHover } = useContext(Context);
@@ -67,11 +68,11 @@ export default function ArticlePreview({
             backgroundColor: "oklch(from var(--element) l c h / 0.2)",
             opacity: locking ? 1 : undefined,
           }}
-          className={`article-preview-card relative flex aspect-16/10 h-auto w-full flex-col items-end justify-between rounded-xl px-6 py-4 transition select-none ${hidden && "opacity-85 grayscale-32"}`}
+          className={`article-preview-card relative flex aspect-16/10 h-auto w-full flex-col items-end justify-between rounded-xl px-6 py-4 transition select-none ${hidden ? "opacity-85 grayscale-32" : ""}`}
           title={hidden ? undefined : title}
         >
           <canvas
-            className="absolute inset-0 h-full w-full rounded-xl object-cover"
+            className="absolute inset-0 h-full w-full rounded-xl object-cover z-0"
             ref={canvasRef}
           />
           {hidden && (
@@ -79,10 +80,14 @@ export default function ArticlePreview({
               className={`article-preview-card-lock absolute top-1/2 left-1/2 -translate-1/2 text-surface ${locking ? "opacity-100" : "opacity-0"} h-12 w-12 transition-opacity duration-300`}
             />
           )}
-          <span className={`font-theme-sans text-xs ${hidden && "opacity-40"}`}>
+          <span
+            className={`font-theme-sans text-xs z-10 ${hidden ? "opacity-40" : ""}`}
+          >
             [ {metadata.date} ]
           </span>
-          <span className={`font-theme-sans text-xs ${hidden && "opacity-40"}`}>
+          <span
+            className={`font-theme-sans text-xs z-10 ${hidden ? "opacity-40" : ""}`}
+          >
             by [ {metadata.author} ]
           </span>
         </div>

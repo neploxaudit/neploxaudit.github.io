@@ -1,13 +1,18 @@
-import Footer from "@/app/components/Footer";
-import Images from "@/app/components/Images";
-import Nav from "@/app/components/Nav";
-import ScrollDown from "@/app/components/ScrollDown";
 import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 
+import Footer from "@/app/components/Footer";
+import Images from "@/app/components/Images";
+import Nav from "@/app/components/Nav";
+import ScrollDown from "@/app/components/ScrollDown";
+
 export const metadata: Metadata = {
-  title: "Neplox | CTF Writeups",
+  title: "Web3 CTF Writeups by Neplox",
+  description: [
+    "In-depth dives into our solutions to unique CTF tasks related to Web3.",
+    "Learn from our experience and harden your own auditing skills.",
+  ].join(" "),
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

@@ -1,5 +1,7 @@
 "use client";
 
+import Rand, { PRNG } from "rand-seed";
+
 const vert = `
 attribute vec3 aPosition;
 attribute vec2 aTexCoord;
@@ -139,18 +141,18 @@ void main() {
 }
 `;
 
-function rand(_min: number, _max: number) {
-  const t = Math.random();
+function randnum(rand: Rand, _min: number, _max: number) {
+  const t = rand.next();
   return _min * (1 - t) + _max * t;
 }
 
-function randCoords(): [number, number] {
-  return [rand(0.1, 0.9), rand(0.1, 0.9)];
+function randCoords(rand: Rand): [number, number] {
+  return [randnum(rand, 0.1, 0.9), randnum(rand, 0.1, 0.9)];
 }
 
-function shuffle<T>(arr: T[]): T[] {
+function shuffle<T>(rand: Rand, arr: T[]): T[] {
   const arr_copy = [...arr];
-  arr_copy.sort(() => 0.5 - Math.random());
+  arr_copy.sort(() => 0.5 - rand.next());
   return arr_copy;
 }
 
@@ -160,7 +162,7 @@ type drawConfig = {
   pixelRatio: number;
 };
 
-const DEBUG = true;
+const DEBUG = false;
 
 function log(message: string) {
   if (DEBUG) {
@@ -169,12 +171,15 @@ function log(message: string) {
 }
 
 export function drawGradients(
+  seed: string,
   subcanvases: HTMLCanvasElement[],
   config: drawConfig,
 ) {
   if (subcanvases.length !== 1) {
     throw new Error("Multicanvas rendering disabled");
   }
+
+  const rand = new Rand(seed, PRNG.mulberry32);
 
   const w = config.width * config.pixelRatio; // canvas width
   const h = config.height * config.pixelRatio; // canvas height
@@ -285,17 +290,17 @@ export function drawGradients(
     gl.vertexAttribPointer(inPos, 2, gl.FLOAT, false, 0, 0);
 
     // Set uniform variable values
-    const chosen_clrs = shuffle(allColors).slice(0, 3);
-    const g1 = { clr: chosen_clrs[0], coords: randCoords() };
-    const g2 = { clr: chosen_clrs[1], coords: randCoords() };
-    const g3 = { clr: chosen_clrs[2], coords: randCoords() };
+    const chosen_clrs = shuffle(rand, allColors).slice(0, 3);
+    const g1 = { clr: chosen_clrs[0], coords: randCoords(rand) };
+    const g2 = { clr: chosen_clrs[1], coords: randCoords(rand) };
+    const g3 = { clr: chosen_clrs[2], coords: randCoords(rand) };
 
     gl.uniform1f(size_div, w / h); // to normalize coords in case canvas is rectangle
     gl.uniform1f(blur_size, 0.09); // read the name
     gl.uniform1f(far_grain, 0.3); // grain for inner parts of shapes
     gl.uniform1f(close_grain, 0.09); // grain for smoothing shapes between lines
     gl.uniform2f(size, w, h);
-    gl.uniform2f(spawn, Math.random() * 3.0, Math.random() * 3.0);
+    gl.uniform2f(spawn, rand.next() * 3.0, rand.next() * 3.0);
     gl.uniform2f(start, w * rectNum, h);
     gl.uniform3f(g1_clr, ...g1.clr);
     gl.uniform2f(g1_coords, ...g1.coords);

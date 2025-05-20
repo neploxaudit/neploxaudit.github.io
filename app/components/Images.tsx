@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next-export-optimize-images/image";
 
 function Logo({ className }: { className?: string }) {
   return (
@@ -8,6 +8,8 @@ function Logo({ className }: { className?: string }) {
       alt="Neplox Logo"
       width={4122}
       height={3501}
+      loading="eager" // always shown above the fold
+      fetchPriority="high" // LCP on main page
     />
   );
 }

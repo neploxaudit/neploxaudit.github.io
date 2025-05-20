@@ -1,8 +1,13 @@
-import { Article } from "../ArticlePreview";
-import PreviewBundle from "../PreviewBundle";
+import { authors, list, loadMetadata } from "..";
+
 import "./article-listing.css";
 
-function randomArticle(): Article {
+import { PreviewProps } from "../ArticlePreview";
+import PreviewBundle from "../PreviewBundle";
+
+const perPage = 6;
+
+function randomArticle(): PreviewProps {
   return {
     title: "█".repeat(Math.floor(Math.random() * 10 + 5)),
     description: [...Array(3)]
@@ -18,13 +23,30 @@ function randomArticle(): Article {
   };
 }
 
-const Articles: Article[] = [];
+export default async function Articles() {
+  const pages = await list("ctf");
 
-export default function CTFArticles() {
-  const numRandomArticles = 6;
-  const articles = Articles.concat(
-    [...Array(numRandomArticles)].map(randomArticle),
+  let articles: PreviewProps[] = await Promise.all(
+    pages.map(async (page) => {
+      const metadata = await loadMetadata("ctf", page.slug);
+      return {
+        title: metadata.title,
+        description: metadata.summary,
+        metadata: {
+          author: authors[metadata.author].name,
+          date: metadata.publishedAt,
+          href: `/ctf/${page.slug}`,
+        },
+        hidden: false,
+      };
+    }),
   );
+
+  if (articles.length < perPage) {
+    articles = articles.concat(
+      [...Array(perPage - articles.length)].map(randomArticle),
+    );
+  }
 
   return (
     <main className="mx-auto grid max-w-lg flex-auto auto-rows-max grid-cols-1 gap-x-8 gap-y-12 md:mx-0 md:max-w-none md:grid-cols-2 lg:grid-cols-3">

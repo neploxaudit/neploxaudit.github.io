@@ -1,29 +1,52 @@
-import fs from "fs/promises";
-import path from "path";
-
 import "@wooorm/starry-night/style/both";
+import { Metadata } from "next";
+
+import * as articles from "@/app/(articles)";
+import { baseUrl } from "@/app/sitemap";
+
+import "./alert.css";
 import "./article.css";
 
-export async function generateStaticParams() {
-  const dirs = await fs.readdir(path.join(process.cwd(), "articles/ctf"), {
-    withFileTypes: true,
-  });
-
-  return dirs
-    .filter((dir) => dir.isDirectory())
-    .map((dir) => ({
-      slug: dir.name,
-    }));
+export async function generateStaticParams(): Promise<articles.Params[]> {
+  return articles.list("ctf");
 }
 
-type Params = {
-  slug: string;
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<articles.Params>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  const metadata = await articles.loadMetadata("ctf", slug);
+  const author = articles.authors[metadata.author];
+
+  return {
+    title: metadata.title,
+    description: metadata.summary,
+    authors: [{ name: author.name, url: author.link }],
+    openGraph: {
+      type: "article",
+      siteName: "Neplox",
+      section: "CTF",
+      title: metadata.title,
+      description: metadata.summary,
+      url: `${baseUrl}/ctf/${slug}`,
+      authors: [author.link],
+      publishedTime: metadata.publishedAt,
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@neploxaudit",
+      creator: author.twitter,
+    },
+  };
+}
 
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<Params>;
+  params: Promise<articles.Params>;
 }) {
   const { slug } = await params;
   const { default: Article } = await import(
@@ -36,33 +59,35 @@ export default async function ArticlePage({
     "prose-code:before:content-none prose-code:after:content-none prose-code:font-theme-mono prose-code:font-medium";
   const codeInline =
     "prose-code:not-in-[pre]:wrap-anywhere prose-code:not-in-[pre]:bg-stone-350 prose-code:not-in-[pre]:dark:bg-raisin-700 prose-code:not-in-[pre]:px-[0.4em] prose-code:not-in-[pre]:py-[0.2em] prose-code:not-in-[pre]:rounded-lg";
-  const pre = "prose-pre:rounded-lg";
+  const pre =
+    "prose-pre:rounded-lg prose-pre:ps-0 prose-pre:pe-0 prose-pre:pt-0 prose-pre:pb-0"; // padding set in mdx-components.tsx
   const ol = "prose-ol:pl-10 prose-ol:leading-6";
   const ul = "prose-ul:pl-10 prose-ul:leading-6";
   const a =
     "prose-a:font-normal prose-a:text-theme prose-a:underline prose-a:wrap-anywhere";
   const strong = "prose-strong:font-medium";
-  const img =
-    "prose-img:rounded-lg prose-img:mx-auto prose-img:max-h-[80vh] prose-img:w-auto prose-img:mx-auto";
+  const img = "prose-img:rounded-lg prose-img:mx-auto";
   const hr = "prose-hr:w-9/10 prose-hr:mx-auto";
 
   return (
-    <main
-      className={[
-        "prose-theme mx-auto prose prose-sm mt-4 w-full max-w-none px-2 text-base text-pretty md:prose-base md:w-4/5 md:px-0 md:text-base lg:max-w-[100ch]",
-        quote,
-        code,
-        codeInline,
-        pre,
-        img,
-        hr,
-        ol,
-        ul,
-        a,
-        strong,
-      ].join(" ")}
-    >
-      <Article />
+    <main>
+      <article
+        className={[
+          "prose-theme mx-auto prose prose-sm mt-4 w-full max-w-none px-2 text-base text-pretty md:prose-base md:w-4/5 md:px-0 md:text-base lg:max-w-[100ch]",
+          quote,
+          code,
+          codeInline,
+          pre,
+          img,
+          hr,
+          ol,
+          ul,
+          a,
+          strong,
+        ].join(" ")}
+      >
+        <Article />
+      </article>
     </main>
   );
 }
