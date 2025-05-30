@@ -48,19 +48,19 @@ export const metadata: Metadata = {
     types: {
       "application/rss+xml": [
         {
-          title: "RSS",
+          title: "Articles by Neplox — RSS feed",
           url: feedUrls.rss,
         },
       ],
       "application/atom+xml": [
         {
-          title: "Atom",
+          title: "Articles by Neplox — Atom feed",
           url: feedUrls.atom,
         },
       ],
       "application/feed+json": [
         {
-          title: "JSON Feed",
+          title: "Articles by Neplox — JSON feed",
           url: feedUrls.json,
         },
       ],
