@@ -15,6 +15,7 @@ node_modules/
 
 # production
 /build
+/public/feed.*
 
 # misc
 .DS_Store

@@ -3,6 +3,7 @@ import { JetBrains_Mono, Mate, Rubik } from "next/font/google";
 import localFont from "next/font/local";
 
 import "./globals.css";
+import { feedUrls } from "./sitemap";
 
 const horizon = localFont({
   src: "./fonts/horizon.otf",
@@ -43,6 +44,28 @@ export const metadata: Metadata = {
     "Research-powered Web3 security team founded by top-ranked competitive hacking team.",
     "Audits for crypto wallets, L1/L2 chains, and smart contracts.",
   ].join(" "),
+  alternates: {
+    types: {
+      "application/rss+xml": [
+        {
+          title: "RSS",
+          url: feedUrls.rss,
+        },
+      ],
+      "application/atom+xml": [
+        {
+          title: "Atom",
+          url: feedUrls.atom,
+        },
+      ],
+      "application/feed+json": [
+        {
+          title: "JSON Feed",
+          url: feedUrls.json,
+        },
+      ],
+    },
+  },
 };
 
 export const viewport: Viewport = {
