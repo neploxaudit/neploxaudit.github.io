@@ -31,7 +31,7 @@ developed using OtterSec's `sol-ctf-framework` ([github.com/otter-sec/sol-ctf-fr
 The smart contracts, or "programs" as they are called in Solana, were written in C with the use of the Solana Clang toolchain by Anza ([github.com/anza-xyz/platform-tools](https://github.com/anza-xyz/platform-tools)).
 Solalloc's program implemented a "rug-pull" style vault, to which anyone could deposit SOL,
 but only the initial deployer could withdraw the deposited funds.
-As it is hinted in the challenge description and category (PWN), the challenge's solution required exploitation of buggy manual memory management:
+As it is hinted in the challenge description and category (PWN), the solution required exploitation of buggy manual memory management:
 
 > Tony, chasing the Solana hype, hastily ported his Ethereum contracts, playing fast and loose with Solana's memory allocations. As chaos ensued, Tony realized his overconfidence might cost him dearly. Help Tony unravel the mess he's made.
 
@@ -55,84 +55,90 @@ CMD kctf_setup && \
 source code. `server`'s `main.rs` ([blazctf-2024/solalloc/challenge/server/src/main.rs](https://github.com/fuzzland/blazctf-2024/blob/e802dab6e249d4d1b7359ff6b012de888f05d23c/solalloc/challenge/server/src/main.rs)) contains a simple TCP server which initializes a
 `sol_ctf_framework::ChallengeBuilder` for each connection with the following setup steps:
 
-1. The `solalloc.so` program is loaded into the challenge's context.
+1. The `solalloc.so` program is loaded into the execution context.
    It is built in the `Dockerfile` from the `server/program` directory containing
    the program source code in C and a `Makefile` using Solana's `sbf.mk` ([solana.com/docs/programs/lang-c](https://web.archive.org/web/20240915215357/https://solana.com/docs/programs/lang-c)).
-2. The player's compiled `.so` program is received via the connection and also loaded into the challenge's context.
+
+2. The player's compiled `.so` program is received via the connection and also loaded into the context.
+
 3. A random `admin` wallet is generated and funded with 100_000_000_000 lamports (Solana's native token, equivalent to 100 SOL):
 
-   ```rust title="server/src/main.rs"
-   let admin_keypair = Keypair::new();
-   let admin = admin_keypair.pubkey();
+```rust title="server/src/main.rs"
+let admin_keypair = Keypair::new();
+let admin = admin_keypair.pubkey();
 
-   chall
-       .run_ix(system_instruction::transfer(
-           &payer,
-           &admin,
-           100_000_000_000,
-       ))
-       .await?;
-   ```
+chall
+    .run_ix(system_instruction::transfer(
+        &payer,
+        &admin,
+        100_000_000_000,
+    ))
+    .await?;
+```
 
 4. In the same fashion, the player's wallet (called `user`) is generated,
    however it is funded with only 1_000_000_000 lamports (1 SOL).
+
 5. A program-derived address (PDA, [solana.com/docs/core/pda](https://solana.com/docs/core/pda)) is computed for the
    challenge program with the string `BLAZ` as the seed. Such addresses are derived from
    a specific program's "ID" (its public key, pretty much) and arbitrary number of seeds,
    and allow the program to store data and sign "modifications" on behalf of the PDA,
    since Solana can check that the address was derived for a specific program.
-   In this case, the PDA is used as a "storage" account by the challenge's program,
+   In this case, the PDA is used as a "storage" account by the challenge program,
    but more about that later. Each derived PDA is returned alongside an additional
    "bump" seed byte, which is needed for PDA derivation to generate correct addresses
    with arbitrary user-provided seeds.
+
 6. An "instruction" (a single part of a Solana transaction) is executed,
    specifying three bytes as the instruction data, and the admin, data, program,
    and system accounts with different permissions. Solana requires instructions
    to specify the read/write capabilities of all accounts to be involved in an
    instruction execution, partially for security, partially for optimization reasons.
    Here, all accounts except the system program account are writable, and the admin
-   account is additionally marked as the "signer" of the instruction.:
+   account is additionally marked as the "signer" of the instruction:
 
-   ```rust title="server/src/main.rs"
-   let ix = Instruction {
-       program_id,
-       accounts: vec![
-           AccountMeta::new(admin, true),
-           AccountMeta::new(data_addr, false),
-           AccountMeta::new(program_id, false),
-           AccountMeta::new_readonly(system_program::id(), false),
-       ],
-       data: vec![1, data_bump, 0],
-   };
+```rust title="server/src/main.rs"
+let ix = Instruction {
+    program_id,
+    accounts: vec![
+        AccountMeta::new(admin, true),
+        AccountMeta::new(data_addr, false),
+        AccountMeta::new(program_id, false),
+        AccountMeta::new_readonly(system_program::id(), false),
+    ],
+    data: vec![1, data_bump, 0],
+};
 
-   chall.run_ixs_full(&[ix], &[&admin_keypair], &admin).await?;
-   ```
+chall.run_ixs_full(&[ix], &[&admin_keypair], &admin).await?;
+```
 
 7. A player-provided instruction is then read from the connection and executed
    using the player's `user` wallet:
-   ```rust title="server/src/main.rs"
-   let solve_ix = chall.read_instruction(solve_id)?;
-   chall
-       .run_ixs_full(&[solve_ix], &[&user_keypair], &user_keypair.pubkey())
-       .await?;
-   ```
+
+```rust title="server/src/main.rs"
+let solve_ix = chall.read_instruction(solve_id)?;
+chall
+    .run_ixs_full(&[solve_ix], &[&user_keypair], &user_keypair.pubkey())
+    .await?;
+```
+
 8. _Finally_, the challenge checks that the `user` wallet has over 2 SOL balance (remember that we are initially given only 1 SOL), and, if so, the flag is sent from an environment variable:
 
-   ```rust title="server/src/main.rs"
-   if let Some(account) = chall.ctx.banks_client.get_account(user).await? {
-       if account.lamports > 2_000_000_000 {
-           writeln!(
-               socket,
-               "Good job!\n{}",
-               std::env::var("FLAG").unwrap_or_else(|_| "flag{test_flag}".to_string())
-           )?;
-   ...
-   ```
+```rust title="server/src/main.rs"
+if let Some(account) = chall.ctx.banks_client.get_account(user).await? {
+    if account.lamports > 2_000_000_000 {
+        writeln!(
+            socket,
+            "Good job!\n{}",
+            std::env::var("FLAG").unwrap_or_else(|_| "flag{test_flag}".to_string())
+        )?;
+...
+```
 
 ## Analysis: Challenge program
 
 Now that we know the challenge solution requirements, lets figure out how we
-can interact with the program in order to get an additional SOL from sent to us.
+can interact with the program in order to get an additional SOL sent to us.
 As described in Solana's C development documentation ([solana.com/docs/programs/lang-c](https://web.archive.org/web/20240915215357/https://solana.com/docs/programs/lang-c)),
 the program's implementation begins with the `entrypoint` function ([blazctf-2024/solalloc/challenge/server/program/src/solalloc/solalloc.c#L38](https://github.com/fuzzland/blazctf-2024/blob/e802dab6e249d4d1b7359ff6b012de888f05d23c/solalloc/challenge/server/program/src/solalloc/solalloc.c#L38)).
 It starts by reading the instruction parameters into `SolParameters` and `SolAccountInfo`
@@ -205,8 +211,7 @@ The input is then processed based on its `type` byte, with `INIT`, `DEPOSIT`, an
 `INIT` ([blazctf-2024/solalloc/challenge/server/program/src/solalloc/solalloc.c#L101](https://github.com/fuzzland/blazctf-2024/blob/e802dab6e249d4d1b7359ff6b012de888f05d23c/solalloc/challenge/server/program/src/solalloc/solalloc.c#L101)) basically calls the system program to actually _create_ the PDA account,
 as long as it does not exist yet (`data_len == 0`), and set its `data` field
 to the `CALLER` account's address. Since we know the solution requirements,
-lets immediatelly try to see how we could exploit the `WITHDRAW` method to extort funds
-using it simply based on its name:
+lets immediatelly head for the `WITHDRAW` method to see how we can exploit it to extort funds judging only by its name:
 
 ```c title="solalloc.c"
 case WITHDRAW: {
@@ -239,8 +244,7 @@ the PDA account with `INIT`. Since the player's instruction is executed with the
 wallet, this check will always fail. What's strange however, is that it uses a stack-local
 `caller_key` variable to perform the comparison, instead of the actual `accounts[CALLER].key` value. Both the `WITHDRAW` and `DEPOSIT` methods also read an arbitrary `message`
 null-terminated byte-string from the instruction data, which isn't even used for anything
-afterwards. Knowing that the task is related to memory management bugs, lets try to
-see how these "messages" are allocated and used.
+afterwards. Knowing that the task is related to memory management bugs, lets see how these "messages" are allocated and used.
 
 Solana's C development documentation mentions memory allocation in the "Heap" section ([solana.com/docs/programs/lang-c#heap](https://web.archive.org/web/20240915215357/https://solana.com/docs/programs/lang-c#heap)),
 specifying that programs can use the `calloc` syscall or implement their own allocators

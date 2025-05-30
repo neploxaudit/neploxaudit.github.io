@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <React.Fragment>
-      <header className="header-grid default-header sticky top-0 z-10 page-margin mb-8 flex-none py-4 before:absolute before:inset-0 before:-z-10 before:-mx-[4vw] before:bg-surface before:shadow-[0_7px_6px_-6px_rgba(0,0,0,0.25)] md:static md:mb-12 md:border-b md:border-stone-500 md:py-6 md:before:hidden lg:mb-16 lg:py-8">
+      <header className="header-grid default-header sticky top-0 z-10 page-margin mb-8 flex-none py-4 before:absolute before:inset-0 before:-z-10 before:-mx-[4vw] before:bg-surface before:shadow-[0_7px_6px_-6px_rgba(0,0,0,0.25)] md:static md:mb-12 md:border-b md:border-stone-500 md:py-6 md:before:hidden lg:mb-16 lg:py-8 dark:md:border-raisin-600">
         {/* Branding sm */}
         <Link href="/" className="justify-self-start md:hidden">
           {/* Same width as "go to bottom" button */}

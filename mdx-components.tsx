@@ -55,10 +55,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             }
 
             return (
-              <>
+              <React.Fragment key={index}>
                 {part + "/"}
                 <wbr />
-              </>
+              </React.Fragment>
             );
           });
         }
@@ -96,7 +96,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             fetchPriority={fetchPriority}
             priority={priority}
           />
-          <span className="text-center text-sm text-stone-500">{alt}</span>
+          <label className="block text-center text-stone-600 dark:text-raisin-400">
+            {alt}
+          </label>
         </>
       );
     },
