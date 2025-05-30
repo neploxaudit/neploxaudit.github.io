@@ -126,6 +126,14 @@
   @apply grid gap-x-8 gap-y-6;
 }
 
+@utility page-margin {
+  margin-inline: 4vw;
+
+  @variant 2xl {
+    margin-inline: 8vw;
+  }
+}
+
 .landing-nav {
   /* https://chrisburnell.com/clamp-calculator/?font-size-root=16&size-min=16&size-max=20&viewport-min=320&viewport-max=400&viewport-units=vw */
   font-size: clamp(1rem, 0rem + 5vw, 1.25rem);

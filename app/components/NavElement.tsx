@@ -1,15 +1,22 @@
 "use client";
 
-import Context from "@/app/components/Context";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { BiSolidLock } from "react-icons/bi";
+
+import Context from "@/app/components/Context";
 
 export default function NavElement({
   path,
   blocked,
   className,
-}: Readonly<{ path: string; blocked: boolean; className?: string }>) {
+  selected,
+}: Readonly<{
+  path: string;
+  blocked: boolean;
+  selected: boolean;
+  className?: string;
+}>) {
   const { canHover } = useContext(Context);
   const [shaking, setShaking] = useState(false);
 
@@ -34,7 +41,7 @@ export default function NavElement({
       }}
       onAnimationEnd={() => blocked && !canHover && setShaking(false)}
     >
-      <span>
+      <span className={`${selected ? "sm:scale-125 md:scale-150" : ""}`}>
         {blocked ? (
           <>
             <span className="font-light">{"["}</span>

@@ -18,16 +18,19 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <React.Fragment>
-      <header className="header-grid default-header sticky top-0 z-10 flex-none pt-4 before:absolute before:inset-0 before:-z-10 before:-mx-[4vw] before:-mb-4 before:bg-surface before:shadow-[0_7px_6px_-6px_rgba(0,0,0,0.25)] md:relative md:top-0 md:pt-8 md:before:hidden">
+      <header className="header-grid default-header sticky top-0 z-10 page-margin mb-8 flex-none py-4 before:absolute before:inset-0 before:-z-10 before:-mx-[4vw] before:bg-surface before:shadow-[0_7px_6px_-6px_rgba(0,0,0,0.25)] md:static md:mb-12 md:border-b md:border-stone-500 md:py-6 md:before:hidden lg:mb-16 lg:py-8">
         {/* Branding sm */}
         <Link href="/" className="justify-self-start md:hidden">
           {/* Same width as "go to bottom" button */}
           <Images.Logo className="h-auto w-12 scale-125" />
         </Link>
         {/* Branding md+ */}
-        <Link href="/" className="hidden flex-row gap-x-8 md:flex">
-          <Images.Logo className="h-[min(10vh,6vw)] w-auto scale-125" />
-          <h1 className="font-horizon leading-none text-theme md:text-[min(10vh,6vw)]">
+        <Link
+          href="/"
+          className="hidden flex-row gap-x-8 pl-4 md:flex lg:pl-12"
+        >
+          <Images.Logo className="h-8 w-auto scale-150 lg:h-12" />
+          <h1 className="font-horizon text-4xl leading-none text-theme lg:text-5xl">
             NEPLOX
           </h1>
         </Link>
@@ -39,6 +42,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               path="ctf"
               blocked={false}
               className="default-nav"
+              selected
             />
           </nav>
         </div>
@@ -51,6 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 path={path}
                 blocked={blocked}
                 className="default-nav"
+                selected={path === "ctf"}
               />
             ))}
           </nav>
@@ -59,9 +64,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <ScrollDown className="w-12 justify-self-end md:hidden" />
       </header>
 
-      {children}
+      <main className="page-margin flex-auto">{children}</main>
 
-      <Footer className="flex-none" />
+      <Footer className="page-margin flex-none" />
     </React.Fragment>
   );
 }

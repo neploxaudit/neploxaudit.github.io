@@ -154,7 +154,7 @@ export default function Landing() {
 
   return (
     <>
-      <header className="header-grid landing-header pt-8">
+      <header className="header-grid landing-header page-margin pt-8">
         {/* Branding */}
         <h1
           // 1. justify-self-center for centering the top horizontal NEPLOX text to the width of the logo,
@@ -192,6 +192,7 @@ export default function Landing() {
                 key={path}
                 path={path}
                 blocked={blocked}
+                selected={false}
                 className="landing-nav"
               />
             ))}
@@ -236,345 +237,347 @@ export default function Landing() {
         </div>
       </header>
 
-      {/* Contact us */}
-      <button
-        className="mx-auto my-8 w-full max-w-lg rounded-3xl rounded-br-none border-2 border-theme bg-surface py-3 text-center font-theme-sans font-medium text-theme transition duration-300 hover:cursor-pointer hover:bg-theme hover:text-surface lg:max-w-xl lg:text-lg xl:max-w-2xl"
-        onClick={() =>
-          contactUsRef.current?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          })
-        }
-      >
-        <PiArrowBendLeftDownBold
-          className="inline align-middle font-bold"
-          size="1.2em"
-        />
-        <span className="align-middle">&ensp;CONTACT US</span>
-      </button>
-
-      {/* Skills */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-10">
-        <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase lg:row-start-1 lg:self-end lg:leading-10">
-          <PiChats className="inline align-top text-3xl lg:text-4xl" />{" "}
-          <span className="text-surface text-outline-theme">We</span>{" "}
-          <strong>Guide</strong>
-        </h2>
-        <p
-          className={[
-            "mx-auto mt-3 max-w-lg border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto dark:border-raisin-600",
-            "lg:row-start-2 lg:max-w-xl lg:border-l-0 lg:pl-0 lg:text-lg/7 xl:text-xl/7",
-          ].join(" ")}
+      <main className="page-margin">
+        {/* Contact us */}
+        <button
+          className="mx-auto my-16 block w-full max-w-lg rounded-3xl rounded-br-none border-2 border-theme bg-surface py-3 text-center font-theme-sans font-medium text-theme transition duration-300 hover:cursor-pointer hover:bg-theme hover:text-surface lg:max-w-xl lg:text-lg xl:max-w-2xl"
+          onClick={() =>
+            contactUsRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            })
+          }
         >
-          With <b className="text-highlight">&thinsp;senior-level&thinsp;</b>{" "}
-          cloud security and infrastructure engineers on our team, we can guide
-          your project from the ground up, preventing architectural issues which
-          could otherwise become detrimental to your success.
-        </p>
+          <PiArrowBendLeftDownBold
+            className="inline align-middle font-bold"
+            size="1.2em"
+          />
+          <span className="align-middle">&ensp;CONTACT US</span>
+        </button>
 
-        <h2 className="mt-11 text-center font-horizon text-[2rem] leading-8 text-theme uppercase lg:row-start-1 lg:mt-0 lg:self-end lg:leading-10">
-          <PiCode className="inline align-middle text-3xl lg:text-4xl" />{" "}
-          <strong>Web2</strong>
-          <span className="font-theme-sans">/</span>
-          <strong>3</strong>{" "}
-          <span className="text-surface text-outline-theme">Audit</span>
-        </h2>
-        <p
-          className={[
-            "mx-auto mt-3 max-w-lg border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto dark:border-raisin-600",
-            "lg:row-start-2 lg:max-w-xl lg:border-l-0 lg:pl-0 lg:text-lg/7 xl:text-xl/7",
-          ].join(" ")}
-        >
-          Our auditors come from AppSec / Penetration Testing backgrounds, with
-          expertise formed through{" "}
-          <b className="text-highlight">&thinsp;over 100 audits&thinsp;</b> of
-          classic Web2 products over the years.
-          <br />
-          <br />
-          By applying this experience alongside our{" "}
-          <b className="text-highlight">
-            &thinsp;competitive mindset&thinsp;
-          </b>{" "}
-          as one of the top CTF teams in the world, we are able to secure
-          innovative systems before they become mainstream.
-        </p>
-
-        <h2 className="mt-11 text-center font-horizon text-[2rem] leading-8 text-theme uppercase lg:row-start-1 lg:mt-0 lg:self-end lg:leading-10">
-          <PiMagnifyingGlass className="inline align-top text-3xl lg:text-4xl" />{" "}
-          <span className="text-surface text-outline-theme">We</span>{" "}
-          <strong>Research</strong>
-        </h2>
-        <p
-          className={[
-            "mx-auto mt-3 max-w-lg border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto dark:border-raisin-600",
-            "lg:row-start-2 lg:max-w-xl lg:border-l-0 lg:pl-0 lg:text-lg/7 xl:text-xl/7",
-          ].join(" ")}
-        >
-          We don&apos;t blindly trust even renowned libraries and products. With
-          zero-day vulnerabilities reported to{" "}
-          <span className="text-highlight">
-            &thinsp;leading vendors&thinsp;
-          </span>
-          , we dig deep into the ecosystem to protect your project from from
-          unconventional attack vectors before they are exploited.
-        </p>
-      </div>
-
-      {/* Core team */}
-      <div className="mt-16">
-        <h2 className="mb-8 text-center font-horizon text-[2rem] uppercase">
-          Core team
-        </h2>
-        <div className="flex flex-wrap justify-center gap-6 lg:gap-10 xl:gap-16">
-          {team.map((member) => (
-            <div
-              key={member.nickname}
-              className="landing-member group w-64 py-4 text-center xl:w-80"
-            >
-              <Image
-                className="landing-member-animation m-auto h-auto w-40 rounded-full transition-transform duration-300 group-hover:scale-110 hover:cursor-zoom-in lg:w-48 xl:w-64"
-                src={member.src}
-                alt={member.nickname}
-                sizes="(max-width: 768px) 50vw, 33vw"
-              />
-              <p className="text-md mt-4 font-theme-sans font-normal">
-                <b className="text-md landing-highlight px-8 py-1 font-normal md:text-lg lg:text-xl">
-                  {member.name}
-                </b>
-              </p>
-              <span className="font-theme-sans text-sm font-light opacity-75">
-                @{member.nickname}
-              </span>
-              <p className="my-4 text-justify font-theme-sans text-sm font-light hyphens-auto lg:text-base xl:text-lg">
-                {member.description}
-              </p>
-              <p className="mb-3 flex flex-wrap justify-center text-center font-theme-sans text-sm font-light">
-                {member.skills.map((skill) => (
-                  <b
-                    key={member.nickname + skill}
-                    className="mx-1 my-0.5 rounded-3xl rounded-tl-none text-highlight px-2 py-0.5"
-                  >
-                    &thinsp;{skill}&thinsp;
-                  </b>
-                ))}
-              </p>
-              <p className="text-center">
-                {member.socials.map((social) => (
-                  <a
-                    key={social.alt}
-                    href={social.href}
-                    className="mx-1 inline-block h-auto w-5 transition-transform duration-300 hover:scale-125"
-                  >
-                    <Image
-                      src={social.src}
-                      alt={social.alt}
-                      width={social.width}
-                      height={social.height}
-                    />
-                  </a>
-                ))}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Our work */}
-      <div className="mt-16">
-        <h2 className="mb-8 text-center font-horizon text-[2rem] uppercase">
-          Our work
-        </h2>
-        <p className="mx-auto mb-8 px-4 text-justify font-theme-serif leading-relaxed font-normal sm:max-w-lg sm:px-0 md:max-w-2xl lg:max-w-3xl lg:text-lg/7 xl:max-w-4xl xl:text-xl/7">
-          <b className="font-theme-sans font-medium text-theme">Neplox</b> was
-          founded by and mainly consists of active members of the{" "}
-          <b className="group font-theme-sans font-medium text-theme underline">
-            <a href="https://ctftime.org/team/83435/" className="text-theme">
-              C4T BuT S4D
-            </a>
-          </b>{" "}
-          CTF team. For multiple years in a row, we have secured a place at the
-          very top of the leaderboard among teams from all over the world.
-        </p>
-        <div className="grid grid-cols-3 gap-3 md:grid-cols-4">
-          <div className="order-1 col-span-1 mt-10 grid md:col-span-2 md:mt-0">
-            <Image
-              className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
-              src={photo1}
-              alt="Elizabeth giving a talk at SAS conference"
-              sizes="(max-width: 768px) 20vw, 50vw"
-            />
-          </div>
-          <div className="order-2 col-span-2 flex justify-center">
-            <ul className="md:text-md landing-achievements mt-0 w-fit list-none text-justify font-theme-sans font-light md:mt-10 lg:text-lg xl:text-xl">
-              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 md:pr-4 lg:pr-8">
-                <a href="https://youtube.com/watch?v=HFeD4kYcW7A">
-                  <PiLinkLight className="mr-2 inline" />#<b>1</b> in{" "}
-                  <b>GoogleCTF</b>
-                  <span className="opacity-60"> @ Tokyo</span>
-                </a>
-              </li>
-              <li className="mb-2 w-fit border border-theme px-2 py-1 md:pr-4 lg:pr-8">
-                <PiLinkLight className="mr-2 inline opacity-0" />#<b>3</b> in{" "}
-                <b>DEFCON</b>
-                <span className="opacity-60"> @ Las Vegas</span>
-              </li>
-              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 md:pr-4 lg:pr-8">
-                <a href="https://github.com/neploxaudit/ctfwriteups">
-                  <PiLinkLight className="mr-2 inline" />#<b>5</b> in{" "}
-                  <b>BlazCTF</b>, <b>RemedyCTF</b>
-                </a>
-              </li>
-              <li className="pointer-events-none mb-12 w-fit border border-b-0 border-theme px-2 py-1 text-xs md:pr-4 lg:pr-8">
-                <PiLinkLight className="mr-2 inline opacity-0" />
-                &emsp;.&ensp;.&ensp;.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-              </li>
-            </ul>
-          </div>
-          <div className="order-3 col-span-1 grid">
-            <Image
-              className="mt-2 h-auto max-w-full scale-105 rounded-lg grayscale transition-all duration-300 hover:scale-125 hover:cursor-zoom-in hover:grayscale-0 md:mt-16"
-              src={photo4}
-              alt="C4T BuT S4D team celebrating victory on HITB"
-              sizes="33vw"
-            />
-          </div>
-          <div className="order-4 col-span-2 grid">
-            <p className="absolute z-10 -mt-12 -ml-24 rounded-3xl rounded-tr-none text-highlight px-8 py-2 text-center font-horizon text-xl text-theme! uppercase transition-all duration-300 hover:scale-110 hover:cursor-pointer hover:text-surface! md:-ml-16 md:text-2xl lg:-ml-8 lg:text-3xl xl:text-4xl">
-              <span
-                style={{
-                  WebkitTextStrokeWidth: "0.05em",
-                  WebkitTextStrokeColor: "var(--color-surface)",
-                }}
-              >
-                OUR
-              </span>{" "}
-              <b className="text-surface">WINS</b>&ensp;
-              <PiArrowBendRightUp className="inline text-surface! opacity-90" />
-            </p>
-            <Image
-              className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
-              src={photo2}
-              alt="C4T BuT S4D team celebrating first place on GoogleCTF"
-              sizes="(max-width: 768px) 75vw, 50vw"
-            />
-          </div>
-          <div className="order-7 col-span-3 float-right grid text-right md:order-6 md:col-span-2">
-            <ul className="md:text-md landing-achievements list-none pt-0 font-theme-sans font-light md:pt-16 lg:text-lg xl:text-xl">
-              <li className="pointer-events-none mb-2 w-fit border border-t-0 border-theme px-2 py-1 text-xs lg:pr-4 xl:pr-8">
-                <PiLinkLight className="mr-2 inline opacity-0" />
-                &emsp;.&ensp;.&ensp;.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-              </li>
-              <li className="mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
-                <PiLinkLight className="mr-2 inline opacity-0" />
-                <b>Attacks on Crypto Wallets</b>, ZER0CON
-                <span className="opacity-60"> @ Korea</span>
-              </li>
-              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
-                <a href="https://blobs.neplox.security/attacking-crypto-wallets.pdf">
-                  <PiLinkLight className="mr-2 inline" />
-                  <b>Attacks on Crypto Wallets</b>, SECCON
-                  <span className="opacity-60"> @ Japan</span>
-                </a>
-              </li>
-              <li className="mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
-                <PiLinkLight className="mr-2 inline opacity-0" />
-                <b>Chrome Security</b>, Positive Hack Talks
-                <span className="opacity-60"> @ India</span>
-              </li>
-              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
-                <a href="https://youtube.com/watch?v=jVw11eLnTek">
-                  <PiLinkLight className="mr-2 inline" />
-                  <b>Cybercrime in Dating</b>, SAS
-                  <span className="opacity-60"> @ Indonesia</span>
-                </a>
-              </li>
-              <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
-                <a href="https://qwqoro.works/videos/HaHacking_You've-got-mail.mp4">
-                  <PiLinkLight className="mr-2 inline" />
-                  <b>Attacks on Email Services</b>, PHDays
-                  <span className="opacity-60"> @ Russia</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="order-5 col-span-2 grid md:col-span-1">
-            <Image
-              className="mt-0 h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0 md:-mt-16 md:scale-105 md:hover:scale-125"
-              src={photo3}
-              alt="C4T BuT S4D celebrating another victory on RuCTF"
-              sizes="(max-width: 768px) 75vw, 33vw"
-            />
-          </div>
-          <div className="order-5 col-span-1 grid md:order-7 md:col-span-2">
-            <p className="absolute z-10 -mt-4 -ml-56 rounded-3xl rounded-bl-none text-highlight px-8 py-2 text-center font-horizon text-xl text-theme! uppercase transition-all duration-300 hover:scale-110 hover:cursor-pointer hover:text-surface! md:-ml-40 md:text-2xl lg:-ml-36 lg:text-3xl xl:text-4xl">
-              <PiArrowBendLeftDown className="inline text-surface! opacity-90" />
-              &ensp;
-              <span
-                style={{
-                  WebkitTextStrokeWidth: "0.05em",
-                  WebkitTextStrokeColor: "var(--color-surface)",
-                }}
-              >
-                OUR
-              </span>{" "}
-              <b className="text-surface">RESEARCH</b>
-            </p>
-            <Image
-              className="mt-10 h-auto max-w-full scale-105 rounded-lg grayscale transition-all duration-300 hover:scale-125 hover:cursor-zoom-in hover:grayscale-0 md:mt-0 md:scale-100 md:hover:scale-110"
-              src={photo}
-              alt="Vsevolod and Elizabeth giving a talk about email security"
-              sizes="(max-width: 768px) 33vw, 50vw"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Contact form */}
-      <div className="mt-16" ref={contactUsRef}>
-        <h2
-          id="contact-us"
-          className="mb-8 text-center font-horizon text-[2rem] uppercase"
-        >
-          Contact us
-        </h2>
-        <p className="mx-auto mb-6 max-w-md text-justify font-theme-sans font-normal md:max-w-lg lg:max-w-xl lg:text-lg xl:max-w-2xl">
-          Ping us with a vague topic and we&apos;ll get back to you ASAP to
-          discuss the details.
-        </p>
-        <form
-          action="https://form.neplox.security/contact"
-          method="POST"
-          className="mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl"
-        >
-          <FormHint />
-          <div className="mb-4">
-            <label
-              htmlFor="contacts"
-              className="text-sm text-raisin-500 lg:text-base dark:text-stone-400"
-            >
-              Your contact *
-            </label>
-            <input
-              name="contacts"
-              type="text"
-              id="contacts"
-              className="mt-1 w-full rounded-lg rounded-bl-none border border-stone-600 bg-stone-50 px-4 py-3 text-base placeholder:text-raisin-400 lg:text-lg dark:border-raisin-500 dark:bg-raisin-800 dark:placeholder:text-stone-500"
-              placeholder="t.me/nfranklin, nfranklin@company.com"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full rounded-3xl rounded-tl-none border-2 border-theme bg-surface py-3 font-theme-sans font-medium text-theme transition duration-300 hover:cursor-pointer hover:bg-theme hover:text-surface lg:w-56 lg:text-lg"
+        {/* Skills */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-10">
+          <h2 className="text-center font-horizon text-[2rem] leading-8 text-theme uppercase lg:row-start-1 lg:self-end lg:leading-10">
+            <PiChats className="inline align-top text-3xl lg:text-4xl" />{" "}
+            <span className="text-surface text-outline-theme">We</span>{" "}
+            <strong>Guide</strong>
+          </h2>
+          <p
+            className={[
+              "mx-auto mt-3 max-w-lg border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto dark:border-raisin-600",
+              "lg:row-start-2 lg:max-w-xl lg:border-l-0 lg:pl-0 lg:text-lg/7 xl:text-xl/7",
+            ].join(" ")}
           >
-            <PiArrowLineUpBold
-              className="inline align-middle font-bold"
-              size="1.2em"
-            />
-            <span className="align-middle">&ensp;GET IN TOUCH</span>
-          </button>
-        </form>
-      </div>
+            With <b className="text-highlight">&thinsp;senior-level&thinsp;</b>{" "}
+            cloud security and infrastructure engineers on our team, we can
+            guide your project from the ground up, preventing architectural
+            issues which could otherwise become detrimental to your success.
+          </p>
+
+          <h2 className="mt-11 text-center font-horizon text-[2rem] leading-8 text-theme uppercase lg:row-start-1 lg:mt-0 lg:self-end lg:leading-10">
+            <PiCode className="inline align-middle text-3xl lg:text-4xl" />{" "}
+            <strong>Web2</strong>
+            <span className="font-theme-sans">/</span>
+            <strong>3</strong>{" "}
+            <span className="text-surface text-outline-theme">Audit</span>
+          </h2>
+          <p
+            className={[
+              "mx-auto mt-3 max-w-lg border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto dark:border-raisin-600",
+              "lg:row-start-2 lg:max-w-xl lg:border-l-0 lg:pl-0 lg:text-lg/7 xl:text-xl/7",
+            ].join(" ")}
+          >
+            Our auditors come from AppSec / Penetration Testing backgrounds,
+            with expertise formed through{" "}
+            <b className="text-highlight">&thinsp;over 100 audits&thinsp;</b> of
+            classic Web2 products over the years.
+            <br />
+            <br />
+            By applying this experience alongside our{" "}
+            <b className="text-highlight">
+              &thinsp;competitive mindset&thinsp;
+            </b>{" "}
+            as one of the top CTF teams in the world, we are able to secure
+            innovative systems before they become mainstream.
+          </p>
+
+          <h2 className="mt-11 text-center font-horizon text-[2rem] leading-8 text-theme uppercase lg:row-start-1 lg:mt-0 lg:self-end lg:leading-10">
+            <PiMagnifyingGlass className="inline align-top text-3xl lg:text-4xl" />{" "}
+            <span className="text-surface text-outline-theme">We</span>{" "}
+            <strong>Research</strong>
+          </h2>
+          <p
+            className={[
+              "mx-auto mt-3 max-w-lg border-l-4 border-stone-500 py-1 pl-3 text-justify font-theme-serif leading-relaxed font-normal hyphens-auto dark:border-raisin-600",
+              "lg:row-start-2 lg:max-w-xl lg:border-l-0 lg:pl-0 lg:text-lg/7 xl:text-xl/7",
+            ].join(" ")}
+          >
+            We don&apos;t blindly trust even renowned libraries and products.
+            With zero-day vulnerabilities reported to{" "}
+            <span className="text-highlight">
+              &thinsp;leading vendors&thinsp;
+            </span>
+            , we dig deep into the ecosystem to protect your project from from
+            unconventional attack vectors before they are exploited.
+          </p>
+        </div>
+
+        {/* Core team */}
+        <div className="mt-24">
+          <h2 className="mb-8 text-center font-horizon text-[2rem] uppercase">
+            Core team
+          </h2>
+          <div className="flex flex-wrap justify-center gap-6 lg:gap-10 xl:gap-16">
+            {team.map((member) => (
+              <div
+                key={member.nickname}
+                className="landing-member group w-64 py-4 text-center xl:w-80"
+              >
+                <Image
+                  className="landing-member-animation m-auto h-auto w-40 rounded-full transition-transform duration-300 group-hover:scale-110 hover:cursor-zoom-in lg:w-48 xl:w-64"
+                  src={member.src}
+                  alt={member.nickname}
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                />
+                <p className="text-md mt-4 font-theme-sans font-normal">
+                  <b className="text-md landing-highlight px-8 py-1 font-normal md:text-lg lg:text-xl">
+                    {member.name}
+                  </b>
+                </p>
+                <span className="font-theme-sans text-sm font-light opacity-75">
+                  @{member.nickname}
+                </span>
+                <p className="my-4 text-justify font-theme-sans text-sm font-light hyphens-auto lg:text-base xl:text-lg">
+                  {member.description}
+                </p>
+                <p className="mb-3 flex flex-wrap justify-center text-center font-theme-sans text-sm font-light">
+                  {member.skills.map((skill) => (
+                    <b
+                      key={member.nickname + skill}
+                      className="mx-1 my-0.5 rounded-3xl rounded-tl-none text-highlight px-2 py-0.5"
+                    >
+                      &thinsp;{skill}&thinsp;
+                    </b>
+                  ))}
+                </p>
+                <p className="text-center">
+                  {member.socials.map((social) => (
+                    <a
+                      key={social.alt}
+                      href={social.href}
+                      className="mx-1 inline-block h-auto w-5 transition-transform duration-300 hover:scale-125"
+                    >
+                      <Image
+                        src={social.src}
+                        alt={social.alt}
+                        width={social.width}
+                        height={social.height}
+                      />
+                    </a>
+                  ))}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Our work */}
+        <div className="mt-24">
+          <h2 className="mb-8 text-center font-horizon text-[2rem] uppercase">
+            Our work
+          </h2>
+          <p className="mx-auto mb-8 px-4 text-justify font-theme-serif leading-relaxed font-normal sm:max-w-lg sm:px-0 md:max-w-2xl lg:max-w-3xl lg:text-lg/7 xl:max-w-4xl xl:text-xl/7">
+            <b className="font-theme-sans font-medium text-theme">Neplox</b> was
+            founded by and mainly consists of active members of the{" "}
+            <b className="group font-theme-sans font-medium text-theme underline">
+              <a href="https://ctftime.org/team/83435/" className="text-theme">
+                C4T BuT S4D
+              </a>
+            </b>{" "}
+            CTF team. For multiple years in a row, we have secured a place at
+            the very top of the leaderboard among teams from all over the world.
+          </p>
+          <div className="grid grid-cols-3 gap-3 md:grid-cols-4">
+            <div className="order-1 col-span-1 mt-10 grid md:col-span-2 md:mt-0">
+              <Image
+                className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
+                src={photo1}
+                alt="Elizabeth giving a talk at SAS conference"
+                sizes="(max-width: 768px) 20vw, 50vw"
+              />
+            </div>
+            <div className="order-2 col-span-2 flex justify-center">
+              <ul className="md:text-md landing-achievements mt-0 w-fit list-none text-justify font-theme-sans font-light md:mt-10 lg:text-lg xl:text-xl">
+                <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 md:pr-4 lg:pr-8">
+                  <a href="https://youtube.com/watch?v=HFeD4kYcW7A">
+                    <PiLinkLight className="mr-2 inline" />#<b>1</b> in{" "}
+                    <b>GoogleCTF</b>
+                    <span className="opacity-60"> @ Tokyo</span>
+                  </a>
+                </li>
+                <li className="mb-2 w-fit border border-theme px-2 py-1 md:pr-4 lg:pr-8">
+                  <PiLinkLight className="mr-2 inline opacity-0" />#<b>3</b> in{" "}
+                  <b>DEFCON</b>
+                  <span className="opacity-60"> @ Las Vegas</span>
+                </li>
+                <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 md:pr-4 lg:pr-8">
+                  <a href="https://github.com/neploxaudit/ctfwriteups">
+                    <PiLinkLight className="mr-2 inline" />#<b>5</b> in{" "}
+                    <b>BlazCTF</b>, <b>RemedyCTF</b>
+                  </a>
+                </li>
+                <li className="pointer-events-none mb-12 w-fit border border-b-0 border-theme px-2 py-1 text-xs md:pr-4 lg:pr-8">
+                  <PiLinkLight className="mr-2 inline opacity-0" />
+                  &emsp;.&ensp;.&ensp;.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                </li>
+              </ul>
+            </div>
+            <div className="order-3 col-span-1 grid">
+              <Image
+                className="mt-2 h-auto max-w-full scale-105 rounded-lg grayscale transition-all duration-300 hover:scale-125 hover:cursor-zoom-in hover:grayscale-0 md:mt-16"
+                src={photo4}
+                alt="C4T BuT S4D team celebrating victory on HITB"
+                sizes="33vw"
+              />
+            </div>
+            <div className="order-4 col-span-2 grid">
+              <p className="absolute z-10 -mt-12 -ml-24 rounded-3xl rounded-tr-none text-highlight px-8 py-2 text-center font-horizon text-xl text-theme! uppercase transition-all duration-300 hover:scale-110 hover:cursor-pointer hover:text-surface! md:-ml-16 md:text-2xl lg:-ml-8 lg:text-3xl xl:text-4xl">
+                <span
+                  style={{
+                    WebkitTextStrokeWidth: "0.05em",
+                    WebkitTextStrokeColor: "var(--color-surface)",
+                  }}
+                >
+                  OUR
+                </span>{" "}
+                <b className="text-surface">WINS</b>&ensp;
+                <PiArrowBendRightUp className="inline text-surface! opacity-90" />
+              </p>
+              <Image
+                className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
+                src={photo2}
+                alt="C4T BuT S4D team celebrating first place on GoogleCTF"
+                sizes="(max-width: 768px) 75vw, 50vw"
+              />
+            </div>
+            <div className="order-7 col-span-3 float-right grid text-right md:order-6 md:col-span-2">
+              <ul className="md:text-md landing-achievements list-none pt-0 font-theme-sans font-light md:pt-16 lg:text-lg xl:text-xl">
+                <li className="pointer-events-none mb-2 w-fit border border-t-0 border-theme px-2 py-1 text-xs lg:pr-4 xl:pr-8">
+                  <PiLinkLight className="mr-2 inline opacity-0" />
+                  &emsp;.&ensp;.&ensp;.&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                </li>
+                <li className="mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
+                  <PiLinkLight className="mr-2 inline opacity-0" />
+                  <b>Attacks on Crypto Wallets</b>, ZER0CON
+                  <span className="opacity-60"> @ Korea</span>
+                </li>
+                <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
+                  <a href="https://blobs.neplox.security/attacking-crypto-wallets.pdf">
+                    <PiLinkLight className="mr-2 inline" />
+                    <b>Attacks on Crypto Wallets</b>, SECCON
+                    <span className="opacity-60"> @ Japan</span>
+                  </a>
+                </li>
+                <li className="mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
+                  <PiLinkLight className="mr-2 inline opacity-0" />
+                  <b>Chrome Security</b>, Positive Hack Talks
+                  <span className="opacity-60"> @ India</span>
+                </li>
+                <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
+                  <a href="https://youtube.com/watch?v=jVw11eLnTek">
+                    <PiLinkLight className="mr-2 inline" />
+                    <b>Cybercrime in Dating</b>, SAS
+                    <span className="opacity-60"> @ Indonesia</span>
+                  </a>
+                </li>
+                <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
+                  <a href="https://qwqoro.works/videos/HaHacking_You've-got-mail.mp4">
+                    <PiLinkLight className="mr-2 inline" />
+                    <b>Attacks on Email Services</b>, PHDays
+                    <span className="opacity-60"> @ Russia</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="order-5 col-span-2 grid md:col-span-1">
+              <Image
+                className="mt-0 h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0 md:-mt-16 md:scale-105 md:hover:scale-125"
+                src={photo3}
+                alt="C4T BuT S4D celebrating another victory on RuCTF"
+                sizes="(max-width: 768px) 75vw, 33vw"
+              />
+            </div>
+            <div className="order-5 col-span-1 grid md:order-7 md:col-span-2">
+              <p className="absolute z-10 -mt-4 -ml-56 rounded-3xl rounded-bl-none text-highlight px-8 py-2 text-center font-horizon text-xl text-theme! uppercase transition-all duration-300 hover:scale-110 hover:cursor-pointer hover:text-surface! md:-ml-40 md:text-2xl lg:-ml-36 lg:text-3xl xl:text-4xl">
+                <PiArrowBendLeftDown className="inline text-surface! opacity-90" />
+                &ensp;
+                <span
+                  style={{
+                    WebkitTextStrokeWidth: "0.05em",
+                    WebkitTextStrokeColor: "var(--color-surface)",
+                  }}
+                >
+                  OUR
+                </span>{" "}
+                <b className="text-surface">RESEARCH</b>
+              </p>
+              <Image
+                className="mt-10 h-auto max-w-full scale-105 rounded-lg grayscale transition-all duration-300 hover:scale-125 hover:cursor-zoom-in hover:grayscale-0 md:mt-0 md:scale-100 md:hover:scale-110"
+                src={photo}
+                alt="Vsevolod and Elizabeth giving a talk about email security"
+                sizes="(max-width: 768px) 33vw, 50vw"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Contact form */}
+        <div className="mt-24" ref={contactUsRef}>
+          <h2
+            id="contact-us"
+            className="mb-8 text-center font-horizon text-[2rem] uppercase"
+          >
+            Contact us
+          </h2>
+          <p className="mx-auto mb-6 max-w-md text-justify font-theme-sans font-normal md:max-w-lg lg:max-w-xl lg:text-lg xl:max-w-2xl">
+            Ping us with a vague topic and we&apos;ll get back to you ASAP to
+            discuss the details.
+          </p>
+          <form
+            action="https://form.neplox.security/contact"
+            method="POST"
+            className="mx-auto max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl"
+          >
+            <FormHint />
+            <div className="mb-4">
+              <label
+                htmlFor="contacts"
+                className="text-sm text-raisin-500 lg:text-base dark:text-stone-400"
+              >
+                Your contact *
+              </label>
+              <input
+                name="contacts"
+                type="text"
+                id="contacts"
+                className="mt-1 w-full rounded-lg rounded-bl-none border border-stone-600 bg-stone-50 px-4 py-3 text-base placeholder:text-raisin-400 lg:text-lg dark:border-raisin-500 dark:bg-raisin-800 dark:placeholder:text-stone-500"
+                placeholder="t.me/nfranklin, nfranklin@company.com"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full rounded-3xl rounded-tl-none border-2 border-theme bg-surface py-3 font-theme-sans font-medium text-theme transition duration-300 hover:cursor-pointer hover:bg-theme hover:text-surface lg:w-56 lg:text-lg"
+            >
+              <PiArrowLineUpBold
+                className="inline align-middle font-bold"
+                size="1.2em"
+              />
+              <span className="align-middle">&ensp;GET IN TOUCH</span>
+            </button>
+          </form>
+        </div>
+      </main>
 
       <Footer />
     </>

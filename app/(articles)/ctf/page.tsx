@@ -49,8 +49,8 @@ export default async function Articles() {
   }
 
   return (
-    <main className="mx-auto grid max-w-lg flex-auto auto-rows-max grid-cols-1 gap-x-8 gap-y-12 md:mx-0 md:max-w-none md:grid-cols-2 lg:grid-cols-3">
+    <div className="mx-auto grid max-w-lg auto-rows-max grid-cols-1 gap-x-8 gap-y-12 md:mx-0 md:max-w-none md:grid-cols-2 lg:grid-cols-3">
       <PreviewBundle articles={articles} />
-    </main>
+    </div>
   );
 }

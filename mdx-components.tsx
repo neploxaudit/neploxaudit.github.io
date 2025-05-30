@@ -5,6 +5,31 @@ import React from "react";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
+    // Don't render top-level h1 tag, instead show the title and metainfo using custom HTML.
+    h1: (
+      _props: React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLHeadingElement>,
+        HTMLHeadingElement
+      >,
+    ) => {
+      return <></>;
+    },
+
+    // Draw <hr/> additionally for all h2s, to get the same look as GitHub.
+    h2: (
+      props: React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLHeadingElement>,
+        HTMLHeadingElement
+      >,
+    ) => {
+      return (
+        <>
+          <h2 {...props}></h2>
+          <hr />
+        </>
+      );
+    },
+
     a: (props: React.ComponentProps<typeof Link>) => {
       let rel = "";
       let target = "";
@@ -21,18 +46,44 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         target = "_blank";
       }
 
-      return <Link {...props} rel={rel} target={target} />;
+      const children = React.Children.map(props.children, (child) => {
+        if (typeof child === "string") {
+          const parts = child.split("/");
+          return parts.map((part, index) => {
+            if (index == parts.length - 1) {
+              return part;
+            }
+
+            return (
+              <>
+                {part + "/"}
+                <wbr />
+              </>
+            );
+          });
+        }
+
+        return child;
+      });
+
+      return (
+        <Link {...props} rel={rel} target={target}>
+          {children}
+        </Link>
+      );
     },
 
     img: (props: React.ComponentProps<typeof Image>) => {
       let alt = props.alt;
       let loading: "eager" | "lazy" = "lazy";
       let fetchPriority: "high" | undefined = undefined;
+      let priority = false;
 
       if (alt.startsWith("preload")) {
         alt = alt.substring(7).trimStart();
         loading = "eager";
         fetchPriority = "high";
+        priority = true;
       }
 
       return (
@@ -43,6 +94,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             alt={alt}
             loading={loading}
             fetchPriority={fetchPriority}
+            priority={priority}
           />
           <span className="text-center text-sm text-stone-500">{alt}</span>
         </>
