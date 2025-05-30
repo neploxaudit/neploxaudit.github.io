@@ -21,14 +21,14 @@ import Nav from "@/app/components/Nav";
 import Signature from "@/app/components/Signature";
 import Socials from "@/app/components/Socials";
 
-import photo1 from "@/public/images/photo1.jpg";
-import photo2 from "@/public/images/photo2.jpg";
-import photo3 from "@/public/images/photo3.jpg";
-import photo4 from "@/public/images/photo4.jpg";
-import photo from "@/public/images/photo.jpg";
-import qwqoro from "@/public/images/qwqoro.png";
-import renbou from "@/public/images/renbou.png";
-import slonser from "@/public/images/slonser.png";
+import photo1 from "./images/photo1.jpg";
+import photo2 from "./images/photo2.jpg";
+import photo3 from "./images/photo3.jpg";
+import photo4 from "./images/photo4.jpg";
+import photo from "./images/photo.jpg";
+import qwqoro from "./images/qwqoro.png";
+import renbou from "./images/renbou.png";
+import slonser from "./images/slonser.png";
 
 const DescHighlight = ({ children }: { children: React.ReactNode }) => (
   <strong className="landing-highlight font-light whitespace-nowrap">
