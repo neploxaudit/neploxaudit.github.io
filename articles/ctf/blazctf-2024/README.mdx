@@ -9,7 +9,7 @@ We ended up solving nearly all of the 17 challenges, sadly missing a few of the 
 which placed us 5th out of the 200+ teams (see the scoreboard on CTFTime, [ctftime.org/event/2492](https://ctftime.org/event/2492/))
 that solved at least one challenge.
 
-![preload Neplox placed 5th on BlazCTF 2024](./scoreboard.jpeg)
+![preload Neplox placed 5th on BlazCTF 2024](./ctftime-scoreboard.jpeg)
 
 As usual, the CTF mostly emphasized Solidity smart contract security, but what we liked was that the authors
 also tried to innovate with tasks such as "Chisel as a Service", which required achieving RCE (remote code execution)
@@ -21,8 +21,8 @@ I personally enjoyed solving the Solana challenges the most,
 since they are rarely presented in Web3 CTFs, and are even more
 rarely written up, so in this article we'll go through a step-by-step
 analysis and solution construction of the "Solalloc" challenge.
-If you're interested in checking out our writeups for 7 other tasks
-of BlazCTF 2024, visit our GitHub CTF writeup repo at [github.com/neploxaudit/ctfwriteups](https://github.com/neploxaudit/ctfwriteups/tree/main/blazctf-2024).
+If you're interested in checking out BlazCTF writeups by our team for 7 other tasks,
+visit our GitHub CTF writeup repo at [github.com/neploxaudit/ctfwriteups](https://github.com/neploxaudit/ctfwriteups/tree/main/blazctf-2024).
 
 ## Solalloc
 
@@ -338,7 +338,7 @@ alongside the `DATA_ACCOUNT`'s bump seed, which is calculated using the `solders
 
 The full solution files are available in our `ctfwriteups` GitHub repository, [blazctf-2024/solalloc/solve.c](https://github.com/neploxaudit/ctfwriteups/blob/main/blazctf-2024/solalloc/solve.c) and [blazctf-2024/solalloc/solve.py](https://github.com/neploxaudit/ctfwriteups/blob/main/blazctf-2024/solalloc/solve.py).
 
-![Solalloc Exploitation Example](./flag.png)
+![Solalloc Exploitation Example](./solalloc-exploitation.png)
 
 ## In conclusion
 

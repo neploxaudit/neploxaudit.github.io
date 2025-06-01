@@ -48,6 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     feed.addContributor({
       name: `${authors[nickname].name} (${nickname})`,
       link: authors[nickname].link.toString(),
+      email: authors[nickname].email,
     });
   }
 
@@ -113,6 +114,7 @@ async function articleSitemap(
       {
         name: `${authors[page.author].name} (${page.author})`,
         link: authors[page.author].link.toString(),
+        email: authors[page.author].email,
       },
     ],
   }));

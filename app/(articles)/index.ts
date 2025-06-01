@@ -1,6 +1,7 @@
 import "@wooorm/starry-night/style/both";
 import path from "path";
 import { cache } from "react";
+import { GenderType } from "schema-dts";
 import { z } from "zod";
 
 import fs from "fs/promises";
@@ -29,24 +30,41 @@ export type ArticleMetadata = z.infer<typeof ArticleMetadata>;
 
 export type AuthorInfo = {
   name: string;
+  email: string;
   twitter?: string;
   link: URL;
+  extraLinks?: URL[];
+  gender: GenderType;
 };
 
 export const authors: Record<ArticleMetadata["author"], AuthorInfo> = {
   renbou: {
     name: "Artem",
+    email: "renbou@neplox.security",
     link: new URL("https://github.com/renbou"),
+    gender: "Male",
   },
   qwqoro: {
     name: "Elizabeth",
+    email: "qwqoro@neplox.security",
     twitter: "qwqoro",
     link: new URL("https://x.com/qwqoro"),
+    extraLinks: [
+      new URL("https://github.com/qwqoro"),
+      new URL("https://qwqoro.works/"),
+    ],
+    gender: "Female",
   },
   slonser: {
     name: "Vsevolod",
+    email: "slonser@neplox.security",
     twitter: "slonser_",
     link: new URL("https://x.com/slonser_"),
+    extraLinks: [
+      new URL("https://github.com/Slonser"),
+      new URL("https://blog.slonser.info/"),
+    ],
+    gender: "Male",
   },
 };
 
