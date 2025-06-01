@@ -21,14 +21,14 @@ import Nav from "@/app/components/Nav";
 import Signature from "@/app/components/Signature";
 import Socials from "@/app/components/Socials";
 
-import photo1 from "./images/photo1.jpg";
-import photo2 from "./images/photo2.jpg";
-import photo3 from "./images/photo3.jpg";
-import photo4 from "./images/photo4.jpg";
-import photo from "./images/photo.jpg";
-import qwqoro from "./images/qwqoro.png";
-import renbou from "./images/renbou.png";
-import slonser from "./images/slonser.png";
+import picRenbou from "./images/artem-renbou.png";
+import photoHitb from "./images/c4t-but-s4d-hitb.jpg";
+import picQwqoro from "./images/elizabeth-qwqoro.png";
+import photoGoogleCTF from "./images/googlectf-c4t-but-s4d-holding-trophy.jpg";
+import photoPhdaysEmails from "./images/phdays-attacks-on-email-services.jpg";
+import photoRuCTF from "./images/ructf-c4t-but-s4d-celebration.jpg";
+import photoQwqoroSas from "./images/sas-cybercrime-in-the-age-of-loneliness.jpg";
+import picSlonser from "./images/vsevolod-slonser.png";
 
 const DescHighlight = ({ children }: { children: React.ReactNode }) => (
   <strong className="landing-highlight font-light whitespace-nowrap">
@@ -52,7 +52,7 @@ const team = [
         <DescHighlight>Cloud</DescHighlight> Engineering.
       </>
     ),
-    src: renbou,
+    src: picRenbou,
     skills: ["CTF", "Infrastructure", "DevOps", "Programming"],
     socials: [
       {
@@ -81,7 +81,7 @@ const team = [
         <span className="font-normal">Microsoft Outlook</span> and more.
       </>
     ),
-    src: slonser,
+    src: picSlonser,
     skills: ["CTF", "Speaker", "Bug Bounty", "0-day", "Research"],
     socials: [
       {
@@ -121,7 +121,7 @@ const team = [
         presenting her research at international conferences.
       </>
     ),
-    src: qwqoro,
+    src: picQwqoro,
     skills: ["Speaker", "Pentest", "Audit", "Research"],
     socials: [
       {
@@ -401,8 +401,8 @@ export default function Landing() {
             <div className="order-1 col-span-1 mt-10 grid md:col-span-2 md:mt-0">
               <Image
                 className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
-                src={photo1}
-                alt="Elizabeth giving a talk at SAS conference"
+                src={photoQwqoroSas}
+                alt="Elizabeth giving a talk at SAS conference in 2024 about cybercrime in dating apps"
                 sizes="(max-width: 768px) 20vw, 50vw"
               />
             </div>
@@ -435,8 +435,8 @@ export default function Landing() {
             <div className="order-3 col-span-1 grid">
               <Image
                 className="mt-2 h-auto max-w-full scale-105 rounded-lg grayscale transition-all duration-300 hover:scale-125 hover:cursor-zoom-in hover:grayscale-0 md:mt-16"
-                src={photo4}
-                alt="C4T BuT S4D team celebrating victory on HITB"
+                src={photoHitb}
+                alt="C4T BuT S4D team on the stage of HITB 2022 in Abu Dhabi"
                 sizes="33vw"
               />
             </div>
@@ -455,8 +455,8 @@ export default function Landing() {
               </p>
               <Image
                 className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
-                src={photo2}
-                alt="C4T BuT S4D team celebrating first place on GoogleCTF"
+                src={photoGoogleCTF}
+                alt="Artem and other C4T BuT S4D team members awarded with the first place trophy on GoogleCTF 2023 in Tokyo"
                 sizes="(max-width: 768px) 75vw, 50vw"
               />
             </div>
@@ -502,8 +502,8 @@ export default function Landing() {
             <div className="order-5 col-span-2 grid md:col-span-1">
               <Image
                 className="mt-0 h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0 md:-mt-16 md:scale-105 md:hover:scale-125"
-                src={photo3}
-                alt="C4T BuT S4D celebrating another victory on RuCTF"
+                src={photoRuCTF}
+                alt="Vsevolod and Artem celebrating another victory by C4T BuT S4D at RuCTF 2023"
                 sizes="(max-width: 768px) 75vw, 33vw"
               />
             </div>
@@ -523,8 +523,8 @@ export default function Landing() {
               </p>
               <Image
                 className="mt-10 h-auto max-w-full scale-105 rounded-lg grayscale transition-all duration-300 hover:scale-125 hover:cursor-zoom-in hover:grayscale-0 md:mt-0 md:scale-100 md:hover:scale-110"
-                src={photo}
-                alt="Vsevolod and Elizabeth giving a talk about email security"
+                src={photoPhdaysEmails}
+                alt="Vsevolod and Elizabeth giving a talk about attacks on modern email services at Positive Hack Days 2024"
                 sizes="(max-width: 768px) 33vw, 50vw"
               />
             </div>
