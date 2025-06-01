@@ -35,11 +35,27 @@ export async function generateMetadata({
       url: `${baseUrl}/ctf/${slug}`,
       authors: [author.link],
       publishedTime: metadata.publishedAt,
+      images: [
+        {
+          url: `${baseUrl}/ctf/${slug}/og.png`,
+          width: 1200,
+          height: 675,
+          type: "image/png",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       site: "@neploxaudit",
       creator: author.twitter,
+      images: [
+        {
+          url: `${baseUrl}/ctf/${slug}/og.png`,
+          width: 1200,
+          height: 675,
+          type: "image/png",
+        },
+      ],
     },
   };
 }

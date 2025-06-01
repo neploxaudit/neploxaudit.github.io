@@ -3,7 +3,7 @@ import { JetBrains_Mono, Mate, Rubik } from "next/font/google";
 import localFont from "next/font/local";
 
 import "./globals.css";
-import { feedUrls } from "./sitemap";
+import { baseUrl, feedUrls } from "./sitemap";
 
 const horizon = localFont({
   src: "./fonts/horizon.otf",
@@ -39,6 +39,7 @@ const themeMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Neplox — Web3 Security",
   description: [
     "Research-powered Web3 security team founded by top-ranked competitive hacking team.",
