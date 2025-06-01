@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next-export-optimize-images/image";
+import Picture from "next-export-optimize-images/picture";
 import Link from "next/link";
 import { useRef } from "react";
 import {
@@ -333,7 +333,7 @@ export default function Landing() {
                 key={member.nickname}
                 className="landing-member group w-64 py-4 text-center xl:w-80"
               >
-                <Image
+                <Picture
                   className="landing-member-animation m-auto h-auto w-40 rounded-full transition-transform duration-300 group-hover:scale-110 hover:cursor-zoom-in lg:w-48 xl:w-64"
                   src={member.src}
                   alt={member.nickname}
@@ -367,7 +367,7 @@ export default function Landing() {
                       href={social.href}
                       className="mx-1 inline-block h-auto w-5 transition-transform duration-300 hover:scale-125"
                     >
-                      <Image
+                      <Picture
                         src={social.src}
                         alt={social.alt}
                         width={social.width}
@@ -399,7 +399,7 @@ export default function Landing() {
           </p>
           <div className="grid grid-cols-3 gap-3 md:grid-cols-4">
             <div className="order-1 col-span-1 mt-10 grid md:col-span-2 md:mt-0">
-              <Image
+              <Picture
                 className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
                 src={photoQwqoroSas}
                 alt="Elizabeth giving a talk at SAS conference in 2024 about cybercrime in dating apps"
@@ -433,7 +433,7 @@ export default function Landing() {
               </ul>
             </div>
             <div className="order-3 col-span-1 grid">
-              <Image
+              <Picture
                 className="mt-2 h-auto max-w-full scale-105 rounded-lg grayscale transition-all duration-300 hover:scale-125 hover:cursor-zoom-in hover:grayscale-0 md:mt-16"
                 src={photoHitb}
                 alt="C4T BuT S4D team on the stage of HITB 2022 in Abu Dhabi"
@@ -453,7 +453,7 @@ export default function Landing() {
                 <b className="text-surface">WINS</b>&ensp;
                 <PiArrowBendRightUp className="inline text-surface! opacity-90" />
               </p>
-              <Image
+              <Picture
                 className="h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0"
                 src={photoGoogleCTF}
                 alt="Artem and other C4T BuT S4D team members awarded with the first place trophy on GoogleCTF 2023 in Tokyo"
@@ -500,7 +500,7 @@ export default function Landing() {
               </ul>
             </div>
             <div className="order-5 col-span-2 grid md:col-span-1">
-              <Image
+              <Picture
                 className="mt-0 h-auto max-w-full rounded-lg grayscale transition-all duration-300 hover:scale-110 hover:cursor-zoom-in hover:grayscale-0 md:-mt-16 md:scale-105 md:hover:scale-125"
                 src={photoRuCTF}
                 alt="Vsevolod and Artem celebrating another victory by C4T BuT S4D at RuCTF 2023"
@@ -521,7 +521,7 @@ export default function Landing() {
                 </span>{" "}
                 <b className="text-surface">RESEARCH</b>
               </p>
-              <Image
+              <Picture
                 className="mt-10 h-auto max-w-full scale-105 rounded-lg grayscale transition-all duration-300 hover:scale-125 hover:cursor-zoom-in hover:grayscale-0 md:mt-0 md:scale-100 md:hover:scale-110"
                 src={photoPhdaysEmails}
                 alt="Vsevolod and Elizabeth giving a talk about attacks on modern email services at Positive Hack Days 2024"
