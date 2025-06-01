@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
-import Image from "next-export-optimize-images/image";
+import Picture from "next-export-optimize-images/picture";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -88,7 +89,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
       return (
         <>
-          <Image
+          <Picture
             {...props}
             sizes="(max-width: 1024px) 100vw, (max-width: 1440px) 75vw, 50vw"
             alt={alt}
