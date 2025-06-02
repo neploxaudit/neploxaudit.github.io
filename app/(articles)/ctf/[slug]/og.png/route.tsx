@@ -88,6 +88,7 @@ export async function GET(
       >
         {/* Branding */}
         <div style={{ display: "flex" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={base64url(neploxLogo)}
             alt="NEPLOX"
@@ -130,6 +131,7 @@ export async function GET(
             justifyContent: "center",
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={base64url(ogIcon, "image/svg+xml")}
             alt="Related icon"
