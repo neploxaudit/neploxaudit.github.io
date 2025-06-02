@@ -104,6 +104,7 @@ export default async function ArticlePage({
     "@type": "BlogPosting",
     headline: metadata.title,
     description: metadata.summary,
+    image: `${baseUrl}/covers/ctf/${slug}/${metadata.cover}`,
     datePublished: new Date(metadata.publishedAt).toISOString(),
     dateModified: new Date(metadata.modifiedAt).toISOString(),
     author: {
@@ -113,7 +114,6 @@ export default async function ArticlePage({
       gender: author.gender,
       email: author.email,
       sameAs: author.extraLinks?.map((link) => link.toString()),
-      image: `${baseUrl}/covers/ctf/${slug}/${metadata.cover}`,
     },
   };
 
