@@ -21,6 +21,7 @@ export const ArticleMetadata = z.object({
     .nonempty()
     // https://ogtester.com/blog/what-is-maximum-length-of-og-title-and-og-description
     .max(150, "Summary should be less than 150 characters"),
+  coverAlt: z.string().nonempty(),
   author: z.enum(["renbou", "qwqoro", "slonser"]),
   publishedAt: z.string().datetime(), // exposed in OpenGraph meta
   modifiedAt: z.string().datetime(), // used for Sitemap

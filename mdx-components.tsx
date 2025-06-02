@@ -91,7 +91,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <>
           <Picture
             {...props}
-            sizes="(max-width: 1024px) 100vw, (max-width: 1440px) 75vw, 50vw"
+            sizes="100vw, (min-width: 768px) 75vw"
             alt={alt}
             loading={loading}
             fetchPriority={fetchPriority}

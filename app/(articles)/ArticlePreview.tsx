@@ -1,5 +1,7 @@
 "use client";
 
+import Picture from "next-export-optimize-images/image";
+import type { StaticImageData } from "next/image";
 import Link from "next/link";
 import React, { useContext, useState } from "react";
 import { BiLinkExternal, BiSolidLock } from "react-icons/bi";
@@ -9,12 +11,12 @@ import Context from "@/app/components/Context";
 
 export type PreviewProps = {
   title: string;
-  description: string;
-  metadata: {
-    href?: string;
-    author: string;
-    date: string;
-  };
+  summary: string;
+  href?: string;
+  cover: StaticImageData | string;
+  coverAlt: string;
+  author: string;
+  date: string;
   hidden: boolean;
 };
 
@@ -31,15 +33,7 @@ function MaybeLink({
   return <React.Fragment>{children}</React.Fragment>;
 }
 
-export default function ArticlePreview({
-  title,
-  description,
-  metadata,
-  hidden,
-  canvasRef,
-}: PreviewProps & {
-  canvasRef: (ref: HTMLCanvasElement) => void;
-}) {
+export default function ArticlePreview(props: PreviewProps) {
   const { canHover } = useContext(Context);
   const [shaking, setShaking] = useState(false);
   const classShaking = shaking ? "animate-shake" : "";
@@ -47,9 +41,9 @@ export default function ArticlePreview({
 
   return (
     <div
-      className={`article-preview ${hidden && "article-hidden"} transition-transform duration-300 hover:scale-105 ${hidden ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
+      className={`article-preview ${props.hidden && "article-hidden"} transition-transform duration-300 hover:scale-105 ${props.hidden ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
       onClick={(e) => {
-        if (!hidden) {
+        if (!props.hidden) {
           return;
         }
         if (!canHover) {
@@ -62,56 +56,63 @@ export default function ArticlePreview({
         e.preventDefault();
       }}
     >
-      <MaybeLink href={metadata.href ?? ""}>
+      <MaybeLink href={props.href ?? ""}>
         <div
           style={{
             backgroundColor: "oklch(from var(--element) l c h / 0.2)",
             opacity: locking ? 1 : undefined,
           }}
-          className={`article-preview-card relative flex aspect-16/10 h-auto w-full flex-col items-end justify-between rounded-xl px-6 py-4 transition select-none ${hidden ? "opacity-85 grayscale-32" : ""}`}
-          title={hidden ? undefined : title}
+          className={`article-preview-card relative aspect-16/10 h-auto w-full rounded-xl px-6 py-4 transition select-none ${props.hidden ? "opacity-85 grayscale-32" : ""}`}
         >
-          <canvas
-            className="absolute inset-0 h-full w-full rounded-xl object-cover z-0"
-            ref={canvasRef}
+          <Picture
+            className="absolute inset-0 z-0 h-full w-full rounded-xl object-cover"
+            sizes="100vw, (min-width: 768px) 50vw, (min-width: 1024px) 33vw"
+            src={props.cover}
+            alt={props.title}
+            width={1600}
+            height={1000}
           />
-          {hidden && (
+          {props.hidden && (
             <IoEyeOffOutline
               className={`article-preview-card-lock absolute top-1/2 left-1/2 -translate-1/2 text-surface ${locking ? "opacity-100" : "opacity-0"} h-12 w-12 transition-opacity duration-300`}
             />
           )}
-          <span
-            className={`font-theme-sans text-xs z-10 ${hidden ? "opacity-40" : ""}`}
-          >
-            [ {metadata.date} ]
-          </span>
-          <span
-            className={`font-theme-sans text-xs z-10 ${hidden ? "opacity-40" : ""}`}
-          >
-            by [ {metadata.author} ]
-          </span>
         </div>
         <h2
-          className={`mt-4 mb-2 flex justify-between font-theme-sans text-xl transition-all duration-300 ${hidden && "break-words opacity-35"}`}
+          className={`mt-4 mb-2 flex justify-between transition-all duration-300 ${props.hidden && "break-words opacity-35"}`}
           style={{ WebkitTextStrokeWidth: "0.01em" }}
         >
           <span
-            className={`article-preview-title mx-3 font-theme-sans font-medium ${classShaking}`}
-            onAnimationEnd={() => hidden && !canHover && setShaking(false)}
+            className={`article-preview-title mx-3 font-theme-serif text-lg font-semibold lg:text-xl ${classShaking}`}
+            onAnimationEnd={() =>
+              props.hidden && !canHover && setShaking(false)
+            }
           >
-            {title}
+            {props.title}
           </span>
-          <span className="mx-5 mt-1 font-light">
-            {hidden ? <BiSolidLock /> : <BiLinkExternal />}
+          <span className="mx-5 mt-1">
+            {props.hidden ? <BiSolidLock /> : <BiLinkExternal />}
           </span>
         </h2>
       </MaybeLink>
       <hr className="mb-2 h-px border-0 bg-element opacity-15" />
       <p
-        className={`font-theme-sans text-sm font-light ${hidden && "break-words opacity-20"}`}
+        className={`text-justify font-theme-sans text-base font-light ${props.hidden && "break-words opacity-20"}`}
       >
-        {description}
+        {props.summary}
       </p>
+      <div className="mt-4 flex justify-between">
+        <span
+          className={`font-theme-serif text-base text-raisin-500 dark:text-stone-500 ${props.hidden ? "opacity-40" : ""}`}
+        >
+          By {props.author}
+        </span>
+        <span
+          className={`font-theme-serif text-base text-raisin-500 dark:text-stone-500 ${props.hidden ? "opacity-40" : ""}`}
+        >
+          {props.date}
+        </span>
+      </div>
     </div>
   );
 }
