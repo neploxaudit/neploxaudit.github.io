@@ -78,13 +78,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       let alt = props.alt;
       let loading: "eager" | "lazy" = "lazy";
       let fetchPriority: "high" | undefined = undefined;
-      let priority = false;
 
       if (alt.startsWith("preload")) {
         alt = alt.substring(7).trimStart();
         loading = "eager";
         fetchPriority = "high";
-        priority = true;
       }
 
       return (
@@ -95,7 +93,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             alt={alt}
             loading={loading}
             fetchPriority={fetchPriority}
-            priority={priority}
           />
           <label className="block text-center text-stone-600 dark:text-raisin-400">
             {alt}
