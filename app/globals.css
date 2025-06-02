@@ -25,7 +25,9 @@
   --theme-stone-800: oklch(33% 0.008 88);
   --theme-stone-900: oklch(29% 0.007 88);
 
+  --theme-300: oklch(75.7% 0.1454 41.7);
   --theme: oklch(65.5% 0.1995 41.5);
+  --theme-700: oklch(0.567 0.1892 41.5);
   --theme-light: var(--theme-stone-200);
   --theme-dark: var(--theme-raisin-900);
 
@@ -124,6 +126,14 @@
 
 .header-grid {
   @apply grid gap-x-8 gap-y-6;
+}
+
+@utility page-margin {
+  margin-inline: 4vw;
+
+  @variant 2xl {
+    margin-inline: 8vw;
+  }
 }
 
 .landing-nav {

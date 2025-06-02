@@ -1,6 +1,8 @@
-import Socials from "@/app/components/Socials";
 import Link from "next/link";
 import { BiCopyright } from "react-icons/bi";
+
+import Socials from "@/app/components/Socials";
+
 import ScrollUp from "./ScrollUp";
 import Signature from "./Signature";
 
@@ -12,7 +14,7 @@ const footerLinks = [
 
 export default function Footer({ className }: { className?: string }) {
   return (
-    <footer className={`${className ?? ""} mt-12 lg:mt-16`}>
+    <footer className={`${className ?? ""} mt-16 lg:mt-24`}>
       <div className="grid grid-cols-1 gap-y-8 lg:mx-auto lg:w-4/5 lg:grid-cols-2 lg:px-2">
         <div className="col-start-1 row-start-1 mx-auto flex w-3/4 items-center justify-evenly md:w-1/3 lg:col-start-2 lg:mx-0 lg:w-full">
           {Socials.map((Social) => (

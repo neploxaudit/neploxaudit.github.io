@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Mate, Rubik } from "next/font/google";
 import localFont from "next/font/local";
+
 import "./globals.css";
+import { baseUrl, feedUrls } from "./sitemap";
 
 const horizon = localFont({
   src: "./fonts/horizon.otf",
@@ -37,29 +39,34 @@ const themeMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Neplox | Web3 Security",
-  description:
-    "Neplox – research-powered Web3 security. Founded by C4T BuT S4D.",
-  keywords: [
-    "Neplox",
-    "Neplox Audit",
-    "neploxaudit",
-    "Web 3",
-    "Web3",
-    "Audit",
-    "CTF",
-    "Research",
-    "Cybersecurity",
-    "Researcher",
-    "Pentester",
-    "Penetration Tester",
-    "Web3 Audit",
-    "Web3 CTF",
-    "Web3 Research",
-    "C4T BuT S4D",
-    "C4TBuTS4D",
-  ],
-  authors: [{ name: "Neplox Team" }],
+  metadataBase: new URL(baseUrl),
+  title: "Neplox — Web3 Security",
+  description: [
+    "Research-powered Web3 security team founded by top-ranked competitive hacking team.",
+    "Audits for crypto wallets, L1/L2 chains, and smart contracts.",
+  ].join(" "),
+  alternates: {
+    types: {
+      "application/rss+xml": [
+        {
+          title: "Articles by Neplox — RSS feed",
+          url: feedUrls.rss,
+        },
+      ],
+      "application/atom+xml": [
+        {
+          title: "Articles by Neplox — Atom feed",
+          url: feedUrls.atom,
+        },
+      ],
+      "application/feed+json": [
+        {
+          title: "Articles by Neplox — JSON feed",
+          url: feedUrls.json,
+        },
+      ],
+    },
+  },
 };
 
 export const viewport: Viewport = {
@@ -76,7 +83,7 @@ export default function RootLayout({
       <body
         className={`${horizon.variable} ${horizonOutlined.variable} ${themeSans.variable} ${themeSerif.variable} ${themeMono.variable} bg-surface font-theme-sans text-element antialiased`}
       >
-        <div className="flex max-w-full flex-col gap-8 px-[4vw] pb-8 md:min-h-screen md:w-screen 2xl:px-[8vw]">
+        <div className="flex max-w-full flex-col pb-8 md:min-h-screen md:w-screen">
           {children}
         </div>
       </body>
