@@ -1,6 +1,6 @@
 "use client";
 
-import Picture from "next-export-optimize-images/image";
+import Picture from "next-export-optimize-images/picture";
 import type { StaticImageData } from "next/image";
 import Link from "next/link";
 import React, { useContext, useState } from "react";
@@ -66,7 +66,7 @@ export default function ArticlePreview(props: PreviewProps) {
         >
           <Picture
             className="absolute inset-0 z-0 h-full w-full rounded-xl object-cover"
-            sizes="100vw, (min-width: 768px) 50vw, (min-width: 1024px) 33vw"
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             src={props.cover}
             alt={props.title}
             width={1600}

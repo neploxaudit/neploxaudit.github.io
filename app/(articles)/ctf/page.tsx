@@ -1,5 +1,5 @@
 import { authors, list, loadMetadata } from "..";
-import { StaticImageData } from "next/image";
+import path from "path";
 
 import "./article-listing.css";
 
@@ -29,11 +29,10 @@ export default async function Articles() {
   let articles: PreviewProps[] = await Promise.all(
     pages.map(async (page): Promise<PreviewProps> => {
       const metadata = await loadMetadata("ctf", page.slug);
-      const image = await import(`@/articles/ctf/${page.slug}/cover.png`);
       return {
         title: metadata.title,
         summary: metadata.summary,
-        cover: image.default as StaticImageData,
+        cover: path.join("/covers", "ctf", page.slug, metadata.cover),
         coverAlt: metadata.coverAlt,
         author: `${authors[metadata.author].name} (${metadata.author})`,
         date: new Date(metadata.publishedAt).toLocaleDateString("en-US", {

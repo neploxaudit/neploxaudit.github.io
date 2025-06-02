@@ -113,6 +113,7 @@ export default async function ArticlePage({
       gender: author.gender,
       email: author.email,
       sameAs: author.extraLinks?.map((link) => link.toString()),
+      image: `${baseUrl}/covers/ctf/${slug}/${metadata.cover}`,
     },
   };
 

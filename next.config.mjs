@@ -8,7 +8,7 @@ import withExportImages from "next-export-optimize-images";
 const nextConfig = {
   output: "export",
   images: {
-    deviceSizes: [384, 768, 1024, 2048],
+    deviceSizes: [384, 768, 1200, 2048],
     imageSizes: [128, 256],
   },
   reactStrictMode: false,
