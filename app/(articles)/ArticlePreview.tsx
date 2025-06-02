@@ -68,7 +68,7 @@ export default function ArticlePreview(props: PreviewProps) {
             className="absolute inset-0 z-0 h-full w-full rounded-xl object-cover"
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             src={props.cover}
-            alt={props.title}
+            alt={props.coverAlt}
             width={1600}
             height={1000}
           />
