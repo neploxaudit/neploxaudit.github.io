@@ -4,6 +4,7 @@ import { BlogPosting, WithContext } from "schema-dts";
 
 import * as articles from "@/app/(articles)";
 import { baseUrl } from "@/app/sitemap";
+import Toc from "@/app/components/Toc";
 
 import "./alert.css";
 import "./article.css";
@@ -141,6 +142,7 @@ export default async function ArticlePage({
         ].join(" ")}
       >
         <h1 className="mt-0! lg:mb-12!">{metadata.title}</h1>
+        <Toc />
         <section className="flex justify-between font-theme-serif text-lg">
           <span>
             By {author.name} ({metadata.author})
