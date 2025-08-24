@@ -4,6 +4,7 @@ import { BlogPosting, WithContext } from "schema-dts";
 
 import * as articles from "@/app/(articles)";
 import { baseUrl } from "@/app/sitemap";
+import AfterArticle from "@/app/components/AfterArticle";
 
 import "./alert.css";
 import "./article.css";
@@ -155,6 +156,7 @@ export default async function ArticlePage({
           <time>{publishedAt}</time>
         </section>
       </article>
+      <AfterArticle question={metadata.question}/>
     </>
   );
 }

@@ -26,6 +26,7 @@ export const ArticleMetadata = z.object({
   author: z.enum(["renbou", "qwqoro", "slonser"]),
   publishedAt: z.string().datetime(), // exposed in OpenGraph meta
   modifiedAt: z.string().datetime(), // used for Sitemap
+  question: z.string().nonempty(),
 });
 
 export type ArticleMetadata = z.infer<typeof ArticleMetadata>;
