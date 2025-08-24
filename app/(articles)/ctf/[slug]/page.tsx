@@ -4,6 +4,7 @@ import { BlogPosting, WithContext } from "schema-dts";
 
 import * as articles from "@/app/(articles)";
 import { baseUrl } from "@/app/sitemap";
+import ReadTime from "@/app/components/ReadTime";
 
 import "./alert.css";
 import "./article.css";
@@ -147,6 +148,7 @@ export default async function ArticlePage({
           </span>
           <time>{publishedAt}</time>
         </section>
+        <ReadTime />
         <Article />
         <section className="mt-8 flex justify-between font-theme-serif text-lg">
           <span>
