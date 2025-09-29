@@ -74,10 +74,10 @@ async function articleSitemap(
   section: string,
   category: FeedCategory,
 ): Promise<[MetadataRoute.Sitemap, FeedItem[]]> {
-  const pages = await articles.list(section);
+  const pages = await articles.list();
   const pagesWithMeta = await Promise.all(
     pages.map(async (page) => {
-      const meta = await articles.loadMetadata(section, page.slug);
+      const meta = await articles.loadMetadata(page.slug);
       return {
         slug: page.slug,
         title: meta.title,

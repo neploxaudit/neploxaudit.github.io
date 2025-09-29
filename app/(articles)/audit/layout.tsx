@@ -63,7 +63,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </nav>
         </div>
 
-        <ScrollDown path="blog" className="w-12 justify-self-end sm:hidden" />
+        <ScrollDown className="w-12 justify-self-end sm:hidden" />
       </header>
 
       <main className="page-margin flex-auto">{children}</main>

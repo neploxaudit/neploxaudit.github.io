@@ -2,7 +2,7 @@
 
 import { BiChevronDown } from "react-icons/bi";
 
-export default function ScrollUp({ className }: { className?: string }) {
+export default function ScrollDown({ className }: { className?: string }) {
   return (
     <button
       className={`cursor-pointer text-3xl whitespace-nowrap transition-transform duration-200 hover:scale-110 ${className}`}
