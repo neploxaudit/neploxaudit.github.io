@@ -30,15 +30,15 @@ export async function generateMetadata({
     openGraph: {
       type: "article",
       siteName: "Neplox",
-      section: "ctf",
+      section: "blog",
       title: metadata.title,
       description: metadata.summary,
-      url: `${baseUrl}/ctf/${slug}`,
+      url: `${baseUrl}/blog/${slug}`,
       authors: [author.link],
       publishedTime: metadata.publishedAt,
       images: [
         {
-          url: `${baseUrl}/ctf/${slug}/og.png`,
+          url: `${baseUrl}/blog/${slug}/og.png`,
           width: 1200,
           height: 675,
           type: "image/png",
@@ -51,7 +51,7 @@ export async function generateMetadata({
       creator: author.twitter,
       images: [
         {
-          url: `${baseUrl}/ctf/${slug}/og.png`,
+          url: `${baseUrl}/blog/${slug}/og.png`,
           width: 1200,
           height: 675,
           type: "image/png",
@@ -119,7 +119,7 @@ export default async function ArticlePage({
   };
 
   return (
-    metadata.section === "ctf" ?
+    metadata.section === "audit" ?
     <>
       <script
         type="application/ld+json"

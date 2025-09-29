@@ -8,9 +8,9 @@ import Nav from "@/app/components/Nav";
 import ScrollDown from "@/app/components/ScrollDown";
 
 export const metadata: Metadata = {
-  title: "Web3 CTF Writeups by Neplox",
+  title: "Web3 Researh Articles by Neplox",
   description: [
-    "In-depth dives into our solutions to unique CTF tasks related to Web3.",
+    "In-depth dives into technical topics related to Web3.",
     "Learn from our experience and harden your own auditing skills.",
   ].join(" "),
 };

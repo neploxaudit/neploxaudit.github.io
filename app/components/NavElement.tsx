@@ -8,11 +8,13 @@ import Context from "@/app/components/Context";
 
 export default function NavElement({
   path,
+  href,
   blocked,
   className,
   selected,
 }: Readonly<{
   path: string;
+  href: string;
   blocked: boolean;
   selected: boolean;
   className?: string;
@@ -27,7 +29,7 @@ export default function NavElement({
 
   return (
     <Link
-      href={"/" + path}
+      href={"/" + href}
       className={`${classHover} ${classShaking} flex ${blocked && "cursor-not-allowed"} items-center font-theme-sans leading-7 font-normal whitespace-nowrap ${className}`}
       // Avoid conflicting with the hover animation
       onClick={(e) => {
@@ -41,7 +43,7 @@ export default function NavElement({
       }}
       onAnimationEnd={() => blocked && !canHover && setShaking(false)}
     >
-      <span className={`${selected ? "sm:scale-125 md:scale-150" : ""}`}>
+      <span className={`${selected ? "sm:scale-120 md:scale-130" : ""}`}>
         {blocked ? (
           <>
             <span className="font-light">{"["}</span>

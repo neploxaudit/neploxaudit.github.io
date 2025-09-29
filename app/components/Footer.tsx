@@ -8,7 +8,7 @@ import Signature from "./Signature";
 
 const footerLinks = [
   { name: "about us", href: "/" },
-  { name: "ctf", href: "/ctf" },
+  { name: "blog", href: "/blog" },
   { name: "extensions", href: "https://extensions.neplox.security" },
 ];
 
