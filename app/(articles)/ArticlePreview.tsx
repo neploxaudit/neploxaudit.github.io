@@ -6,6 +6,10 @@ import Link from "next/link";
 import React, { useContext, useState } from "react";
 import { BiLinkExternal, BiSolidLock } from "react-icons/bi";
 import { IoEyeOffOutline } from "react-icons/io5";
+import { PiFlag,
+  PiMagnifyingGlass,
+  PiBriefcase
+} from "react-icons/pi";
 
 import Context from "@/app/components/Context";
 
@@ -18,6 +22,7 @@ export type PreviewProps = {
   author: string;
   date: string;
   hidden: boolean;
+  section: string;
 };
 
 function MaybeLink({
@@ -41,7 +46,7 @@ export default function ArticlePreview(props: PreviewProps) {
 
   return (
     <div
-      className={`article-preview ${props.hidden && "article-hidden"} transition-transform duration-300 hover:scale-105 ${props.hidden ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`}
+      className={`article-preview ${props.hidden && "article-hidden"} transition-all duration-300 hover:scale-105 ${props.hidden ? "hover:cursor-not-allowed" : "hover:cursor-pointer md:grayscale-20 md:hover:grayscale-0"}`}
       onClick={(e) => {
         if (!props.hidden) {
           return;
@@ -62,7 +67,7 @@ export default function ArticlePreview(props: PreviewProps) {
             backgroundColor: "oklch(from var(--element) l c h / 0.2)",
             opacity: locking ? 1 : undefined,
           }}
-          className={`article-preview-card relative aspect-16/10 h-auto w-full rounded-xl px-6 py-4 transition select-none ${props.hidden ? "opacity-85 grayscale-32" : ""}`}
+          className={`article-preview-card relative aspect-16/10 h-auto w-full rounded-xl px-6 py-4 transition select-none ${props.hidden && "opacity-85 grayscale-32"}`}
         >
           <Picture
             className="absolute inset-0 z-0 h-full w-full rounded-xl object-cover"
@@ -82,8 +87,14 @@ export default function ArticlePreview(props: PreviewProps) {
           className={`mt-4 mb-2 flex justify-between transition-all duration-300 ${props.hidden && "break-words opacity-35"}`}
           style={{ WebkitTextStrokeWidth: "0.01em" }}
         >
+          {props.section &&
+            <span className="inline text-xl mt-1 p-0">{{"ctf": <PiFlag />,
+              "research": <PiMagnifyingGlass />,
+              "audit": <PiBriefcase />
+            }[props.section]}</span>
+          }
           <span
-            className={`article-preview-title mx-3 font-theme-serif text-lg font-semibold lg:text-xl ${classShaking}`}
+            className={`article-preview-title pl-1 mx-3 font-theme-serif text-lg font-semibold lg:text-xl ${classShaking}`}
             onAnimationEnd={() =>
               props.hidden && !canHover && setShaking(false)
             }

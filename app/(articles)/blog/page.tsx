@@ -20,19 +20,20 @@ function randomArticle(section: string, index: number): PreviewProps {
       .join(" "),
     date: "█".repeat(Math.floor(Math.random() * 10 + 5)),
     hidden: true,
+    section: ""
   };
 }
 
 export default async function Articles() {
-  const pages = await list("ctf");
+  const pages = await list();
 
   let articles: PreviewProps[] = await Promise.all(
     pages.map(async (page): Promise<PreviewProps> => {
-      const metadata = await loadMetadata("ctf", page.slug);
+      const metadata = await loadMetadata(page.slug);
       return {
         title: metadata.title,
         summary: metadata.summary,
-        cover: path.join("/covers", "ctf", page.slug, metadata.cover),
+        cover: path.join("/covers", "blog", page.slug, metadata.cover),
         coverAlt: metadata.coverAlt,
         author: `${authors[metadata.author].name} (${metadata.author})`,
         date: new Date(metadata.publishedAt).toLocaleDateString("en-US", {
@@ -40,8 +41,9 @@ export default async function Articles() {
           month: "long",
           day: "numeric",
         }),
-        href: `/ctf/${page.slug}`,
+        href: `/${metadata.section}/${page.slug}`,
         hidden: false,
+        section: metadata.section
       };
     }),
   );
@@ -49,7 +51,7 @@ export default async function Articles() {
   if (articles.length < perPage) {
     articles = articles.concat(
       [...Array(perPage - articles.length)].map((_, i) =>
-        randomArticle("ctf", articles.length + i + 1),
+        randomArticle("blog", articles.length + i + 1),
       ),
     );
   }

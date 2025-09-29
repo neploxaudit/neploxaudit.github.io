@@ -26,6 +26,8 @@ export const ArticleMetadata = z.object({
   author: z.enum(["renbou", "qwqoro", "slonser"]),
   publishedAt: z.string().datetime(), // exposed in OpenGraph meta
   modifiedAt: z.string().datetime(), // used for Sitemap
+  question: z.string().nonempty(),
+  section: z.enum(["ctf", "research", "audit"]),
 });
 
 export type ArticleMetadata = z.infer<typeof ArticleMetadata>;
@@ -70,8 +72,8 @@ export const authors: Record<ArticleMetadata["author"], AuthorInfo> = {
   },
 };
 
-export const list = cache(async function (section: string): Promise<Params[]> {
-  const dirs = await fs.readdir(path.join(process.cwd(), "articles", section), {
+export const list = cache(async function (): Promise<Params[]> {
+  const dirs = await fs.readdir(path.join(process.cwd(), "articles", "blog"), {
     withFileTypes: true,
   });
 
@@ -83,11 +85,10 @@ export const list = cache(async function (section: string): Promise<Params[]> {
 });
 
 export const loadMetadata = cache(async function (
-  section: string,
   slug: string,
 ): Promise<ArticleMetadata> {
   const rawMetadata = await fs.readFile(
-    path.join(process.cwd(), "articles", section, slug, "metadata.json"),
+    path.join(process.cwd(), "articles", "blog", slug, "metadata.json"),
     { encoding: "utf-8" },
   );
   return ArticleMetadata.parse(JSON.parse(rawMetadata));

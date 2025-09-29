@@ -187,10 +187,11 @@ export default function Landing() {
         {/* Nav */}
         <div className="col-start-1 -col-end-1 row-start-4 my-3 md:col-start-3 md:col-end-auto md:row-start-1 md:my-0">
           <nav className="mx-auto flex h-full max-w-lg justify-between gap-x-4">
-            {Nav.paths.map(({ path, blocked }) => (
+            {Nav.paths.map(({ path, href, blocked }) => (
               <Nav.Element
                 key={path}
                 path={path}
+                href={href}
                 blocked={blocked}
                 selected={false}
                 className="landing-nav"
