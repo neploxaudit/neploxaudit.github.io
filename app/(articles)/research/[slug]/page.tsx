@@ -30,15 +30,15 @@ export async function generateMetadata({
     openGraph: {
       type: "article",
       siteName: "Neplox",
-      section: "blog",
+      section: "research",
       title: metadata.title,
       description: metadata.summary,
-      url: `${baseUrl}/blog/${slug}`,
+      url: `${baseUrl}/research/${slug}`,
       authors: [author.link],
       publishedTime: metadata.publishedAt,
       images: [
         {
-          url: `${baseUrl}/blog/${slug}/og.png`,
+          url: `${baseUrl}/research/${slug}/og.png`,
           width: 1200,
           height: 675,
           type: "image/png",
@@ -51,7 +51,7 @@ export async function generateMetadata({
       creator: author.twitter,
       images: [
         {
-          url: `${baseUrl}/blog/${slug}/og.png`,
+          url: `${baseUrl}/research/${slug}/og.png`,
           width: 1200,
           height: 675,
           type: "image/png",

@@ -153,7 +153,7 @@ export async function GET(
               marginBottom: "16px",
             }}
           >
-            CTF Writeup
+            Audit report
           </span>
         </div>
 
