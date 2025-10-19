@@ -55,6 +55,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [ctfSitemap, ctfFeedItems] = await articleSitemap("ctf", "CTF");
   ctfFeedItems.forEach((item) => feed.addItem(item));
 
+  const [researchSitemap, researchFeedItems] = await articleSitemap("research", "Research");
+  researchFeedItems.forEach((item) => feed.addItem(item));
+
   feed.options.updated = feed.items.reduce((latest, item) => {
     return item.date > latest ? item.date : latest;
   }, feed.items[0].date);
@@ -64,9 +67,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     {
       url: baseUrl,
-      lastModified: mustParseDate("2025-05-11T11:15:13Z"),
+      lastModified: mustParseDate("2025-10-19T14:13:00Z"),
     },
     ...ctfSitemap,
+    ...researchSitemap,
   ];
 }
 
@@ -75,11 +79,12 @@ async function articleSitemap(
   category: FeedCategory,
 ): Promise<[MetadataRoute.Sitemap, FeedItem[]]> {
   const pages = await articles.list();
-  const pagesWithMeta = await Promise.all(
+  const pagesWithMeta = (await Promise.all(
     pages.map(async (page) => {
       const meta = await articles.loadMetadata(page.slug);
       return {
         slug: page.slug,
+        section: meta.section,
         title: meta.title,
         summary: meta.summary,
         author: meta.author,
@@ -87,16 +92,16 @@ async function articleSitemap(
         modifiedAt: new Date(meta.modifiedAt),
       };
     }),
-  );
+  )).filter((page) => page.section === section);
   pagesWithMeta.sort(
     (a, b) => b.publishedAt.getTime() - a.publishedAt.getTime(),
   );
 
   const sitemap: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/${section}`,
-      lastModified: pagesWithMeta[0].modifiedAt,
-    },
+    // {
+    //   url: `${baseUrl}/${section}`,
+    //   lastModified: pagesWithMeta[0].modifiedAt,
+    // },
     ...pagesWithMeta.map((page) => ({
       url: `${baseUrl}/${section}/${page.slug}`,
       lastModified: page.modifiedAt,
