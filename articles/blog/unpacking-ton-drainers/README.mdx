@@ -4,7 +4,7 @@
 
 ### Disclaimer
 
->![WARNING]
+>[!WARNING]
 >This article was created for informational purposes only and is intended for security analysis specialists who analyze the security of the customer's resources strictly on legal grounds and on the basis of an agreement concluded with the customer company. It should not be used to make any statements or claims, offer warranties regarding the utility, safety, or suitability of the code, the product, the business model, or to express opinion about the mentioned companies or their products. 
 >
 >The author is not responsible for any harm caused by the use of the information provided. 
@@ -41,7 +41,7 @@ The TON Drainer sample presented at the Level 0, much alike the samples that wil
 
 As soon as the User visits the malicious website, the Drainer sends out a Client-side request to the [ipapi.co/json](https://ipapi.co/json/) API to receive a JSON containing data regarding the User's machine location (information on the IP address, country, region, city, timezone, latitude and longitude, ...), parses its IP address and the corresponding country code and checks the country against a list of countries (Russian Federation, Kazakhstan, Belarus, Ukraine, Armenia, Azerbaijan, Kyrgyzstan, Moldova, Uzbekistan), mostly of the CIS region. If the condition is met, the user is redirected to the official [ton.org](https://ton.org) website, whereas in the other case the drainer crafts a message containing the received information and sends a request to the Telegram API to notify the Drainer Operator about a new visitor through the Telegram Bot.
 
-> ![NOTE]
+> [!NOTE]
 > The behavior described above is a practice common to Russian-speaking hacking forums: most of them require the software sold / shared there to have a special function to filter out the Users from the CIS region. It is safe to say that this pattern often indicates that the developers sell / share their software to / with Russian-speaking community.
 
 ![Level 0 redirection process and its conditions](./level-0-redirection.png)
@@ -50,7 +50,7 @@ As soon as the User visits the malicious website, the Drainer sends out a Client
 
 Since the Drainer utilizes the **TON Connect** libraries, the Users are kindly asked to connect their Wallets via the "Connect Wallet" button embedded into the Website by **TON Connect**. However, in its default implementation, it does not perform any other actions without the User's consent: the Drainer requires the User to click a certain element that would trigger its main functionality (typically a button that the User will _want_ to click and that likely will not raise much suspicion when the transaction request is shown to the User: "Claim Reward", "Place a bid", ...).
 
-> ![NOTE]
+> [!NOTE]
 > The vast majority of Drainers heavily rely on user interaction. Even if the User deliberately connects their Wallet to the malicious Website, it does not always mean that their Wallet gets compromised. Watch out for all of the following popups and prompts though: there may be something more to it.
 
 Upon the User's click, this Drainer sends a request to the [toncenter.com](https://toncenter.com) API specifying the User's Wallet address to get information on the number of TON stored there. Then it calculates 97% of the balance in order to be able to pay for the gas fees, crafts a transaction with a single operation that would transfer almost all of the User's TON to the Drainer Operator and tries to send it via the **TON Connect**:
@@ -109,7 +109,7 @@ Here is an example of what the **TON Connect** manifest, the `tonconnect-manifes
 }
 ```
 
->![NOTE]
+>[!NOTE]
 > **N.B**: none of the values, including the DApp's `name`, are required to be unique. Anyone might as well call their DApp "TON", "TON Vote", "TON Spin" or "TON Airdrop", set any link and any icon of their choice;
 
 
@@ -139,7 +139,7 @@ export function getWebPageManifest(): string {
 }
 ```
 
->![IMPORTANT]
+>[!IMPORTANT]
 > This is precisely the reason why this feature is considered necessary – **TON Connect** should be able to find the manifest file in case `window.location.origin` is undefined. On the other hand, due to the lack of checks, it is possible to pass any valid URL to the `manifestUrl`, as long as it points at a file that contains a JSON object with the required keys (`name`, `url`, `icon`) – even if it belongs to some other application somewhere on the Web.
 
 
@@ -169,6 +169,12 @@ None of the TON wallets that our Team has looked into (**Tonkeeper**, **Telegram
 
 For now, the Users are advised to double-check information displayed to them during their interactions with DApps.
 
+>[!IMPORTANT]
+> **UPDATE**: `Nov 11, 2025`
+> 
+> At the time of writing this research article, only browser extensions of **TON Wallet** and **XTONWallet** highlighted inconsistencies between the actual origin the request came from and the link provided in DApp's TON manifest in their UI. Since the last time we've checked, **Tonkeeper** has also added a warning and **My TON Wallet** browser extensions now displays the original source instead of the one specified in an application's TON manifest.
+>
+> However, the problem described above is still a valid issue for mobile applications.
 
 The next Level, the Level 1, is divided into 3 parts (Level 1.0, 1.1 and 1.2) in accordance with 3 TON Drainers that are quite similar to each other in terms of their features and the overall complexity, but differ in details, and this difference is crucial enough to examine these drainers separately.
 
@@ -398,7 +404,7 @@ This configuration does not remove the Wallets that do not suit your needs from 
 
 Even though the ability to add custom Wallets through the `walletsListConfiguration` parameter is a legitimate feature necessary for the sake of a seamless integration of various Wallets, including [Bitget](https://web3.bitget.com/en/docs/adaptors/tonconnect.html) and [UXUY](https://docs.uxuy.com/uxuy-connect/tonconnect/), who mention it in their documentation, one may use it with malicious intention.
 
-> ![IMPORTANT]
+> [!IMPORTANT]
 > The first thing that comes to mind of a Security Researcher is the possibility of a Wallet Impersonation. Obviously, since **TON Connect** is integrated into the Client-Side of an application, one is free to rewrite it in whatever way they want by design, but that would require additional efforts, whereas in-built UI customization features of **TON Connect** make it much easier to handle.
 
 Imagine one would like to add a malicious custom Wallet to the Wallets list displayed by **TON Connect**. Since Users are highly likely to click the Wallet they are used to, such as **Tonkeeper**, the malicious actor might be inclined to call their malicious Wallet "Tonkeeper" as well. Doing so, however, results in the malicious Wallet not being added to the list: the `walletsList` composition process implies each Wallet must be unique.
@@ -516,7 +522,7 @@ On top of everything said earlier, **TON Connect** supplies developers with lots
 
 - It lets you make the User open the exact Wallet _you_ want by executing `tonConnectUI.openSingleWalletModal('<WALLET_APPNAME>')`. This behavior is described in the **TON Connect** documentation under ["Open specific wallet"](https://github.com/ton-connect/sdk/tree/main/packages/ui#open-specific-wallet) section. 
 
-> ![IMPORTANT]
+> [!IMPORTANT]
 > In combination with the perspective of a malicious Wallet being added to the **TON Connect** using `walletsListConfiguration[includeWallets]` whilst it impersonates a legitimate one, it might trick Users into interacting with the malicious Wallet.
 
 - It lets you subscribe to the modal window state changes to proceed the execution in accordance with the reason of change with the use of `tonConnectUI.onModalStateChange(...)`. This behavior is described in the **TON Connect** documentation under ["Subscribe to the modal window state changes"](https://github.com/ton-connect/sdk/tree/main/packages/ui#subscribe-to-the-modal-window-state-changes) section. That is the feature the Level 1.2 TON Drainer utilizes to fire its main functionality: when the User connects their Wallet via **TON Connect**, the modal window gets closed, it triggers `onModalStateChange` and its `state['closeReason']` equals `'wallet-selected'`, which is a distinctive feature useful to track such event.

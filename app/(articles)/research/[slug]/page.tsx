@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation';
 
 import * as articles from "@/app/(articles)";
 import { baseUrl } from "@/app/sitemap";
-import ReplaceNotes from "@/app/components/ReplaceNotes";
 
 import "./alert.css";
 
@@ -157,7 +156,6 @@ export default async function ArticlePage({
           <time>{publishedAt}</time>
         </section>
       </article>
-      <ReplaceNotes />
     </>
     : notFound()
   );
