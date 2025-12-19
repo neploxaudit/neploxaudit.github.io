@@ -1,0 +1,11 @@
+{
+  "title": "TON't Connect! NOTe on securing TON Wallets",
+  "summary": "A discussion on vulnerabilities found in TON Wallets by our team during out-source audits and malware analysis.",
+  "cover": "actor-managing-ton-manifests.png",
+  "coverAlt": "Malicious actor with multiple hands managing TON manifest files",
+  "author": "qwqoro",
+  "publishedAt": "2025-12-01T10:00:00Z",
+  "modifiedAt": "2025-12-01T10:00:00Z",
+  "question": "Want us to advise you on defense mechanisms you may implement in your product?",
+  "section": "research"
+}
