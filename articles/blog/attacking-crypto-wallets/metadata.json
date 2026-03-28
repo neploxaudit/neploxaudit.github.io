@@ -1,0 +1,11 @@
+{
+  "title": "Attacking Crypto Wallets: Modern Browser Extension Security",
+  "summary": "Known and novel attacks on browser extensions of crypto wallets and how they can be avoided and defended against.",
+  "cover": "attacking-crypto-wallets.png",
+  "coverAlt": "Malicious actor with multiple hands managing TON manifest files",
+  "author": "neploxaudit",
+  "publishedAt": "2025-06-01T10:00:00Z",
+  "modifiedAt": "2026-03-28T10:00:00Z",
+  "question": "Want us to advise you on defense mechanisms you may implement in your product?",
+  "section": "research"
+}

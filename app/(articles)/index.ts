@@ -23,7 +23,7 @@ export const ArticleMetadata = z.object({
     .max(150, "Summary should be less than 150 characters"),
   cover: z.string().nonempty(),
   coverAlt: z.string().nonempty(),
-  author: z.enum(["renbou", "qwqoro", "slonser"]),
+  author: z.enum(["neploxaudit","renbou", "qwqoro", "slonser"]),
   publishedAt: z.string().datetime(), // exposed in OpenGraph meta
   modifiedAt: z.string().datetime(), // used for Sitemap
   question: z.string().nonempty(),
@@ -42,6 +42,19 @@ export type AuthorInfo = {
 };
 
 export const authors: Record<ArticleMetadata["author"], AuthorInfo> = {
+  neploxaudit: {
+    name: "Neplox Team",
+    email: "team@neplox.security",
+    twitter: "neploxaudit",
+    link: new URL("https://neplox.security"),
+    extraLinks: [
+      new URL("https://x.com/neploxaudit"),
+      new URL("https://t.me/neploxaudit"),
+      new URL("https://github.com/neploxaudit"),
+      new URL("https://immunefi.com/profile/neploxaudit/"),
+    ],
+    gender: "Male",
+  },
   renbou: {
     name: "Artem",
     email: "renbou@neplox.security",
