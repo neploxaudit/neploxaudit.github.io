@@ -40,6 +40,11 @@ export default function Footer({ className }: { className?: string }) {
         </div>
         <Signature className="col-start-1 row-start-3 text-sm sm:text-base lg:col-start-2 lg:row-start-2 lg:text-lg" />
       </div>
+      <div className="mx-auto my-4 w-4/5 text-justify font-theme-sans font-light text-xs text-raisin-500 sm:text-sm lg:text-base dark:text-stone-500">
+        <p className="mx-4 align-baseline hyphens-manual">NEPLOX LTD<br/>
+        Registered in England and Wales.<br/>Company No. <code>17399310</code><br/>
+        Registered Office: 4th Floor Office, 205 Regent Street, London, England, W1B 3HH</p>
+      </div>
       <hr className="mx-auto my-4 h-px w-4/5 border-0 bg-element opacity-15" />
       <div className="mx-auto flex w-4/5 items-center justify-between px-2">
         <div className="text-center font-light lg:flex lg:flex-row lg:items-center">
