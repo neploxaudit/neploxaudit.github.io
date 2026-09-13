@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 
 import Nav from "@/app/components/Nav";
+import Outline from "@/app/components/Outline";
+import { TocList } from "@/app/components/Toc";
 
 export default function NavMenu({
   active,
@@ -12,6 +14,7 @@ export default function NavMenu({
   active?: string;
   className?: string;
 }) {
+  const { headings, active: heading } = useContext(Outline);
   const [open, setOpen] = useState(false);
   const menu = useRef<HTMLDivElement>(null);
 
@@ -43,7 +46,7 @@ export default function NavMenu({
   const paths = Nav.menu.filter(({ path }) => path !== active);
 
   return (
-    <div ref={menu} className={`relative ${className ?? ""}`}>
+    <div ref={menu} className={className}>
       <button
         type="button"
         aria-expanded={open}
@@ -56,25 +59,39 @@ export default function NavMenu({
         />
       </button>
       <div
-        className={`absolute end-0 top-full z-20 grid w-max transition-[grid-template-rows] duration-300 ease-out ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+        className={`absolute -inset-x-[4vw] top-full z-20 grid transition-[grid-template-rows] duration-300 ease-out ${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
       >
         <div className="overflow-hidden">
-          <nav
-            onClick={() => setOpen(false)}
-            className="mt-3 flex flex-col items-end gap-y-3 rounded-3xl rounded-tr-none border border-stone-500 bg-surface px-5 py-4 shadow-lg dark:border-raisin-600"
-          >
-            {paths.map(({ path, href, blocked }) => (
-              <Nav.Element
-                key={path}
-                href={href}
-                path={path}
-                blocked={blocked}
-                selected={false}
-                tabIndex={open ? undefined : -1}
-                className="default-nav"
-              />
-            ))}
-          </nav>
+          <div className="max-h-[70vh] overflow-y-auto border-b border-stone-500 bg-surface px-[4vw] pt-1 pb-6 font-theme-sans shadow-[0_7px_6px_-6px_rgba(0,0,0,0.25)] dark:border-raisin-600">
+            <nav
+              onClick={() => setOpen(false)}
+              className="flex flex-col items-start gap-y-3"
+            >
+              {paths.map(({ path, href, blocked }) => (
+                <Nav.Element
+                  key={path}
+                  href={href}
+                  path={path}
+                  blocked={blocked}
+                  selected={false}
+                  tabIndex={open ? undefined : -1}
+                  className="default-nav"
+                />
+              ))}
+            </nav>
+            {headings.length > 0 && (
+              <>
+                <hr className="my-4 h-px border-0 bg-element opacity-15" />
+                <TocList
+                  headings={headings}
+                  active={heading}
+                  tabIndex={open ? undefined : -1}
+                  onNavigate={() => setOpen(false)}
+                  className="text-base"
+                />
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

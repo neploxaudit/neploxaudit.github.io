@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { BiChevronDown, BiListUl, BiX } from "react-icons/bi";
+import { BiChevronDown } from "react-icons/bi";
 
 import Context from "@/app/components/Context";
+import Outline from "@/app/components/Outline";
 
 import type { ArticleHeading } from "@/app/(articles)";
 
-function TocList({
+export function TocList({
   headings,
   active,
   onNavigate,
@@ -49,9 +50,9 @@ export default function Toc({ headings }: { headings: ArticleHeading[] }) {
   const [pinned, setPinned] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [active, setActive] = useState<string | null>(null);
+  const { publish } = useContext(Outline);
   const anchor = useRef<HTMLElement>(null);
   const rail = useRef<HTMLDivElement>(null);
-  const floating = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const elements = headings
@@ -103,10 +104,7 @@ export default function Toc({ headings }: { headings: ArticleHeading[] }) {
     }
 
     const onPointerDown = ({ target }: PointerEvent) => {
-      if (
-        !rail.current?.contains(target as Node) &&
-        !floating.current?.contains(target as Node)
-      ) {
+      if (!rail.current?.contains(target as Node)) {
         setExpanded(false);
       }
     };
@@ -115,6 +113,12 @@ export default function Toc({ headings }: { headings: ArticleHeading[] }) {
 
     return () => document.removeEventListener("pointerdown", onPointerDown);
   }, [expanded]);
+
+  useEffect(() => {
+    publish(headings, active);
+  }, [publish, headings, active]);
+
+  useEffect(() => () => publish([], null), [publish]);
 
   if (headings.length === 0) {
     return null;
@@ -208,38 +212,6 @@ export default function Toc({ headings }: { headings: ArticleHeading[] }) {
             />
           </nav>
         </div>
-      </aside>
-
-      <aside
-        ref={floating}
-        aria-hidden="true"
-        className={`not-prose fixed bottom-4 left-4 z-20 transition-[opacity,transform] duration-500 ease-out md:hidden ${
-          pinned ? "" : "pointer-events-none translate-y-4 opacity-0"
-        }`}
-      >
-        <nav
-          className={`absolute bottom-full left-0 mb-3 grid w-[75vw] max-w-xs transition-[grid-template-rows] duration-300 ease-out ${
-            expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-          }`}
-        >
-          <div className="overflow-hidden">
-            <TocList
-              headings={headings}
-              active={active}
-              tabIndex={-1}
-              onNavigate={() => setExpanded(false)}
-              className="max-h-[60vh] overflow-y-auto rounded-3xl rounded-bl-none border border-stone-500 bg-surface py-4 ps-3 pe-5 font-theme-sans text-sm shadow-xl dark:border-raisin-600"
-            />
-          </div>
-        </nav>
-        <button
-          type="button"
-          tabIndex={-1}
-          onClick={() => setExpanded((value) => !value)}
-          className="flex size-12 cursor-pointer items-center justify-center rounded-3xl rounded-bl-none border border-stone-500 bg-surface text-2xl shadow-lg transition-colors duration-200 dark:border-raisin-600"
-        >
-          {expanded ? <BiX /> : <BiListUl />}
-        </button>
       </aside>
     </>
   );
