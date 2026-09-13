@@ -5,7 +5,7 @@ import React from "react";
 import Footer from "@/app/components/Footer";
 import Images from "@/app/components/Images";
 import Nav from "@/app/components/Nav";
-import ScrollDown from "@/app/components/ScrollDown";
+import NavMenu from "@/app/components/NavMenu";
 
 export const metadata: Metadata = {
   title: "Web3 Researh Articles by Neplox",
@@ -63,7 +63,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </nav>
         </div>
 
-        <ScrollDown className="w-12 justify-self-end sm:hidden" />
+        <NavMenu active="blog" className="w-12 justify-self-end sm:hidden" />
       </header>
 
       <main className="page-margin flex-auto">{children}</main>

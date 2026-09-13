@@ -12,11 +12,13 @@ export default function NavElement({
   blocked,
   className,
   selected,
+  tabIndex,
 }: Readonly<{
   path: string;
   href: string;
   blocked: boolean;
   selected: boolean;
+  tabIndex?: number;
   className?: string;
 }>) {
   const { canHover } = useContext(Context);
@@ -29,7 +31,12 @@ export default function NavElement({
 
   return (
     <Link
-      href={href.startsWith("http://") || href.startsWith("https://") ? href : "/" + href}
+      href={
+        href.startsWith("http://") || href.startsWith("https://")
+          ? href
+          : "/" + href
+      }
+      tabIndex={tabIndex}
       className={`${classHover} ${classShaking} flex ${blocked && "cursor-not-allowed"} items-center font-theme-sans leading-7 font-normal whitespace-nowrap ${className}`}
       // Avoid conflicting with the hover animation
       onClick={(e) => {

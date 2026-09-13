@@ -498,6 +498,13 @@ export default function Landing() {
                     <span className="opacity-60"> @ Russia</span>
                   </a>
                 </li>
+                <li className="landing-highlight mb-2 w-fit border border-theme px-2 py-1 text-left lg:pr-4 xl:pr-8">
+                  <a href="https://neplox.security/research/unpacking-ton-drainers">
+                    <PiLinkLight className="mr-2 inline" />
+                    <b>TON Crypto Drainers</b>, BSidesNYC
+                    <span className="opacity-60"> @ USA</span>
+                  </a>
+                </li>
               </ul>
             </div>
             <div className="order-5 col-span-2 grid md:col-span-1">

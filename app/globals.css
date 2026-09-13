@@ -98,6 +98,12 @@
   --font-theme-mono: var(--nextjs-font-theme-mono), var(--font-mono);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 ::-moz-selection {
   background-color: var(--color-theme);
   color: var(--color-surface);

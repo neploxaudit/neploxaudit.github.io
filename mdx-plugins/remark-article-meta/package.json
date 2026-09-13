@@ -1,0 +1,12 @@
+{
+  "name": "remark-article-meta",
+  "version": "1.0.0",
+  "author": "Neplox",
+  "type": "module",
+  "devDependencies": {
+    "@types/mdast": "^4.0.4"
+  },
+  "exports": {
+    ".": "./index.js"
+  }
+}

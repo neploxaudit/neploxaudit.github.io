@@ -1,6 +1,6 @@
 import "@wooorm/starry-night/style/both";
 import path from "path";
-import { cache } from "react";
+import { type ComponentType, cache } from "react";
 import { GenderType } from "schema-dts";
 import { z } from "zod";
 
@@ -9,6 +9,32 @@ import fs from "fs/promises";
 export type Params = {
   slug: string;
 };
+
+export type ArticleHeading = {
+  title: string;
+  slug: string;
+  level: number;
+};
+
+export type ArticleMeta = {
+  headings: ArticleHeading[];
+  readTimeMinutes: number;
+};
+
+export type ArticleModule = {
+  default: ComponentType;
+  articleMeta: ArticleMeta;
+};
+
+export function formatReadTime(minutes: number): string {
+  if (minutes < 60) {
+    return `${minutes} min read`;
+  }
+
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  return rest ? `${hours} h ${rest} min read` : `${hours} h read`;
+}
 
 export const ArticleMetadata = z.object({
   title: z
@@ -23,7 +49,7 @@ export const ArticleMetadata = z.object({
     .max(150, "Summary should be less than 150 characters"),
   cover: z.string().nonempty(),
   coverAlt: z.string().nonempty(),
-  author: z.enum(["neploxaudit","renbou", "qwqoro", "slonser"]),
+  author: z.enum(["neploxaudit", "renbou", "qwqoro", "slonser"]),
   publishedAt: z.string().datetime(), // exposed in OpenGraph meta
   modifiedAt: z.string().datetime(), // used for Sitemap
   question: z.string().nonempty(),
