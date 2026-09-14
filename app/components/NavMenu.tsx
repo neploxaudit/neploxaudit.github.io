@@ -65,7 +65,7 @@ export default function NavMenu({
           <div className="max-h-[70vh] overflow-y-auto border-b border-stone-500 bg-surface px-[4vw] pt-1 pb-6 font-theme-sans shadow-[0_7px_6px_-6px_rgba(0,0,0,0.25)] dark:border-raisin-600">
             <nav
               onClick={() => setOpen(false)}
-              className="flex flex-col items-start gap-y-3"
+              className="flex flex-col gap-y-1"
             >
               {paths.map(({ path, href, blocked }) => (
                 <Nav.Element
@@ -74,6 +74,7 @@ export default function NavMenu({
                   path={path}
                   blocked={blocked}
                   selected={false}
+                  stretch
                   tabIndex={open ? undefined : -1}
                   className="default-nav"
                 />

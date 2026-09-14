@@ -13,12 +13,14 @@ export default function NavElement({
   className,
   selected,
   tabIndex,
+  stretch,
 }: Readonly<{
   path: string;
   href: string;
   blocked: boolean;
   selected: boolean;
   tabIndex?: number;
+  stretch?: boolean;
   className?: string;
 }>) {
   const { canHover } = useContext(Context);
@@ -26,8 +28,11 @@ export default function NavElement({
 
   const classHover = blocked
     ? "hover:animate-shake"
-    : "hover:scale-110 transition-transform duration-300";
+    : stretch
+      ? "transition-colors duration-300 hover:text-theme"
+      : "hover:scale-110 transition-transform duration-300";
   const classShaking = shaking ? "animate-shake" : "";
+  const classStretch = stretch ? "w-full justify-center py-2.5" : "";
 
   return (
     <Link
@@ -37,7 +42,7 @@ export default function NavElement({
           : "/" + href
       }
       tabIndex={tabIndex}
-      className={`${classHover} ${classShaking} flex ${blocked && "cursor-not-allowed"} items-center font-theme-sans leading-7 font-normal whitespace-nowrap ${className}`}
+      className={`${classHover} ${classShaking} ${classStretch} flex ${blocked && "cursor-not-allowed"} items-center font-theme-sans leading-7 font-normal whitespace-nowrap ${className}`}
       // Avoid conflicting with the hover animation
       onClick={(e) => {
         if (!blocked) {
