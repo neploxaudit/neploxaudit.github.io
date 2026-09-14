@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PiArrowLineUpBold, PiHouseLineBold } from "react-icons/pi";
+import { PiWindmill, PiUserSound } from "react-icons/pi";
 
 import Beetles from "@/app/components/Beetles";
 import Footer from "@/app/components/Footer";
@@ -64,24 +64,13 @@ export default function NotFound() {
           error <span className="font-horizon">404</span>
         </h1>
 
-        <p className="my-10 font-theme-serif text-lg italic md:text-xl">
-          The page you seek has gone away,
-          <br />
-          But <b className="text-highlight">&thinsp;bugs&thinsp;</b> we find,
-          both night and day.
-          <br />
-          Would you like us to lend a hand,
-          <br />
-          And guard your product as we planned?
-        </p>
-
         <div className="flex w-full max-w-md flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link href="/" className={buttonClasses}>
-            <PiHouseLineBold className="inline align-middle" size="1.2em" />
+            <PiWindmill className="inline align-middle" size="1.2em" />
             <span className="align-middle">&ensp;TAKE ME HOME</span>
           </Link>
           <Link href="/#contact-us" className={buttonClasses}>
-            <PiArrowLineUpBold className="inline align-middle" size="1.2em" />
+            <PiUserSound className="inline align-middle" size="1.2em" />
             <span className="align-middle">&ensp;GET IN TOUCH</span>
           </Link>
         </div>

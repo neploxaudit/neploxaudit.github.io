@@ -3,9 +3,9 @@
 import { useEffect, useRef } from "react";
 
 const TAU = Math.PI * 2;
-const AREA_PER_BEETLE = 120000;
+const AREA_PER_BEETLE = 60000;
 const MIN_BEETLES = 5;
-const MAX_BEETLES = 14;
+const MAX_BEETLES = 20;
 const EDGE_MARGIN = 48;
 const GRAB_RADIUS = 0.8;
 
