@@ -20,33 +20,40 @@ function randomArticle(section: string, index: number): PreviewProps {
       .join(" "),
     date: "█".repeat(Math.floor(Math.random() * 10 + 5)),
     hidden: true,
-    section: ""
+    section: "",
   };
 }
 
 export default async function Articles() {
   const pages = await list();
 
-  let articles: PreviewProps[] = await Promise.all(
-    pages.map(async (page): Promise<PreviewProps> => {
-      const metadata = await loadMetadata(page.slug);
-      return {
-        title: metadata.title,
-        summary: metadata.summary,
-        cover: path.join("/covers", "blog", page.slug, metadata.cover),
-        coverAlt: metadata.coverAlt,
-        author: `${authors[metadata.author].name} (${metadata.author})`,
-        date: new Date(metadata.publishedAt).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        }),
-        href: `/${metadata.section}/${page.slug}`,
-        hidden: false,
-        section: metadata.section
-      };
-    }),
+  const pagesWithMeta = await Promise.all(
+    pages.map(async (page) => ({
+      slug: page.slug,
+      metadata: await loadMetadata(page.slug),
+    })),
   );
+  pagesWithMeta.sort(
+    (a, b) =>
+      new Date(b.metadata.publishedAt).getTime() -
+      new Date(a.metadata.publishedAt).getTime(),
+  );
+
+  let articles: PreviewProps[] = pagesWithMeta.map(({ slug, metadata }) => ({
+    title: metadata.title,
+    summary: metadata.summary,
+    cover: path.join("/covers", "blog", slug, metadata.cover),
+    coverAlt: metadata.coverAlt,
+    author: `${authors[metadata.author].name} (${metadata.author})`,
+    date: new Date(metadata.publishedAt).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }),
+    href: `/${metadata.section}/${slug}`,
+    hidden: false,
+    section: metadata.section,
+  }));
 
   if (articles.length < perPage) {
     articles = articles.concat(
