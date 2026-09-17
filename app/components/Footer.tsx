@@ -54,12 +54,11 @@ export default function Footer({ className }: { className?: string }) {
               <BiCopyright className="inline" /> {new Date().getFullYear()}
             </span>
           </span>
-          <a
-            className="block align-middle font-theme-mono text-xs text-raisin-500 duration-200 hover:text-element lg:ml-5 lg:inline-block lg:text-sm dark:text-stone-500"
-            href="mailto:team@neplox.security"
+          <p
+            className="block align-middle font-theme-mono text-xs text-raisin-500 duration-200 lg:ml-5 lg:inline-block lg:text-sm dark:text-stone-500"
           >
-            [&thinsp;team@neplox.security&thinsp;]
-          </a>
+            [&thinsp;<a className="hover:text-element" href="mailto:team@neplox.security">team@neplox.security</a> | <a className="hover:text-element" href="https://blobs.neplox.security/team@neplox.security">PGP key</a>&thinsp;]
+          </p>
         </div>
         <ScrollUp />
       </div>
