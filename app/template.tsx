@@ -1,27 +1,39 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useSyncExternalStore } from "react";
 
 import Context from "@/app/components/Context";
 import Outline from "@/app/components/Outline";
 
 import type { ArticleHeading } from "@/app/(articles)";
 
+const hoverQuery = "(hover: hover)";
+
+const subscribeHover = (onChange: () => void) => {
+  const query = window.matchMedia(hoverQuery);
+  query.addEventListener("change", onChange);
+
+  return () => query.removeEventListener("change", onChange);
+};
+
+const getCanHover = () => window.matchMedia(hoverQuery).matches;
+
+const getCanHoverOnServer = () => false;
+
 export default function RootTemplate({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [canHover, setCanHover] = useState(false);
+  const canHover = useSyncExternalStore(
+    subscribeHover,
+    getCanHover,
+    getCanHoverOnServer,
+  );
   const [outline, setOutline] = useState<{
     headings: ArticleHeading[];
     active: string | null;
   }>({ headings: [], active: null });
-
-  // useEffect needed because we need to force nextjs to use client-side rendering for this part
-  useEffect(() => {
-    setCanHover(window.matchMedia("(hover: hover)").matches);
-  }, []);
 
   const publish = useCallback(
     (headings: ArticleHeading[], active: string | null) =>

@@ -112,7 +112,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       >,
     ) => {
       const children = React.Children.map(props.children, (child) => {
-        if (!React.isValidElement(child)) {
+        if (
+          !React.isValidElement<{
+            className?: unknown;
+            children?: React.ReactNode;
+          }>(child)
+        ) {
           return child;
         }
 
@@ -121,10 +126,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
           child.props instanceof Object &&
           Object.hasOwn(child.props, "children") &&
           Object.hasOwn(child.props, "className") &&
-          typeof (child.props as any).className === "string" &&
-          (child.props as any).className.includes("markdown-alert-title")
+          typeof child.props.className === "string" &&
+          child.props.className.includes("markdown-alert-title")
         ) {
-          const children = (child.props as any).children as React.ReactNode;
+          const children = child.props.children;
           return (
             <p className="markdown-alert-title">
               {React.Children.map(children, (child) => {
@@ -169,8 +174,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         );
       }
 
-      const code = children[0] as React.ReactElement;
-      const title = (code.props as any).title;
+      const code = children[0] as React.ReactElement<{ title?: string }>;
+      const title = code.props.title;
 
       return (
         <pre {...props}>

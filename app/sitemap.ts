@@ -53,10 +53,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   const [ctfSitemap, ctfFeedItems] = await articleSitemap("ctf", "CTF");
-  ctfFeedItems.forEach((item) => feed.addItem(item));
+  const [researchSitemap, researchFeedItems] = await articleSitemap(
+    "research",
+    "Research",
+  );
 
-  const [researchSitemap, researchFeedItems] = await articleSitemap("research", "Research");
-  researchFeedItems.forEach((item) => feed.addItem(item));
+  [...ctfFeedItems, ...researchFeedItems]
+    .sort(
+      (a, b) =>
+        (b.published ?? b.date).getTime() - (a.published ?? a.date).getTime(),
+    )
+    .forEach((item) => feed.addItem(item));
 
   feed.options.updated = feed.items.reduce((latest, item) => {
     return item.date > latest ? item.date : latest;

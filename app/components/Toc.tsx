@@ -62,7 +62,13 @@ export default function Toc({ headings }: { headings: ArticleHeading[] }) {
 
     const update = () => {
       scheduled = false;
-      setPinned((anchor.current?.getBoundingClientRect().bottom ?? 0) < 0);
+
+      const isPinned =
+        (anchor.current?.getBoundingClientRect().bottom ?? 0) < 0;
+      setPinned(isPinned);
+      if (!isPinned) {
+        setExpanded(false);
+      }
 
       const threshold = window.innerHeight * 0.3;
       let current: string | null = null;
@@ -91,12 +97,6 @@ export default function Toc({ headings }: { headings: ArticleHeading[] }) {
       window.removeEventListener("resize", schedule);
     };
   }, [headings]);
-
-  useEffect(() => {
-    if (!pinned) {
-      setExpanded(false);
-    }
-  }, [pinned]);
 
   useEffect(() => {
     if (!expanded) {
