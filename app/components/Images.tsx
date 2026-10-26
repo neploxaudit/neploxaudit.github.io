@@ -80,6 +80,7 @@ const Images = {
   GitHub,
   Telegram,
   Immunefi,
+  HackerOne,
 };
 
 export default Images;
