@@ -2,18 +2,47 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 
+import * as articles from "@/app/(articles)";
 import Footer from "@/app/components/Footer";
 import Images from "@/app/components/Images";
 import Nav from "@/app/components/Nav";
 import NavMenu from "@/app/components/NavMenu";
 
-export const metadata: Metadata = {
-  title: "Web3 Audits by Neplox",
-  description: [
-    "Highlights from Web3 audits conducted by our team.",
-    "Learn from our experience and harden your own auditing skills.",
-  ].join(" "),
+const closingLine =
+  "Learn from our experience and harden your own auditing skills.";
+
+const sectionMetadata: Record<articles.Section, Metadata> = {
+  audit: {
+    title: "Web3 Audits by Neplox",
+    description: [
+      "Highlights from Web3 audits conducted by our team.",
+      closingLine,
+    ].join(" "),
+  },
+  ctf: {
+    title: "Web3 CTF Writeups by Neplox",
+    description: [
+      "In-depth dives into our solutions to unique CTF tasks related to Web3.",
+      closingLine,
+    ].join(" "),
+  },
+  research: {
+    title: "Web3 Research Articles by Neplox",
+    description: [
+      "In-depth dives into technical topics related to Web3.",
+      closingLine,
+    ].join(" "),
+  },
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Pick<articles.SectionParams, "section">>;
+}): Promise<Metadata> {
+  const { section } = await params;
+  return sectionMetadata[articles.parseSection(section)];
+}
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

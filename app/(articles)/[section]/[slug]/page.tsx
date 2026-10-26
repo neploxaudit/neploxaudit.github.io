@@ -1,6 +1,5 @@
 import "@wooorm/starry-night/style/both";
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 
 import * as articles from "@/app/(articles)";
 import ArticleContent from "@/app/(articles)/ArticleContent";
@@ -10,19 +9,28 @@ import "./alert.css";
 
 export const dynamicParams = false;
 
-export async function generateStaticParams(): Promise<articles.Params[]> {
-  return articles.list();
+export async function generateStaticParams(): Promise<
+  articles.SectionParams[]
+> {
+  return articles.listWithSections();
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<articles.Params>;
+  params: Promise<articles.SectionParams>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { section, slug } = await params;
 
   const metadata = await articles.loadMetadata(slug);
   const author = articles.authors[metadata.author];
+
+  const ogImage = {
+    url: `${baseUrl}/${section}/${slug}/og.png`,
+    width: 1200,
+    height: 675,
+    type: "image/png",
+  };
 
   return {
     title: metadata.title,
@@ -31,33 +39,19 @@ export async function generateMetadata({
     openGraph: {
       type: "article",
       siteName: "Neplox",
-      section: "research",
+      section,
       title: metadata.title,
       description: metadata.summary,
-      url: `${baseUrl}/research/${slug}`,
+      url: `${baseUrl}/${section}/${slug}`,
       authors: [author.link],
       publishedTime: metadata.publishedAt,
-      images: [
-        {
-          url: `${baseUrl}/research/${slug}/og.png`,
-          width: 1200,
-          height: 675,
-          type: "image/png",
-        },
-      ],
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       site: "@neploxaudit",
       creator: author.twitter,
-      images: [
-        {
-          url: `${baseUrl}/research/${slug}/og.png`,
-          width: 1200,
-          height: 675,
-          type: "image/png",
-        },
-      ],
+      images: [ogImage],
     },
   };
 }
@@ -65,14 +59,9 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: Promise<articles.Params>;
+  params: Promise<articles.SectionParams>;
 }) {
   const { slug } = await params;
-  const metadata = await articles.loadMetadata(slug);
-
-  if (metadata.section !== "research") {
-    notFound();
-  }
 
   return <ArticleContent slug={slug} />;
 }

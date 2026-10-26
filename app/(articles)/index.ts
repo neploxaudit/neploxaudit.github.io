@@ -10,6 +10,17 @@ export type Params = {
   slug: string;
 };
 
+export type Section = ArticleMetadata["section"];
+
+export type SectionParams = {
+  section: string;
+  slug: string;
+};
+
+export function parseSection(section: string): Section {
+  return ArticleMetadata.shape.section.parse(section);
+}
+
 export type ArticleHeading = {
   title: string;
   slug: string;
@@ -131,4 +142,16 @@ export const loadMetadata = cache(async function (
     { encoding: "utf-8" },
   );
   return ArticleMetadata.parse(JSON.parse(rawMetadata));
+});
+
+export const listWithSections = cache(async function (): Promise<
+  SectionParams[]
+> {
+  const params = await list();
+  return Promise.all(
+    params.map(async ({ slug }) => ({
+      section: (await loadMetadata(slug)).section,
+      slug,
+    })),
+  );
 });
