@@ -62,6 +62,18 @@ function Immunefi({ className }: { className?: string }) {
   );
 }
 
+function HackerOne({ className }: { className?: string }) {
+  return (
+    <Image
+      className={className}
+      src="/icons/hackerone.svg"
+      alt="Neplox HackerOne Profile"
+      width={192}
+      height={192}
+    />
+  );
+}
+
 const Images = {
   Logo,
   Twitter,

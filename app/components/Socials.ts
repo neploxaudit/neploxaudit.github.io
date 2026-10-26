@@ -17,6 +17,10 @@ const Socials = [
     href: "https://immunefi.com/profile/neploxaudit",
     image: Images.Immunefi,
   },
+  {
+    href: "https://hackerone.com/neploxaudit",
+    image: Images.HackerOne,
+  },
 ];
 
 export default Socials;
