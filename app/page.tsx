@@ -26,6 +26,7 @@ import photoHitb from "./images/c4t-but-s4d-hitb.jpg";
 import picQwqoro from "./images/elizabeth-qwqoro.png";
 import photoGoogleCTF from "./images/googlectf-c4t-but-s4d-holding-trophy.jpg";
 import photoPhdaysEmails from "./images/phdays-attacks-on-email-services.jpg";
+import photoPhdaysFest from "./images/phdays-fest-attacking-crypto-wallets.jpg";
 import photoRuCTF from "./images/ructf-c4t-but-s4d-celebration.jpg";
 import photoQwqoroSas from "./images/sas-cybercrime-in-the-age-of-loneliness.jpg";
 import picSlonser from "./images/vsevolod-slonser.png";
@@ -534,6 +535,14 @@ export default function Landing() {
                 src={photoPhdaysEmails}
                 alt="Vsevolod and Elizabeth giving a talk about attacks on modern email services at Positive Hack Days 2024"
                 sizes="(max-width: 768px) 33vw, 50vw"
+              />
+            </div>
+            <div className="order-8 col-span-3 grid md:col-span-2 md:col-start-2">
+              <Picture
+                className="mt-2 h-auto max-w-full scale-95 md:scale-110 rounded-lg grayscale transition-all duration-300 hover:scale-105 md:hover:scale-120 hover:cursor-zoom-in hover:grayscale-0"
+                src={photoPhdaysFest}
+                alt="Artem and Vsevolod giving a talk about attacks on crypto wallets at PHDays Fest"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           </div>
