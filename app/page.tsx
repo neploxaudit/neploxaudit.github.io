@@ -17,13 +17,14 @@ import {
 import Footer from "@/app/components/Footer";
 import FormHint from "@/app/components/FormHint";
 import Images from "@/app/components/Images";
+import MemberCircles from "@/app/components/MemberCircles";
 import Nav from "@/app/components/Nav";
 import Signature from "@/app/components/Signature";
 import Socials from "@/app/components/Socials";
 
 import picRenbou from "./images/artem-renbou.png";
 import photoHitb from "./images/c4t-but-s4d-hitb.jpg";
-import picQwqoro from "./images/elizabeth-qwqoro.png";
+import picQwqoro from "./images/elizabeth-qwqoro.jpg";
 import photoGoogleCTF from "./images/googlectf-c4t-but-s4d-holding-trophy.jpg";
 import photoPhdaysEmails from "./images/phdays-attacks-on-email-services.jpg";
 import photoPhdaysFest from "./images/phdays-fest-attacking-crypto-wallets.jpg";
@@ -333,14 +334,17 @@ export default function Landing() {
             {team.map((member) => (
               <div
                 key={member.nickname}
-                className="landing-member group w-64 py-4 text-center xl:w-80"
+                className="landing-member group isolate w-64 py-4 text-center xl:w-80"
               >
-                <Picture
-                  className="landing-member-animation m-auto h-auto w-40 rounded-full transition-transform duration-300 group-hover:scale-110 hover:cursor-zoom-in lg:w-48 xl:w-64"
-                  src={member.src}
-                  alt={member.nickname}
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                />
+                <div className="relative mx-auto w-40 lg:w-48 xl:w-64">
+                  <MemberCircles id={member.nickname} />
+                  <Picture
+                    className="relative h-auto w-full rounded-full transition-all duration-300 group-hover:scale-110 hover:cursor-zoom-in"
+                    src={member.src}
+                    alt={member.nickname}
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                  />
+                </div>
                 <p className="text-md mt-4 font-theme-sans font-normal">
                   <b className="text-md landing-highlight px-8 py-1 font-normal md:text-lg lg:text-xl">
                     {member.name}

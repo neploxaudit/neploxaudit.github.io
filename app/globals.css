@@ -230,6 +230,88 @@
   background-position: -100% 0;
 }
 
+.landing-member-circles {
+  opacity: 0.7;
+  transform: scale(0.78);
+  transition:
+    transform 0.55s cubic-bezier(0.33, 1, 0.68, 1),
+    opacity 0.55s ease-out;
+}
+
+.landing-member:hover .landing-member-circles {
+  opacity: 1;
+  transform: rotate(30deg) scale(1.45);
+  transition:
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease-out;
+}
+
+.landing-member-circles-ring {
+  transform-origin: 50% 50%;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .landing-member:hover .landing-member-circles-ring {
+    animation-name: landing-member-circles-drift;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .landing-member:hover .landing-member-circles-ring-0 {
+    animation-duration: 21s;
+    animation-delay: -5s;
+  }
+
+  .landing-member:hover .landing-member-circles-ring-1 {
+    animation-duration: 27s;
+    animation-delay: -13s;
+    animation-direction: reverse;
+  }
+
+  .landing-member:hover .landing-member-circles-ring-2 {
+    animation-duration: 19s;
+    animation-delay: -8s;
+  }
+
+  .landing-member:hover .landing-member-circles-ring-3 {
+    animation-duration: 33s;
+    animation-delay: -21s;
+    animation-direction: reverse;
+  }
+
+  .landing-member:hover .landing-member-circles-ring-4 {
+    animation-duration: 24s;
+    animation-delay: -2s;
+  }
+
+  .landing-member:hover .landing-member-circles-ring-5 {
+    animation-duration: 38s;
+    animation-delay: -17s;
+    animation-direction: reverse;
+  }
+
+  .landing-member:hover .landing-member-circles-ring-6 {
+    animation-duration: 29s;
+    animation-delay: -11s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-member-circles {
+    transition: opacity 0.55s ease-out;
+  }
+
+  .landing-member:hover .landing-member-circles {
+    transform: scale(1.45);
+  }
+}
+
+@keyframes landing-member-circles-drift {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Custom select arrow to remove ugly Safari styling and unify the element across browsers*/
 select {
   -webkit-appearance: none;
