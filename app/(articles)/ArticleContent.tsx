@@ -10,7 +10,8 @@ const proseClasses = [
   "prose-theme mx-auto prose prose-sm w-full max-w-none px-2 text-base text-pretty md:prose-base md:w-4/5 md:px-0 lg:prose-lg lg:max-w-[100ch]",
   "prose-blockquote:mx-2 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:bg-stone-300 prose-blockquote:dark:bg-raisin-800 prose-blockquote:font-normal prose-p:in-[blockquote]:first:pt-3 prose-p:in-[blockquote]:first:before:content-none prose-p:in-[blockquote]:last:after:content-none prose-p:in-[blockquote]:last:pb-3 prose-blockquote:rounded-tr-xs prose-blockquote:rounded-br-xs",
   "prose-code:before:content-none prose-code:after:content-none prose-code:font-theme-mono prose-code:font-medium",
-  "prose-code:not-in-[pre]:wrap-anywhere prose-code:not-in-[pre]:bg-stone-350 prose-code:not-in-[pre]:dark:bg-raisin-700 prose-code:not-in-[pre]:px-[0.4em] prose-code:not-in-[pre]:py-[0.2em] prose-code:not-in-[pre]:rounded-lg",
+  "prose-code:wrap-anywhere prose-code:bg-stone-350 prose-code:dark:bg-raisin-700 prose-code:px-[0.4em] prose-code:py-[0.2em] prose-code:rounded-lg",
+  "[&_pre_code]:wrap-normal [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:rounded-none",
   // padding set in mdx-components.tsx
   "prose-pre:rounded-lg prose-pre:ps-0 prose-pre:pe-0 prose-pre:pt-0 prose-pre:pb-0",
   "prose-img:rounded-lg prose-img:mx-auto",
