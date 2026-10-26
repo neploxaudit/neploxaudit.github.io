@@ -1,6 +1,7 @@
 import createMDX from "@next/mdx";
 import { common as grammarsCommon } from "@wooorm/starry-night";
 import grammarDockerfile from "@wooorm/starry-night/source.dockerfile";
+import grammarHttpspec from "@wooorm/starry-night/source.httpspec";
 import grammarSolidity from "@wooorm/starry-night/source.solidity";
 import withExportImages from "next-export-optimize-images";
 
@@ -30,7 +31,11 @@ const withMDX = createMDX({
       [
         "rehype-starry-night",
         {
-          grammars: grammarsCommon.concat([grammarSolidity, grammarDockerfile]),
+          grammars: grammarsCommon.concat([
+            grammarSolidity,
+            grammarDockerfile,
+            grammarHttpspec,
+          ]),
         },
       ],
     ],
