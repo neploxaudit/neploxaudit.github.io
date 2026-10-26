@@ -38,7 +38,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       if (!props.href) {
         return <Link {...props} />;
       } else if (typeof props.href === "string") {
-        if (new URL(props.href).hostname !== "neplox.security") {
+        // Resolved against our own origin, so that relative links and in-page
+        // anchors are treated as internal instead of failing to parse.
+        const href = new URL(props.href, "https://neplox.security");
+        if (href.hostname !== "neplox.security") {
           rel = "noopener noreferrer";
           target = "_blank";
         }
