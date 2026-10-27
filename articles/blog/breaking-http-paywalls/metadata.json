@@ -1,0 +1,11 @@
+{
+  "title": "Breaking HTTP (pay)walls: 402 protocols",
+  "summary": "Multiple paywall bypasses found in x402 / L402 / MPP implementations.",
+  "cover": "breaking-http-paywalls.png",
+  "coverAlt": "A man in glasses using an HTTP message to break the 402 paywall",
+  "author": "neploxaudit",
+  "publishedAt": "2026-10-27T16:00:00Z",
+  "modifiedAt": "2026-10-27T16:00:00Z",
+  "question": "Running a paywall, a gateway or a request-signing layer and want us to look at it?",
+  "section": "research"
+}
