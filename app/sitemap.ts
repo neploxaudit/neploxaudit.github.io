@@ -17,15 +17,26 @@ export const feedUrls = {
   json: `${baseUrl}/feed.json`,
 };
 
-function mustParseDate(date: string): Date {
-  const parsed = new Date(date);
-  if (!parsed) {
-    throw new Error(`Invalid date: ${date}`);
-  }
-  return parsed;
-}
+type SectionEntry = {
+  slug: string;
+  section: articles.Section;
+  title: string;
+  summary: string;
+  author: articles.ArticleMetadata["author"];
+  publishedAt: Date;
+  modifiedAt: Date;
+};
 
-type FeedCategory = "CTF" | "Research" | "Audits";
+async function landingLastModified(): Promise<Date> {
+  const sources = ["page.tsx", "Landing.tsx"];
+  const times = await Promise.all(
+    sources.map(async (file) => {
+      const stats = await fs.stat(path.join(process.cwd(), "app", file));
+      return stats.mtime;
+    }),
+  );
+  return times.reduce((latest, time) => (time > latest ? time : latest));
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const feed = new Feed({
@@ -40,9 +51,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     feedLinks: feedUrls,
   });
 
-  feed.addCategory("CTF" as FeedCategory);
-  feed.addCategory("Research" as FeedCategory);
-  feed.addCategory("Audits" as FeedCategory);
+  for (const section of articles.sectionOrder) {
+    feed.addCategory(articles.sections[section].feedCategory);
+  }
 
   for (const nickname of Object.keys(authors) as (keyof typeof authors)[]) {
     feed.addContributor({
@@ -52,41 +63,41 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  const [ctfSitemap, ctfFeedItems] = await articleSitemap("ctf", "CTF");
-  const [researchSitemap, researchFeedItems] = await articleSitemap(
-    "research",
-    "Research",
-  );
+  const entries = await listEntries();
 
-  [...ctfFeedItems, ...researchFeedItems]
+  entries
+    .map(feedItem)
     .sort(
       (a, b) =>
         (b.published ?? b.date).getTime() - (a.published ?? a.date).getTime(),
     )
     .forEach((item) => feed.addItem(item));
 
-  feed.options.updated = feed.items.reduce((latest, item) => {
-    return item.date > latest ? item.date : latest;
-  }, feed.items[0].date);
+  if (feed.items.length > 0) {
+    feed.options.updated = feed.items.reduce((latest, item) => {
+      return item.date > latest ? item.date : latest;
+    }, feed.items[0].date);
+  }
 
   await generateFeeds(feed);
 
   return [
     {
       url: baseUrl,
-      lastModified: mustParseDate("2025-10-19T14:13:00Z"),
+      lastModified: await landingLastModified(),
     },
-    ...ctfSitemap,
-    ...researchSitemap,
+    ...hubSitemap(entries),
+    ...entries.map((entry) => ({
+      url: `${baseUrl}/${entry.section}/${entry.slug}`,
+      lastModified: entry.modifiedAt,
+    })),
   ];
 }
 
-async function articleSitemap(
-  section: string,
-  category: FeedCategory,
-): Promise<[MetadataRoute.Sitemap, FeedItem[]]> {
+async function listEntries(): Promise<SectionEntry[]> {
   const pages = await articles.list();
-  const pagesWithMeta = (await Promise.all(
+
+  const entries = await Promise.all(
     pages.map(async (page) => {
       const meta = await articles.loadMetadata(page.slug);
       return {
@@ -99,39 +110,54 @@ async function articleSitemap(
         modifiedAt: new Date(meta.modifiedAt),
       };
     }),
-  )).filter((page) => page.section === section);
-  pagesWithMeta.sort(
-    (a, b) => b.publishedAt.getTime() - a.publishedAt.getTime(),
   );
 
-  const sitemap: MetadataRoute.Sitemap = [
-    // {
-    //   url: `${baseUrl}/${section}`,
-    //   lastModified: pagesWithMeta[0].modifiedAt,
-    // },
-    ...pagesWithMeta.map((page) => ({
-      url: `${baseUrl}/${section}/${page.slug}`,
-      lastModified: page.modifiedAt,
-    })),
-  ];
+  return entries.sort(
+    (a, b) => b.publishedAt.getTime() - a.publishedAt.getTime(),
+  );
+}
 
-  const feedItems: FeedItem[] = pagesWithMeta.map((page) => ({
-    date: page.modifiedAt,
-    published: page.publishedAt,
-    link: `${baseUrl}/${section}/${page.slug}`,
-    title: page.title,
-    content: page.summary,
-    category: [{ name: category }],
+function hubSitemap(entries: SectionEntry[]): MetadataRoute.Sitemap {
+  if (entries.length === 0) {
+    return [];
+  }
+
+  const newest = (subset: SectionEntry[]) =>
+    subset.reduce(
+      (latest, entry) =>
+        entry.modifiedAt > latest ? entry.modifiedAt : latest,
+      subset[0].modifiedAt,
+    );
+
+  const sectionHubs = articles.sectionOrder.flatMap((section) => {
+    const subset = entries.filter((entry) => entry.section === section);
+    return subset.length === 0
+      ? []
+      : [{ url: `${baseUrl}/${section}`, lastModified: newest(subset) }];
+  });
+
+  return [
+    { url: `${baseUrl}/blog`, lastModified: newest(entries) },
+    ...sectionHubs,
+  ];
+}
+
+function feedItem(entry: SectionEntry): FeedItem {
+  return {
+    date: entry.modifiedAt,
+    published: entry.publishedAt,
+    link: `${baseUrl}/${entry.section}/${entry.slug}`,
+    title: entry.title,
+    content: entry.summary,
+    category: [{ name: articles.sections[entry.section].feedCategory }],
     author: [
       {
-        name: `${authors[page.author].name} (${page.author})`,
-        link: authors[page.author].link.toString(),
-        email: authors[page.author].email,
+        name: `${authors[entry.author].name} (${entry.author})`,
+        link: authors[entry.author].link.toString(),
+        email: authors[entry.author].email,
       },
     ],
-  }));
-
-  return [sitemap, feedItems];
+  };
 }
 
 async function generateFeeds(feed: Feed) {

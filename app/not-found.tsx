@@ -31,9 +31,9 @@ export default function NotFound() {
           className="hidden flex-row gap-x-8 pl-4 md:flex lg:pl-12"
         >
           <Images.Logo className="h-8 w-auto scale-150 lg:h-12" />
-          <h1 className="font-horizon text-4xl leading-none text-theme lg:text-5xl">
+          <span className="font-horizon text-4xl leading-none text-theme lg:text-5xl">
             NEPLOX
-          </h1>
+          </span>
         </Link>
 
         <div className="hidden sm:block">

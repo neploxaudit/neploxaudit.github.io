@@ -3,6 +3,7 @@ import { Metadata } from "next";
 
 import * as articles from "@/app/(articles)";
 import ArticleContent from "@/app/(articles)/ArticleContent";
+import { alternates } from "@/app/metadata";
 import { baseUrl } from "@/app/sitemap";
 
 import "./alert.css";
@@ -36,6 +37,7 @@ export async function generateMetadata({
     title: metadata.title,
     description: metadata.summary,
     authors: [{ name: author.name, url: author.link }],
+    alternates: alternates(`/${section}/${slug}`),
     openGraph: {
       type: "article",
       siteName: "Neplox",

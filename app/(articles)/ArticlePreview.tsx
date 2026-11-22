@@ -23,6 +23,7 @@ export type PreviewProps = {
   date: string;
   hidden: boolean;
   section: string;
+  headingLevel?: "h2" | "h3";
 };
 
 function MaybeLink({
@@ -39,6 +40,7 @@ function MaybeLink({
 }
 
 export default function ArticlePreview(props: PreviewProps) {
+  const Heading = props.headingLevel ?? "h2";
   const { canHover } = useContext(Context);
   const [shaking, setShaking] = useState(false);
   const classShaking = shaking ? "animate-shake" : "";
@@ -46,6 +48,7 @@ export default function ArticlePreview(props: PreviewProps) {
 
   return (
     <div
+      aria-hidden={props.hidden || undefined}
       className={`article-preview ${props.hidden && "article-hidden"} transition-all duration-300 hover:scale-105 ${props.hidden ? "hover:cursor-not-allowed" : "hover:cursor-pointer md:grayscale-20 md:hover:grayscale-0"}`}
       onClick={(e) => {
         if (!props.hidden) {
@@ -83,7 +86,7 @@ export default function ArticlePreview(props: PreviewProps) {
             />
           )}
         </div>
-        <h2
+        <Heading
           className={`mt-4 mb-2 flex justify-between transition-all duration-300 ${props.hidden && "break-words opacity-35"}`}
           style={{ WebkitTextStrokeWidth: "0.01em" }}
         >
@@ -104,7 +107,7 @@ export default function ArticlePreview(props: PreviewProps) {
           <span className="mx-5 mt-1">
             {props.hidden ? <BiSolidLock /> : <BiLinkExternal />}
           </span>
-        </h2>
+        </Heading>
       </MaybeLink>
       <hr className="mb-2 h-px border-0 bg-element opacity-15" />
       <p

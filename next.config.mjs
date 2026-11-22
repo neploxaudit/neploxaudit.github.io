@@ -16,6 +16,10 @@ const nextConfig = {
   },
   reactStrictMode: false,
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  agentRules: false,
+  experimental: {
+    agentUpgrade: "security",
+  },
 };
 
 const withMDX = createMDX({

@@ -95,7 +95,7 @@ const tonConnectUI = new TonConnectUI({
 });
 ```
 
-![](ton-connect-wallet-filters.png)
+![TON Connect wallet list narrowed down to the wallets matching the configured feature filters](ton-connect-wallet-filters.png)
 
 Moreover, TON Connect provides support for additional Wallets in case DApp developers need to add some extra ones: their metadata is expected to be defined within the `walletsListConfiguration[includeWallets]` parameter of the `TonConnectUI` object. Developers are welcome to configure their custom Wallets to be displayed in the TON Connect modal window next to the legitimate ones:
 ```js title="index.js"
@@ -178,7 +178,7 @@ const tonConnectUI = new TonConnectUI({
 
 This configuration lets developers easily add yet another "Tonkeeper" to the Wallets list of **TON Connect**. However, it lands at the end of the list and Users are still able to see the original **Tonkeeper** application at the very top:
 
-![](ton-connect-extra-wallets.png)
+![TON Connect wallet list with a second Tonkeeper entry appended below the legitimate one](ton-connect-extra-wallets.png)
 
 Setting `walletsRequiredFeatures` to filter out Wallets not supported by the DApp does not remove them from the modal window, but rather makes them semi-transparent and displays a message saying "`The wallets below don’t support all features of the connected service.`".
 
@@ -192,7 +192,7 @@ li:has(button[data-tc-wallet-item="true"]):nth-of-type(-n+15) {
 
 Now there is only one "Tonkeeper" Wallet in the Wallets list, and its not the legitimate one:
 
-![](hiding-wallets-with-css.png)
+![TON Connect wallet list with the first fifteen entries hidden by CSS, leaving only the impersonating Tonkeeper](hiding-wallets-with-css.png)
 
 Apart from `ton-connect-storage_bridge-connection` and `ton-connect-ui_wallet-info`, **TON Connect** also stores a couple more keypairs in the application's Local Storage: `ton-connect-storage_http-bridge-gateway`, `ton-connect-ui_wallet-info`, `ton-connect-ui_preferred-wallet`, ...
 
@@ -204,7 +204,7 @@ window.localStorage.setItem('ton-connect-ui_preferred-wallet', '<app_name>');
 ...
 ```
 
-![](setting-storage-values.png)
+![Local storage preferred-wallet value rewritten so the attacker's app is preselected](setting-storage-values.png)
 
 As a result – a successful impersonation of legitimate Wallets that does not require developers to reinvent the wheel.
 
@@ -291,7 +291,7 @@ Users have to trust their Wallets, and in some cases Wallets do not check that t
 - **Do NOT encourage Users to open links** that come from untrusted sources (Users, DApps, ...): remind Users of dangers that come with redirecting them to another context, which is not controlled by the Wallet.
 - **Do NOT hide links** that come from untrusted sources: do not embed them into buttons and, if possible, do not crop them or turn into hyperlinks. Users must see the full link, so that they know what they click on. Note that it is still mandatory to check for malicious payloads within links to avoid injections into the Wallet's context.
 
-![](note-on-redirects.png)
+![Wallet displaying the URL taken from the DApp manifest, which need not match the origin the request came from](note-on-redirects.png)
 
 ## UI Redressing
 
@@ -320,7 +320,7 @@ A Wallet which fails to sanitize non-ASCII Unicode whitespace characters might p
 
 Imagine that the user wants to connect their Wallet to this malicious DApp, and the Wallet shows them the connection modal window, just like it usually does. However, since the DApp's name contains plenty of Unicode-encoded whitespace characters (`\u2000`) that do not get filtered out by the Wallet, unlike the usual whitespaces, most of the elements that are intended to be there, on the modal window, get shifted downwards, so users who end up on this page are unable to view any elements placed below, like the buttons to cancel or to proceed with the connection process.
 
-![](ui-redressing-in-wallets.png)
+![Wallet connection modal with its buttons pushed out of view by Unicode whitespace in the DApp name](ui-redressing-in-wallets.png)
 
 Moreover, if the Wallet makes a hyperlink out of the DApp's name, it is a possible case scenario to exploit that in order to fill most of the modal window with whitespaces, so when the user clicks anywhere - they get redirected to an arbitrary link controlled by the attacker, which might be an external malicious resource, a call to an API method vulnerable to CSRF, or even a JavaScript payload wrapped in a URL with the `javascript` scheme.
 
@@ -339,7 +339,7 @@ Injections might come in various shapes and forms depending on the specifics of 
 	- As a part of the link passed in the manifest → in path or in the file name (`https://neplox.security/<script>eval(atob('AAA...'));.png`), in query parameters (`https://neplox.security/?x=<script>eval(atob('AAA...'));.png`), in credentials (`https://javascript:eval(atob('AAA...'))@neplox.security/icons/neplox.svg`), ...;
 	- As a part of a target file located on the resource specified in the manifest → passed in an HTML file, in a `<script>` tag within an SVG file, ...;
 
-![](xss-injection-points-ton-manifests.png)
+![Diagram of XSS injection points across the name, URL and icon fields of a TON manifest](xss-injection-points-ton-manifests.png)
 
 What makes such an issue dangerous in the context of Wallets is their use of Web-based storages, such as the Session and Local Storage, for highly sensitive data. Self-custodial Web application Wallets and WebView-based mobile Wallets sometimes store not only various session tokens, but the mnemonic phrase or private key in these storages, exposing them when XSS is exploited.
 
@@ -373,7 +373,7 @@ If attacker wraps this code into a link with the use of the `javascript` scheme 
 
 One extra click on this URL - either thanks to the UI Redressing or to the fact that link was turned into a button - and the attacker gets a request coming from their victim with the victim's data, _even though the User might **have not approved connection of their Wallet** to the malicious DApp yet_, and God forbid that this data contains a mnemonic phrase or session data.
 
-![](data-leak-via-xss-in-wallets.png)
+![Request arriving at the attacker with the victim's data before the wallet connection was approved](data-leak-via-xss-in-wallets.png)
 
 ### Sensitive data leak via API requests
 
@@ -408,7 +408,7 @@ fetch('https://WALLET/api/address', {
 
 We hope this use case scenario of a vulnerability to XSS found in a real product highlights impact of its exploitation quite well.
 
-![](loss-of-funds-via-xss-in-wallets.png)
+![Exfiltrated wallet session data and device identifier of the kind that leads to loss of funds](loss-of-funds-via-xss-in-wallets.png)
 
 ## In conclusion
 

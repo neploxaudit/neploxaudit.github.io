@@ -1,10 +1,14 @@
 import * as articles from ".";
-import { BlogPosting, WithContext } from "schema-dts";
+import { BlogPosting, Organization, Person, WithContext } from "schema-dts";
 
 import ArticleContact from "@/app/components/ArticleContact";
 import Toc from "@/app/components/Toc";
 
 import { baseUrl } from "@/app/sitemap";
+import { organization } from "@/app/structured-data";
+
+import Breadcrumbs from "./Breadcrumbs";
+import RelatedArticles from "./RelatedArticles";
 
 const proseClasses = [
   "prose-theme mx-auto prose prose-sm w-full max-w-none px-2 text-base text-pretty md:prose-base md:w-4/5 md:px-0 lg:prose-lg lg:max-w-[100ch]",
@@ -47,23 +51,49 @@ export default async function ArticleContent({ slug }: { slug: string }) {
     </span>
   );
 
+  const sectionInfo = articles.sections[metadata.section];
+  const articleUrl = `${baseUrl}/${metadata.section}/${slug}`;
+
+  const authorStructuredData: Person | Organization =
+    author.schemaType === "Organization"
+      ? {
+          "@type": "Organization",
+          name: author.name,
+          url: author.link.toString(),
+          email: author.email,
+          sameAs: author.extraLinks?.map((link) => link.toString()),
+        }
+      : {
+          "@type": "Person",
+          name: author.name,
+          url: author.link.toString(),
+          email: author.email,
+          gender: author.gender,
+          sameAs: author.extraLinks?.map((link) => link.toString()),
+        };
+
   const postStructuredData: WithContext<BlogPosting> = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    url: articleUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl,
+    },
     headline: metadata.title,
     description: metadata.summary,
-    image: `${baseUrl}/covers/blog/${slug}/${metadata.cover}`,
+    image: {
+      "@type": "ImageObject",
+      url: `${baseUrl}/covers/blog/${slug}/${metadata.cover}`,
+      caption: metadata.coverAlt,
+    },
     datePublished: new Date(metadata.publishedAt).toISOString(),
     dateModified: new Date(metadata.modifiedAt).toISOString(),
     timeRequired: `PT${articleMeta.readTimeMinutes}M`,
-    author: {
-      "@type": "Person",
-      name: author.name,
-      url: author.link.toString(),
-      gender: author.gender,
-      email: author.email,
-      sameAs: author.extraLinks?.map((link) => link.toString()),
-    },
+    articleSection: sectionInfo.label,
+    inLanguage: "en",
+    author: authorStructuredData,
+    publisher: organization,
   };
 
   return (
@@ -72,6 +102,14 @@ export default async function ArticleContent({ slug }: { slug: string }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(postStructuredData) }}
       ></script>
+      <div className="mx-auto mb-6 w-full px-2 md:w-4/5 md:px-0 lg:max-w-[100ch]">
+        <Breadcrumbs
+          items={[
+            { name: sectionInfo.label, href: `/${metadata.section}` },
+            { name: metadata.title },
+          ]}
+        />
+      </div>
       <article className={proseClasses}>
         <h1 className="mt-0! lg:mb-12!">{metadata.title}</h1>
         <section className="flex flex-col gap-y-1 font-theme-serif text-lg sm:flex-row sm:flex-wrap sm:items-baseline sm:justify-between sm:gap-x-6">
@@ -86,6 +124,7 @@ export default async function ArticleContent({ slug }: { slug: string }) {
           <time dateTime={metadata.publishedAt}>{publishedAt}</time>
         </section>
       </article>
+      <RelatedArticles slug={slug} section={metadata.section} />
       <ArticleContact question={metadata.question} />
     </>
   );

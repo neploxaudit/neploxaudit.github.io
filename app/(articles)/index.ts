@@ -69,13 +69,51 @@ export const ArticleMetadata = z.object({
 
 export type ArticleMetadata = z.infer<typeof ArticleMetadata>;
 
+export const sectionOrder = ArticleMetadata.shape.section.options;
+
+export type SectionInfo = {
+  label: string;
+  heading: string;
+  title: string;
+  description: string;
+  feedCategory: string;
+};
+
+const closingLine =
+  "Learn from our experience and harden your own auditing skills.";
+
+export const sections: Record<Section, SectionInfo> = {
+  research: {
+    label: "Research",
+    heading: "Security Research",
+    title: "Web3 Research Articles by Neplox",
+    description: "",
+    feedCategory: "Research",
+  },
+  ctf: {
+    label: "CTF",
+    heading: "CTF Writeups",
+    title: "Web3 CTF Writeups by Neplox",
+    description: "",
+    feedCategory: "CTF",
+  },
+  audit: {
+    label: "Audits",
+    heading: "Audit Highlights",
+    title: "Web3 Audits by Neplox",
+    description: "",
+    feedCategory: "Audits",
+  },
+};
+
 export type AuthorInfo = {
   name: string;
   email: string;
   twitter?: string;
   link: URL;
   extraLinks?: URL[];
-  gender: GenderType;
+  schemaType: "Person" | "Organization";
+  gender?: GenderType;
 };
 
 export const authors: Record<ArticleMetadata["author"], AuthorInfo> = {
@@ -90,12 +128,13 @@ export const authors: Record<ArticleMetadata["author"], AuthorInfo> = {
       new URL("https://github.com/neploxaudit"),
       new URL("https://immunefi.com/profile/neploxaudit/"),
     ],
-    gender: "Male",
+    schemaType: "Organization",
   },
   renbou: {
     name: "Artem",
     email: "renbou@neplox.security",
     link: new URL("https://github.com/renbou"),
+    schemaType: "Person",
     gender: "Male",
   },
   qwqoro: {
@@ -107,6 +146,7 @@ export const authors: Record<ArticleMetadata["author"], AuthorInfo> = {
       new URL("https://github.com/qwqoro"),
       new URL("https://qwqoro.works/"),
     ],
+    schemaType: "Person",
     gender: "Female",
   },
   slonser: {
@@ -118,6 +158,7 @@ export const authors: Record<ArticleMetadata["author"], AuthorInfo> = {
       new URL("https://github.com/Slonser"),
       new URL("https://blog.slonser.info/"),
     ],
+    schemaType: "Person",
     gender: "Male",
   },
 };
